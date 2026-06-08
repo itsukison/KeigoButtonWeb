@@ -8,13 +8,12 @@ export default function Home() {
           For iOS
         </p>
         <h1 className="text-[44px] md:text-[64px] leading-[1.08] font-semibold tracking-tight">
-          書くを、整える。
+          送る前に、
           <br />
-          打つは、自由に。
+          敬語に整える。
         </h1>
         <p className="mt-8 max-w-xl text-[16px] md:text-[17px] text-[var(--muted)] leading-[1.9]">
-          AIキーボードは、日本語入力のための iOS キーボードアプリです。
-          AI ボタンをタップした時だけ文章を整え、それ以外の入力は記録しません。
+          敬語ボタンは、LINE・メール・DMの文面をその場で自然な敬語に整える、日本語キーボードアプリです。ボタンをタップした文章だけがAIに送られ、それ以外の入力は記録しません。
         </p>
       </section>
 
@@ -22,17 +21,17 @@ export default function Home() {
         <FeatureCell
           label="01"
           title="ネイティブな日本語入力"
-          body="ローマ字・かな変換、学習機能、候補表示。違和感のない標準キーボード体験。"
+          body="ローマ字・かな変換、学習、候補表示。違和感のない標準的なキーボード体験。"
         />
         <FeatureCell
           label="02"
-          title="必要な時だけ AI"
-          body="敬語・メール・要約・翻訳。ボタンをタップした文章だけが処理されます。"
+          title="ワンタップで敬語"
+          body="メール文・お詫び・依頼・翻訳・言い換え。ボタンをタップした文章だけが整います。"
         />
         <FeatureCell
           label="03"
           title="プライバシー第一"
-          body="すべての打鍵を記録することはありません。送信されるのは選択した文章のみ。"
+          body="すべての打鍵を記録することはありません。送信されるのは、選んだ文章のみ。"
         />
       </section>
 

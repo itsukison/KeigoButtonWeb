@@ -11,17 +11,17 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aikeyboard.app"),
+  metadataBase: new URL("https://keigobutton.vercel.app"),
   title: {
-    default: "AIキーボード",
-    template: "%s | AIキーボード",
+    default: "敬語ボタン",
+    template: "%s | 敬語ボタン",
   },
   description:
-    "AIキーボードは、日本語入力のための iOS キーボードアプリです。タップした時だけ AI が文章を整え、すべての入力を記録することはありません。",
+    "敬語ボタンは、送る前に文章を敬語に整える日本語キーボードアプリです。タップした時だけ AI が文面を整え、すべての入力を記録することはありません。",
   openGraph: {
-    title: "AIキーボード",
+    title: "敬語ボタン",
     description:
-      "タップした時だけ AI が文章を整える、日本語入力のための iOS キーボード。",
+      "送る前に、敬語に整える。LINE、メール、DMの文面をその場で自然に。",
     locale: "ja_JP",
     type: "website",
   },
@@ -52,7 +52,7 @@ function SiteHeader() {
           href="/"
           className="text-[15px] font-semibold tracking-[0.04em]"
         >
-          AIキーボード
+          敬語ボタン
         </Link>
         <nav className="flex items-center gap-7 text-[13px] text-[var(--muted)]">
           <Link href="/support" className="hover:text-black transition-colors">
@@ -76,7 +76,7 @@ function SiteFooter() {
     <footer className="border-t border-[var(--border)] mt-24">
       <div className="mx-auto max-w-5xl px-6 py-12 text-[13px] text-[var(--muted)] flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-1">
-          <span className="text-black font-medium">AIキーボード</span>
+          <span className="text-black font-medium">敬語ボタン</span>
           <span>株式会社Core7</span>
         </div>
         <nav className="flex gap-7">
