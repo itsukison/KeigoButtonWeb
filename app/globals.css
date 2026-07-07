@@ -13,9 +13,12 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-brand-purple: #c8bcfa;
   --font-sans: var(--font-noto-sans-jp), -apple-system, BlinkMacSystemFont,
     "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
     sans-serif;
+  --font-display: var(--font-jakarta), var(--font-noto-sans-jp),
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
 }
 
 html {
@@ -36,6 +39,23 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* --- Scroll reveal setup ---
+   Elements that animate in are hidden up front so there is no flash of
+   fully-laid-out content before GSAP takes over. The `.anim` class is added
+   to <html> by an inline script ONLY when the visitor has not requested
+   reduced motion, so reduced-motion users (and the no-JS case) always see the
+   content. GSAP writes inline styles that override these rules once it runs. */
+html.anim [data-reveal],
+html.anim [data-reveal-scale] {
+  opacity: 0;
+}
+
+html.anim [data-reveal],
+html.anim [data-reveal-scale],
+html.anim [data-speed] {
+  will-change: transform, opacity;
 }
 
 a.link-underline {

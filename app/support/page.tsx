@@ -183,8 +183,8 @@ export default function SupportPage() {
         <li>担当者:孫 逸歓</li>
         <li>
           メール:
-          <a href="mailto:itsukison00@gmail.com" className="link-underline">
-            itsukison00@gmail.com
+          <a href="mailto:keigobutton@gmail.com" className="link-underline">
+            keigobutton@gmail.com
           </a>
         </li>
       </ul>
