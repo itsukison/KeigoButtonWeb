@@ -65,7 +65,7 @@ const Starburst = ({ className }: { className?: string }) => {
     const angle = (i * Math.PI) / rays;
     const x = cx + radius * Math.cos(angle);
     const y = cy + radius * Math.sin(angle);
-    points.push(`${x},${y}`);
+    points.push(`${x.toFixed(4)},${y.toFixed(4)}`);
   }
 
   return (
@@ -134,6 +134,362 @@ const HeroRewriteDemo = () => (
         本日中に資料をご確認いただけますでしょうか。修正点がございましたら、お知らせいただけますと幸いです。
       </span>
     </div>
+  </div>
+);
+
+const MobileStoreButton = ({
+  href,
+  icon,
+  eyebrow,
+  label,
+  className = "",
+}: {
+  href: string;
+  icon: React.ReactNode;
+  eyebrow: string;
+  label: string;
+  className?: string;
+}) => (
+  <a
+    href={href}
+    className={`flex min-h-12 items-center justify-center gap-2.5 rounded-2xl px-4 py-3 text-left shadow-[0_18px_34px_-24px_rgba(0,0,0,0.55)] transition-transform active:scale-[0.98] ${className}`}
+  >
+    {icon}
+    <span className="flex min-w-0 flex-col leading-none">
+      <span className="text-[9px] font-semibold opacity-70">{eyebrow}</span>
+      <span className="mt-1 text-[13px] font-bold leading-none">{label}</span>
+    </span>
+  </a>
+);
+
+const MobilePhone = ({
+  src,
+  alt,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) => (
+  <div className="relative h-[520px] w-[239px] overflow-hidden rounded-[34px] border-[5px] border-[#252529] bg-white shadow-[0_30px_60px_-22px_rgba(0,0,0,0.58)]">
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      priority={priority}
+      sizes="239px"
+      className="object-cover object-top"
+    />
+  </div>
+);
+
+const MobileLines = ({ className = "" }: { className?: string }) => (
+  <svg
+    className={`absolute inset-0 h-full w-full pointer-events-none opacity-[0.14] ${className}`}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line x1="-12%" y1="68%" x2="78%" y2="18%" stroke="currentColor" strokeWidth="0.7" />
+    <line x1="-8%" y1="80%" x2="110%" y2="44%" stroke="currentColor" strokeWidth="0.7" />
+    <line x1="12%" y1="-10%" x2="88%" y2="108%" stroke="currentColor" strokeWidth="0.7" />
+    <line x1="48%" y1="118%" x2="104%" y2="8%" stroke="currentColor" strokeWidth="0.7" />
+  </svg>
+);
+
+const MobileHeroSection = () => (
+  <section
+    data-anim-section="mobile-hero"
+    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] text-white"
+  >
+    <MobileLines className="text-white" />
+
+    <div className="relative z-10 flex h-full flex-col px-5 pb-5 pt-5 max-[380px]:px-4 max-[700px]:pb-4 max-[700px]:pt-4">
+      <header data-reveal className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <BrandIcon className="h-9 w-9 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="36px" />
+          <span className="font-display text-[19px] font-bold leading-none">敬語ボタン</span>
+        </div>
+        <Link
+          href="/support"
+          className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80"
+        >
+          使い方
+        </Link>
+      </header>
+
+      <div className="relative z-20 mt-8 max-w-[330px] max-[700px]:mt-5">
+        <p
+          data-reveal
+          className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#C8BCFA]"
+        >
+          AI keyboard for polite Japanese
+        </p>
+        <h1
+          data-reveal
+          className="font-display text-[40px] font-semibold leading-[1.04] tracking-tight text-white max-[380px]:text-[36px] max-[700px]:text-[34px]"
+        >
+          送る前に、
+          <br />
+          その一文を
+          <br />
+          敬語に。
+        </h1>
+        <p
+          data-reveal
+          className="mt-4 max-w-[310px] text-[13px] font-medium leading-[1.7] text-white/62 max-[700px]:mt-3 max-[700px]:text-[12px] max-[700px]:leading-[1.55]"
+        >
+          LINE・メール・DMの文面を、キーボード上で自然な敬語へ。AIに送るのは、ボタンをタップした文章だけです。
+        </p>
+      </div>
+
+      <div data-reveal className="relative z-20 mt-5 grid grid-cols-2 gap-2.5 max-[700px]:mt-4">
+        <MobileStoreButton
+          href="https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723"
+          icon={<AppleIcon className="h-5 w-5 shrink-0" />}
+          eyebrow="ダウンロードは"
+          label="App Store"
+          className="bg-white text-black"
+        />
+        <MobileStoreButton
+          href="/support"
+          icon={<GuideIcon className="h-5 w-5 shrink-0" />}
+          eyebrow="はじめての方へ"
+          label="使い方を見る"
+          className="bg-white/10 text-white ring-1 ring-white/12"
+        />
+      </div>
+
+      <div className="relative mt-auto h-[42svh] min-h-[270px] max-[700px]:h-[36svh] max-[700px]:min-h-[220px]">
+        <div className="absolute inset-x-[-20px] bottom-[-6px] top-8 overflow-hidden rounded-t-[36px] bg-[#C8BCFA] shadow-[0_-24px_70px_-42px_rgba(200,188,250,0.8)]">
+          <Starburst className="absolute -right-28 -top-28 h-[360px] w-[360px] animate-[spin_60s_linear_infinite] text-white/75" />
+        </div>
+        <div
+          data-reveal-scale
+          className="absolute bottom-[-166px] left-1/2 z-10 -translate-x-1/2 rotate-[5deg] scale-[0.72] max-[700px]:bottom-[-205px] max-[700px]:scale-[0.6]"
+        >
+          <MobilePhone src="/home.png" alt="敬語ボタンのホーム画面" priority />
+        </div>
+        <div
+          data-reveal-float
+          className="absolute left-0 right-0 top-0 z-20 mx-auto w-[286px] rounded-[18px] border border-white/50 bg-white/88 px-3.5 py-3 shadow-[0_22px_44px_-26px_rgba(24,24,26,0.72)] backdrop-blur-xl max-[700px]:top-2 max-[700px]:w-[260px]"
+        >
+          <span className="block text-[12px] font-semibold leading-[1.55] text-[#18181A]/55 max-[700px]:text-[11px]">
+            明日いけますか
+          </span>
+          <span className="mt-1 block text-[13px] font-bold leading-[1.45] text-[#18181A] max-[700px]:text-[12px]">
+            明日ご都合いかがでしょうか
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const MobileAboutSection = () => (
+  <section
+    data-anim-section="mobile-about"
+    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] px-5 pb-5 pt-8 text-white"
+  >
+    <div data-reveal className="relative z-10">
+      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
+        アプリについて
+      </span>
+      <h2 className="font-display text-[34px] font-semibold leading-[1.08] max-[700px]:text-[30px]">
+        いつもの言葉を、
+        <br />
+        きちんと伝わる
+        <br />
+        敬語へ。
+      </h2>
+      <p className="mt-4 max-w-[315px] text-[13px] font-medium leading-[1.75] text-white/60 max-[700px]:mt-3 max-[700px]:text-[12px] max-[700px]:leading-[1.6]">
+        お願い、お詫び、取引先へのDMまで。思いついた文章をその場で整えて、言い回しに悩む時間を減らします。
+      </p>
+    </div>
+
+    <div
+      data-reveal-scale
+      className="relative mt-auto h-[58svh] min-h-[380px] overflow-hidden rounded-[34px] bg-[#C8BCFA] max-[700px]:h-[53svh] max-[700px]:min-h-[310px]"
+    >
+      <Starburst className="absolute -right-24 -top-20 h-[310px] w-[310px] text-white/55" />
+      <div className="absolute -left-7 bottom-[-148px] z-20 -rotate-6 scale-[0.65] max-[700px]:bottom-[-190px] max-[700px]:scale-[0.55]">
+        <MobilePhone src="/prompts.png" alt="敬語ボタンの変換メニュー一覧" />
+      </div>
+      <div className="absolute -right-8 bottom-[-164px] z-10 rotate-[8deg] scale-[0.6] opacity-95 max-[700px]:bottom-[-205px] max-[700px]:scale-[0.52]">
+        <MobilePhone src="/settings.png" alt="敬語ボタンの設定画面" />
+      </div>
+      <div className="absolute bottom-5 left-5 right-5 z-30 rounded-[22px] border border-white/45 bg-white/82 px-4 py-3 shadow-[0_22px_44px_-28px_rgba(24,24,26,0.72)] backdrop-blur-xl">
+        <span className="text-[11px] font-bold text-[#7D68D8]">ボタンをタップした時だけ</span>
+        <p className="mt-1 text-[14px] font-bold leading-[1.45] text-[#18181A]">
+          通常入力は端末内。AIに送る文だけ、自分で選べます。
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const MobileFeaturesSection = () => (
+  <section
+    id="features-mobile"
+    data-anim-section="mobile-features"
+    className="relative flex h-[100svh] w-full flex-col overflow-hidden rounded-t-[36px] bg-white px-5 pb-5 pt-8 text-black"
+  >
+    <div data-reveal>
+      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/35">
+        機能
+      </span>
+      <h2 className="font-display text-[32px] font-semibold leading-[1.1] max-[700px]:text-[28px]">
+        伝わる文章を
+        <br />
+        つくる機能を、
+        <br />
+        ひとつのボタンに。
+      </h2>
+    </div>
+
+    <div data-reveal className="mt-5 grid grid-cols-2 gap-2.5 max-[700px]:mt-4">
+      {["敬語", "メール文", "お詫び", "翻訳"].map((label, index) => (
+        <div
+          key={label}
+          className={`rounded-2xl px-4 py-3 text-sm font-bold shadow-[0_16px_34px_-28px_rgba(24,24,26,0.72)] ${
+            index === 0 ? "bg-[#18181A] text-white" : "bg-[#F4F2FB] text-black/72"
+          }`}
+        >
+          {label}
+        </div>
+      ))}
+    </div>
+
+    <div
+      data-reveal-scale
+      className="relative mt-auto h-[52svh] min-h-[350px] overflow-hidden rounded-[34px] bg-[#F7F7F8] max-[700px]:h-[48svh] max-[700px]:min-h-[300px]"
+    >
+      <Starburst className="absolute -right-24 -top-24 h-[300px] w-[300px] text-[#C8BCFA]" />
+      <div className="absolute left-1/2 top-6 z-10 -translate-x-1/2 scale-[0.62] max-[700px]:top-0 max-[700px]:scale-[0.54]">
+        <MobilePhone src="/prompts.png" alt="敬語ボタンのプロンプト画面" />
+      </div>
+      <div className="absolute bottom-4 left-4 right-4 z-20 rounded-[22px] bg-white px-4 py-3 shadow-[0_20px_44px_-28px_rgba(24,24,26,0.6)]">
+        <span className="block text-[11px] font-bold text-[#7D68D8]">場面に合わせる</span>
+        <p className="mt-1 text-[14px] font-bold leading-[1.45] text-[#18181A]">
+          よく使う変換メニューを自分の言葉で追加できます。
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const MobileKeyboardSection = () => (
+  <section
+    data-anim-section="mobile-keyboard"
+    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#C8BCFA] px-5 pb-5 pt-8 text-black"
+  >
+    <div data-reveal>
+      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/42">
+        Keyboard
+      </span>
+      <h2 className="font-display text-[32px] font-semibold leading-[1.1] max-[700px]:text-[28px]">
+        いつもの
+        <br />
+        キーボードから、
+        <br />
+        すぐ変換。
+      </h2>
+      <p className="mt-4 max-w-[315px] text-[13px] font-semibold leading-[1.7] text-black/58 max-[700px]:mt-3 max-[700px]:text-[12px]">
+        アプリを切り替えず、入力している場所で敬語ボタンをタップ。チャットもメールも流れを止めません。
+      </p>
+    </div>
+
+    <div
+      data-reveal-scale
+      className="relative mt-auto h-[46svh] min-h-[310px] overflow-hidden rounded-[34px] bg-[#18181A] shadow-[0_30px_70px_-38px_rgba(24,24,26,0.62)] max-[700px]:h-[42svh] max-[700px]:min-h-[250px]"
+    >
+      <MobileLines className="text-white" />
+      <div className="absolute left-5 right-5 top-5 rounded-[22px] bg-white px-4 py-4">
+        <span className="block text-[13px] font-semibold leading-[1.55] text-black/48">
+          資料の確認お願いします
+        </span>
+        <span className="mt-2 block text-[15px] font-bold leading-[1.45] text-black">
+          資料をご確認いただけますでしょうか
+        </span>
+      </div>
+      <div className="absolute bottom-[-4px] left-1/2 w-[390px] -translate-x-1/2 overflow-hidden rounded-t-[28px] border-t border-white/10 bg-[#C9CBD1] shadow-[0_-18px_48px_-34px_rgba(255,255,255,0.7)] max-[380px]:w-[350px]">
+        <Image
+          src="/keyboard.jpg"
+          alt="敬語ボタン付きキーボード"
+          width={1170}
+          height={1014}
+          sizes="390px"
+          className="h-auto w-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+);
+
+const MobileCtaSection = () => (
+  <section
+    data-anim-section="mobile-cta"
+    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] px-5 pb-6 pt-7 text-white"
+  >
+    <MobileLines className="text-white" />
+    <div data-reveal className="relative z-10 flex items-center justify-between">
+      <BrandIcon className="h-10 w-10 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="40px" />
+      <span className="rounded-full bg-[#C8BCFA] px-4 py-2 text-xs font-bold text-black">
+        2026年6月更新
+      </span>
+    </div>
+
+    <div data-reveal className="relative z-10 mt-12 max-[700px]:mt-8">
+      <h2 className="font-display text-[36px] font-semibold leading-[1.06] max-[700px]:text-[32px]">
+        今すぐ、
+        <br />
+        最初の一通から
+        <br />
+        敬語ボタンを。
+      </h2>
+      <p className="mt-4 max-w-[310px] text-[13px] font-medium leading-[1.75] text-white/62 max-[700px]:text-[12px]">
+        App Storeからインストールして、キーボードに追加するだけ。いつでも、どのアプリでも使えます。
+      </p>
+    </div>
+
+    <div
+      data-reveal-scale
+      className="relative z-10 mt-auto rounded-[30px] bg-[#C8BCFA] p-4 text-black shadow-[0_30px_70px_-38px_rgba(200,188,250,0.86)]"
+    >
+      <div className="rounded-[22px] bg-[#18181A] p-5 text-white shadow-2xl">
+        <span className="block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white/38">
+          敬語ボタンより
+        </span>
+        <p className="mt-4 text-[18px] font-semibold leading-[1.6] text-white/92 max-[700px]:text-[16px]">
+          言葉を整えることは、相手への敬意です。毎日のやりとりが、すこし軽くなりますように。
+        </p>
+      </div>
+
+      <a
+        href="https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723"
+        className="mt-4 flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3 font-bold text-black"
+      >
+        <AppleIcon className="h-5 w-5" />
+        App Storeでダウンロード
+      </a>
+    </div>
+
+    <div
+      data-reveal
+      className="relative z-10 mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-white/52"
+    >
+      <Link href="/support">サポート</Link>
+      <Link href="/terms">利用規約</Link>
+      <Link href="/privacy">プライバシー</Link>
+    </div>
+  </section>
+);
+
+const MobileLanding = () => (
+  <div className="w-full overflow-hidden bg-[#18181A] lg:hidden">
+    <MobileHeroSection />
+    <MobileAboutSection />
+    <MobileFeaturesSection />
+    <MobileKeyboardSection />
+    <MobileCtaSection />
   </div>
 );
 
@@ -480,30 +836,44 @@ export default function Home() {
 
         // 2) Hero intro on load — layered so the eye lands on the headline
         //    first, then the copy, then the device, then the floating hints.
-        gsap
-          .timeline({ defaults: { ease } })
-          .fromTo(
-            '[data-anim-section="hero"] [data-reveal]',
-            { y: 42, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, stagger: 0.09 }
-          )
-          .fromTo(
-            '[data-anim-section="hero"] [data-reveal-scale]',
-            { y: 64, opacity: 0, scale: 0.96 },
-            { y: 0, opacity: 1, scale: 1, duration: 1.3 },
-            "-=0.85"
-          )
-          .fromTo(
-            '[data-anim-section="hero"] [data-reveal-float]',
-            { y: 16, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.7, stagger: 0.12 },
-            "-=0.6"
-          );
+        ["hero", "mobile-hero"].forEach((section) => {
+          const root = `[data-anim-section="${section}"]`;
+
+          gsap
+            .timeline({ defaults: { ease } })
+            .fromTo(
+              `${root} [data-reveal]`,
+              { y: 42, opacity: 0 },
+              { y: 0, opacity: 1, duration: 1, stagger: 0.09 }
+            )
+            .fromTo(
+              `${root} [data-reveal-scale]`,
+              { y: 64, opacity: 0, scale: 0.96 },
+              { y: 0, opacity: 1, scale: 1, duration: 1.3 },
+              "-=0.85"
+            )
+            .fromTo(
+              `${root} [data-reveal-float]`,
+              { y: 16, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.7, stagger: 0.12 },
+              "-=0.6"
+            );
+        });
 
         // 3) Scroll reveals — each section's content rises and fades in as it
         //    enters view. Short travel + a soft ease reads as considered,
         //    not flashy. ScrollTriggers created after the smoother inherit it.
-        ["about", "transition", "features", "cta", "footer"].forEach((section) => {
+        [
+          "about",
+          "transition",
+          "features",
+          "cta",
+          "footer",
+          "mobile-about",
+          "mobile-features",
+          "mobile-keyboard",
+          "mobile-cta",
+        ].forEach((section) => {
           const root = `[data-anim-section="${section}"]`;
 
           const items = gsap.utils.toArray<HTMLElement>(`${root} [data-reveal]`);
@@ -579,6 +949,9 @@ export default function Home() {
     <div id="smooth-wrapper" ref={wrapper}>
       <div id="smooth-content">
         <div className="w-full bg-[#18181A] flex flex-col items-center overflow-x-hidden">
+          <MobileLanding />
+
+          <div className="hidden lg:contents">
           {/* Hero Section */}
       <div
         data-anim-section="hero"
@@ -732,6 +1105,7 @@ export default function Home() {
           <FeaturesSection />
           <CtaSection />
           <FooterSection />
+          </div>
         </div>
       </div>
     </div>
