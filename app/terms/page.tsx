@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "利用規約",
   description:
     "敬語ボタンの利用にあたっての条件を定めた利用規約です。",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

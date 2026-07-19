@@ -68,6 +68,12 @@ function SiteFooter() {
           <span>株式会社Core7</span>
         </div>
         <nav className="flex gap-7">
+          <a
+            href="https://www.core7-jp.com/"
+            className="hover:text-black transition-colors"
+          >
+            運営会社
+          </a>
           <Link href="/support" className="hover:text-black transition-colors">
             サポート
           </Link>

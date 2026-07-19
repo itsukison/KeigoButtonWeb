@@ -19,17 +19,58 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://keigobutton.vercel.app"),
   title: {
-    default: "敬語ボタン",
+    default: "敬語ボタン｜敬語に直せるAIキーボード",
     template: "%s | 敬語ボタン",
   },
   description:
-    "敬語ボタンは、送る前に文章を敬語に整える日本語キーボードアプリです。タップした時だけ AI が文面を整え、すべての入力を記録することはありません。",
+    "敬語ボタンは、LINE・メール・DMの文章をキーボード上で自然な敬語に書き直せるiPhone向けAIキーボードアプリです。アプリを切り替えず、タップした文章だけをAIで整えます。",
+  applicationName: "敬語ボタン",
+  authors: [{ name: "株式会社Core7", url: "https://www.core7-jp.com/" }],
+  creator: "株式会社Core7",
+  publisher: "株式会社Core7",
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "敬語ボタン",
+    "敬語 変換",
+    "敬語 AI",
+    "AIキーボード",
+    "日本語キーボード",
+    "メール 敬語",
+    "文章 書き直し",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "敬語ボタン",
+    title: "敬語ボタン｜敬語に直せるAIキーボード",
     description:
-      "送る前に、敬語に整える。LINE、メール、DMの文面をその場で自然に。",
+      "LINE・メール・DMの文章を、キーボード上で自然な敬語へ。アプリを切り替えずに使えるiPhone向けAIキーボード。",
+    url: "/",
+    siteName: "敬語ボタン",
+    images: [
+      {
+        url: "/home.png",
+        alt: "敬語ボタンのアプリ画面",
+      },
+    ],
     locale: "ja_JP",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "敬語ボタン｜敬語に直せるAIキーボード",
+    description: "文章をキーボード上で自然な敬語へ。iPhone向けAIキーボードアプリ。",
+    images: ["/home.png"],
   },
 };
 

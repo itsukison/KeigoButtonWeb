@@ -36,9 +36,13 @@ body {
   line-height: 1.8;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Base layer so utility classes (e.g. text-black on a white button inside a
+   text-white section) always win over this default. */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /* --- Scroll reveal setup ---

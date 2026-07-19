@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +11,78 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 const APP_ICON_SRC = "/iconbgremoved copy.png";
+const APP_STORE_URL =
+  "https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723";
+
+const discoveryFaq = [
+  {
+    question: "敬語に書き直せるAIキーボードはありますか？",
+    answer:
+      "敬語ボタンは、iPhoneの文字入力欄で使える日本語AIキーボードです。LINE、メール、Slack、DMなどで文章を入力し、キーボード上のボタンをタップすると、自然な敬語やメール文の候補を表示します。",
+  },
+  {
+    question: "ChatGPTに文章をコピーする方法と何が違いますか？",
+    answer:
+      "敬語ボタンはキーボードの中で動くため、文章をコピーして別のアプリを開き、貼り付けてから戻る必要がありません。入力中のアプリを離れずに敬語へ書き直せます。",
+  },
+  {
+    question: "普段入力する文章はすべてAIに送られますか？",
+    answer:
+      "いいえ。通常の日本語入力は端末内で処理されます。AIによる書き直しを使うためにユーザーが明示的にボタンをタップした文章だけが送信されます。",
+  },
+];
+
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "@id": "https://keigobutton.vercel.app/#app",
+  name: "敬語ボタン",
+  alternateName: ["KeigoButton", "敬語ボタン｜AIキーボード"],
+  url: "https://keigobutton.vercel.app/",
+  downloadUrl: APP_STORE_URL,
+  description:
+    "LINE・メール・DMの文章を、入力中のアプリを離れずに自然な敬語へ書き直せるiPhone向けAIキーボードアプリ。",
+  applicationCategory: "UtilitiesApplication",
+  applicationSubCategory: "AIキーボード・文章作成支援",
+  operatingSystem: "iOS 16.4以降",
+  inLanguage: "ja",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: 0,
+    priceCurrency: "JPY",
+    url: APP_STORE_URL,
+  },
+  featureList: [
+    "キーボード上で文章を自然な敬語に変換",
+    "メール文・お詫び・依頼・要約・翻訳・言い換え",
+    "LINE・メール・Slack・DMなど文字入力欄で利用",
+    "通常の日本語入力は端末内で処理",
+  ],
+  screenshot: [
+    "https://keigobutton.vercel.app/home.png",
+    "https://keigobutton.vercel.app/keyboard.jpg",
+    "https://keigobutton.vercel.app/prompts.png",
+  ],
+  publisher: {
+    "@type": "Organization",
+    "@id": "https://www.core7-jp.com/#organization",
+    name: "株式会社Core7",
+    alternateName: "Core7, Inc.",
+    url: "https://www.core7-jp.com/",
+  },
+  sameAs: [APP_STORE_URL],
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: discoveryFaq.map(({ question, answer }) => ({
+    "@type": "Question",
+    name: question,
+    acceptedAnswer: { "@type": "Answer", text: answer },
+  })),
+};
 
 const BrandIcon = ({
   className = "h-10 w-10",
@@ -152,16 +224,18 @@ const MobileStoreButton = ({
 }) => (
   <a
     href={href}
-    className={`flex min-h-12 items-center justify-center gap-2.5 rounded-2xl px-4 py-3 text-left shadow-[0_18px_34px_-24px_rgba(0,0,0,0.55)] transition-transform active:scale-[0.98] ${className}`}
+    className={`flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-5 shadow-[0_18px_34px_-24px_rgba(0,0,0,0.55)] transition-transform active:scale-[0.98] ${className}`}
   >
     {icon}
-    <span className="flex min-w-0 flex-col leading-none">
-      <span className="text-[9px] font-semibold opacity-70">{eyebrow}</span>
-      <span className="mt-1 text-[13px] font-bold leading-none">{label}</span>
+    <span className="flex flex-col leading-none">
+      <span className="text-[10px] font-semibold opacity-70">{eyebrow}</span>
+      <span className="mt-1 text-[15px] font-bold leading-none">{label}</span>
     </span>
   </a>
 );
 
+// Phone frame sized by width with a locked aspect ratio — the screenshot is
+// always fully visible, never cropped or scale-hacked to fit a fixed height.
 const MobilePhone = ({
   src,
   alt,
@@ -171,17 +245,112 @@ const MobilePhone = ({
   alt: string;
   priority?: boolean;
 }) => (
-  <div className="relative h-[520px] w-[239px] overflow-hidden rounded-[34px] border-[5px] border-[#252529] bg-white shadow-[0_30px_60px_-22px_rgba(0,0,0,0.58)]">
+  <div className="relative aspect-[239/520] w-full overflow-hidden rounded-[28px] border-[5px] border-[#252529] bg-white shadow-[0_24px_48px_-20px_rgba(0,0,0,0.5)]">
     <Image
       src={src}
       alt={alt}
       fill
       priority={priority}
-      sizes="239px"
+      sizes="(max-width: 1023px) 66vw, 239px"
       className="object-cover object-top"
     />
   </div>
 );
+
+// Before → after rewrite demo, stacked in normal document flow.
+const MobileRewriteCard = ({
+  before,
+  after,
+  className = "",
+}: {
+  before: string;
+  after: string;
+  className?: string;
+}) => (
+  <div className={`flex flex-col gap-2 ${className}`}>
+    <div className="rounded-[16px] border border-white/45 bg-[#EFEAFD]/85 px-4 py-3 shadow-[0_16px_36px_-26px_rgba(24,24,26,0.65)] backdrop-blur-xl">
+      <span className="block text-[13px] font-semibold leading-[1.6] text-[#18181A]/55">
+        {before}
+      </span>
+    </div>
+    <div className="mx-auto flex h-6 w-6 items-center justify-center rounded-full border border-white/60 bg-white/85 text-[#18181A]/70 shadow-[0_12px_26px_-18px_rgba(24,24,26,0.7)]">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </svg>
+    </div>
+    <div className="rounded-[16px] border border-[#18181A]/10 bg-white px-4 py-3 shadow-[0_20px_44px_-28px_rgba(24,24,26,0.7)]">
+      <span className="block text-[13px] font-bold leading-[1.6] text-[#18181A]">
+        {after}
+      </span>
+    </div>
+  </div>
+);
+
+const galleryShots = [
+  { src: "/home.png", alt: "敬語ボタンのホーム画面", label: "ホーム" },
+  { src: "/prompts.png", alt: "敬語ボタンの変換メニュー一覧", label: "変換メニュー" },
+  { src: "/settings.png", alt: "敬語ボタンの設定画面", label: "設定" },
+];
+
+// Swipeable screenshot gallery — CSS scroll-snap with a small scroll listener
+// to keep the pagination dots in sync. Every phone stays fully visible.
+const MobileGallery = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const stepOf = (track: HTMLDivElement) => {
+    const item = track.querySelector<HTMLElement>("figure");
+    return item ? item.offsetWidth + 16 : 1; // 16px = gap-4
+  };
+
+  const handleScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const index = Math.round(track.scrollLeft / stepOf(track));
+    setActive(Math.min(galleryShots.length - 1, Math.max(0, index)));
+  };
+
+  const scrollToIndex = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * stepOf(track), behavior: "smooth" });
+  };
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        onScroll={handleScroll}
+        className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {galleryShots.map((shot, index) => (
+          <figure
+            key={shot.src}
+            className="w-[66vw] max-w-[250px] shrink-0 snap-start"
+          >
+            <MobilePhone src={shot.src} alt={shot.alt} priority={index === 0} />
+            <figcaption className="mt-3 text-center text-[11px] font-bold uppercase tracking-[0.16em] text-white/40">
+              {shot.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-center gap-2">
+        {galleryShots.map((shot, index) => (
+          <button
+            key={shot.src}
+            type="button"
+            aria-label={`${shot.label}のスクリーンショットを見る`}
+            onClick={() => scrollToIndex(index)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              active === index ? "w-6 bg-[#C8BCFA]" : "w-1.5 bg-white/25"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const MobileLines = ({ className = "" }: { className?: string }) => (
   <svg
@@ -198,11 +367,11 @@ const MobileLines = ({ className = "" }: { className?: string }) => (
 const MobileHeroSection = () => (
   <section
     data-anim-section="mobile-hero"
-    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] text-white"
+    className="relative w-full overflow-hidden bg-[#18181A] text-white"
   >
     <MobileLines className="text-white" />
 
-    <div className="relative z-10 flex h-full flex-col px-5 pb-5 pt-5 max-[380px]:px-4 max-[700px]:pb-4 max-[700px]:pt-4">
+    <div className="relative z-10 flex flex-col px-5 pb-14 pt-5">
       <header data-reveal className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <BrandIcon className="h-9 w-9 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="36px" />
@@ -210,13 +379,13 @@ const MobileHeroSection = () => (
         </div>
         <Link
           href="/support"
-          className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80"
+          className="flex min-h-[44px] items-center rounded-full border border-white/15 px-4 text-xs font-semibold text-white/80"
         >
           使い方
         </Link>
       </header>
 
-      <div className="relative z-20 mt-8 max-w-[330px] max-[700px]:mt-5">
+      <div className="mt-10">
         <p
           data-reveal
           className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#C8BCFA]"
@@ -225,7 +394,7 @@ const MobileHeroSection = () => (
         </p>
         <h1
           data-reveal
-          className="font-display text-[40px] font-semibold leading-[1.04] tracking-tight text-white max-[380px]:text-[36px] max-[700px]:text-[34px]"
+          className="font-display text-[clamp(34px,10.5vw,44px)] font-semibold leading-[1.08] tracking-tight text-white"
         >
           送る前に、
           <br />
@@ -235,15 +404,15 @@ const MobileHeroSection = () => (
         </h1>
         <p
           data-reveal
-          className="mt-4 max-w-[310px] text-[13px] font-medium leading-[1.7] text-white/62 max-[700px]:mt-3 max-[700px]:text-[12px] max-[700px]:leading-[1.55]"
+          className="mt-4 max-w-[340px] text-[14px] font-medium leading-[1.8] text-white/65"
         >
           LINE・メール・DMの文面を、キーボード上で自然な敬語へ。AIに送るのは、ボタンをタップした文章だけです。
         </p>
       </div>
 
-      <div data-reveal className="relative z-20 mt-5 grid grid-cols-2 gap-2.5 max-[700px]:mt-4">
+      <div data-reveal className="mt-7 flex flex-col gap-3">
         <MobileStoreButton
-          href="https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723"
+          href={APP_STORE_URL}
           icon={<AppleIcon className="h-5 w-5 shrink-0" />}
           eyebrow="ダウンロードは"
           label="App Store"
@@ -254,30 +423,46 @@ const MobileHeroSection = () => (
           icon={<GuideIcon className="h-5 w-5 shrink-0" />}
           eyebrow="はじめての方へ"
           label="使い方を見る"
-          className="bg-white/10 text-white ring-1 ring-white/12"
+          className="bg-white/10 text-white ring-1 ring-white/15"
         />
       </div>
 
-      <div className="relative mt-auto h-[42svh] min-h-[270px] max-[700px]:h-[36svh] max-[700px]:min-h-[220px]">
-        <div className="absolute inset-x-[-20px] bottom-[-6px] top-8 overflow-hidden rounded-t-[36px] bg-[#C8BCFA] shadow-[0_-24px_70px_-42px_rgba(200,188,250,0.8)]">
-          <Starburst className="absolute -right-28 -top-28 h-[360px] w-[360px] animate-[spin_60s_linear_infinite] text-white/75" />
+      <div data-reveal className="mt-7 flex items-stretch gap-5">
+        <div className="flex flex-col">
+          <span className="font-display text-[26px] font-bold leading-none tracking-tight text-[#E5DFFF]">
+            5000+
+          </span>
+          <span className="mt-1.5 text-[11px] font-semibold leading-tight text-white/50">
+            ダウンロード突破
+          </span>
         </div>
-        <div
-          data-reveal-scale
-          className="absolute bottom-[-166px] left-1/2 z-10 -translate-x-1/2 rotate-[5deg] scale-[0.72] max-[700px]:bottom-[-205px] max-[700px]:scale-[0.6]"
-        >
-          <MobilePhone src="/home.png" alt="敬語ボタンのホーム画面" priority />
+        <div className="w-px bg-white/15" />
+        <div className="flex flex-col">
+          <span className="font-display text-[26px] font-bold leading-none tracking-tight text-[#E5DFFF]">
+            20,000+
+          </span>
+          <span className="mt-1.5 text-[11px] font-semibold leading-tight text-white/50">
+            敬語への書き直し
+          </span>
         </div>
+      </div>
+
+      <div
+        data-reveal-scale
+        className="relative mt-9 overflow-hidden rounded-[32px] bg-[#C8BCFA] px-5 pb-9 pt-6"
+      >
+        <Starburst className="absolute -right-24 -top-24 h-[280px] w-[280px] animate-[spin_60s_linear_infinite] text-white/70" />
         <div
           data-reveal-float
-          className="absolute left-0 right-0 top-0 z-20 mx-auto w-[286px] rounded-[18px] border border-white/50 bg-white/88 px-3.5 py-3 shadow-[0_22px_44px_-26px_rgba(24,24,26,0.72)] backdrop-blur-xl max-[700px]:top-2 max-[700px]:w-[260px]"
+          className="relative z-10 mx-auto w-full max-w-[320px]"
         >
-          <span className="block text-[12px] font-semibold leading-[1.55] text-[#18181A]/55 max-[700px]:text-[11px]">
-            明日いけますか
-          </span>
-          <span className="mt-1 block text-[13px] font-bold leading-[1.45] text-[#18181A] max-[700px]:text-[12px]">
-            明日ご都合いかがでしょうか
-          </span>
+          <MobileRewriteCard
+            before="明日いけますか"
+            after="明日ご都合いかがでしょうか"
+          />
+        </div>
+        <div className="relative z-10 mx-auto mt-7 w-[min(58vw,230px)]">
+          <MobilePhone src="/home.png" alt="敬語ボタンのホーム画面" priority />
         </div>
       </div>
     </div>
@@ -287,41 +472,36 @@ const MobileHeroSection = () => (
 const MobileAboutSection = () => (
   <section
     data-anim-section="mobile-about"
-    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] px-5 pb-5 pt-8 text-white"
+    className="relative w-full overflow-hidden bg-[#18181A] px-5 py-14 text-white"
   >
-    <div data-reveal className="relative z-10">
+    <div data-reveal>
       <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">
         アプリについて
       </span>
-      <h2 className="font-display text-[34px] font-semibold leading-[1.08] max-[700px]:text-[30px]">
+      <h2 className="font-display text-[clamp(28px,8.5vw,34px)] font-semibold leading-[1.14]">
         いつもの言葉を、
         <br />
         きちんと伝わる
         <br />
         敬語へ。
       </h2>
-      <p className="mt-4 max-w-[315px] text-[13px] font-medium leading-[1.75] text-white/60 max-[700px]:mt-3 max-[700px]:text-[12px] max-[700px]:leading-[1.6]">
+      <p className="mt-4 max-w-[340px] text-[14px] font-medium leading-[1.8] text-white/60">
         お願い、お詫び、取引先へのDMまで。思いついた文章をその場で整えて、言い回しに悩む時間を減らします。
       </p>
     </div>
 
+    <div data-reveal-scale className="mt-9">
+      <MobileGallery />
+    </div>
+
     <div
-      data-reveal-scale
-      className="relative mt-auto h-[58svh] min-h-[380px] overflow-hidden rounded-[34px] bg-[#C8BCFA] max-[700px]:h-[53svh] max-[700px]:min-h-[310px]"
+      data-reveal
+      className="mt-8 rounded-[24px] border border-white/10 bg-white/[0.06] p-5"
     >
-      <Starburst className="absolute -right-24 -top-20 h-[310px] w-[310px] text-white/55" />
-      <div className="absolute -left-7 bottom-[-148px] z-20 -rotate-6 scale-[0.65] max-[700px]:bottom-[-190px] max-[700px]:scale-[0.55]">
-        <MobilePhone src="/prompts.png" alt="敬語ボタンの変換メニュー一覧" />
-      </div>
-      <div className="absolute -right-8 bottom-[-164px] z-10 rotate-[8deg] scale-[0.6] opacity-95 max-[700px]:bottom-[-205px] max-[700px]:scale-[0.52]">
-        <MobilePhone src="/settings.png" alt="敬語ボタンの設定画面" />
-      </div>
-      <div className="absolute bottom-5 left-5 right-5 z-30 rounded-[22px] border border-white/45 bg-white/82 px-4 py-3 shadow-[0_22px_44px_-28px_rgba(24,24,26,0.72)] backdrop-blur-xl">
-        <span className="text-[11px] font-bold text-[#7D68D8]">ボタンをタップした時だけ</span>
-        <p className="mt-1 text-[14px] font-bold leading-[1.45] text-[#18181A]">
-          通常入力は端末内。AIに送る文だけ、自分で選べます。
-        </p>
-      </div>
+      <span className="text-[11px] font-bold text-[#C8BCFA]">ボタンをタップした時だけ</span>
+      <p className="mt-1.5 text-[15px] font-bold leading-[1.6] text-white">
+        通常入力は端末内。AIに送る文だけ、自分で選べます。
+      </p>
     </div>
   </section>
 );
@@ -330,13 +510,13 @@ const MobileFeaturesSection = () => (
   <section
     id="features-mobile"
     data-anim-section="mobile-features"
-    className="relative flex h-[100svh] w-full flex-col overflow-hidden rounded-t-[36px] bg-white px-5 pb-5 pt-8 text-black"
+    className="relative w-full overflow-hidden rounded-t-[32px] bg-white px-5 py-14 text-black"
   >
     <div data-reveal>
       <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/35">
         機能
       </span>
-      <h2 className="font-display text-[32px] font-semibold leading-[1.1] max-[700px]:text-[28px]">
+      <h2 className="font-display text-[clamp(27px,8vw,33px)] font-semibold leading-[1.14]">
         伝わる文章を
         <br />
         つくる機能を、
@@ -345,11 +525,11 @@ const MobileFeaturesSection = () => (
       </h2>
     </div>
 
-    <div data-reveal className="mt-5 grid grid-cols-2 gap-2.5 max-[700px]:mt-4">
+    <div data-reveal className="mt-6 grid grid-cols-2 gap-2.5">
       {["敬語", "メール文", "お詫び", "翻訳"].map((label, index) => (
         <div
           key={label}
-          className={`rounded-2xl px-4 py-3 text-sm font-bold shadow-[0_16px_34px_-28px_rgba(24,24,26,0.72)] ${
+          className={`rounded-2xl px-4 py-3.5 text-sm font-bold shadow-[0_16px_34px_-28px_rgba(24,24,26,0.72)] ${
             index === 0 ? "bg-[#18181A] text-white" : "bg-[#F4F2FB] text-black/72"
           }`}
         >
@@ -360,18 +540,19 @@ const MobileFeaturesSection = () => (
 
     <div
       data-reveal-scale
-      className="relative mt-auto h-[52svh] min-h-[350px] overflow-hidden rounded-[34px] bg-[#F7F7F8] max-[700px]:h-[48svh] max-[700px]:min-h-[300px]"
+      className="relative mt-6 overflow-hidden rounded-[28px] bg-[#F7F7F8] px-5 py-8"
     >
-      <Starburst className="absolute -right-24 -top-24 h-[300px] w-[300px] text-[#C8BCFA]" />
-      <div className="absolute left-1/2 top-6 z-10 -translate-x-1/2 scale-[0.62] max-[700px]:top-0 max-[700px]:scale-[0.54]">
+      <Starburst className="absolute -right-20 -top-20 h-[240px] w-[240px] text-[#C8BCFA]" />
+      <div className="relative z-10 mx-auto w-[min(56vw,220px)]">
         <MobilePhone src="/prompts.png" alt="敬語ボタンのプロンプト画面" />
       </div>
-      <div className="absolute bottom-4 left-4 right-4 z-20 rounded-[22px] bg-white px-4 py-3 shadow-[0_20px_44px_-28px_rgba(24,24,26,0.6)]">
-        <span className="block text-[11px] font-bold text-[#7D68D8]">場面に合わせる</span>
-        <p className="mt-1 text-[14px] font-bold leading-[1.45] text-[#18181A]">
-          よく使う変換メニューを自分の言葉で追加できます。
-        </p>
-      </div>
+    </div>
+
+    <div data-reveal className="mt-5 rounded-[24px] bg-[#18181A] p-5 text-white">
+      <span className="text-[11px] font-bold text-[#C8BCFA]">場面に合わせる</span>
+      <p className="mt-1.5 text-[15px] font-bold leading-[1.6]">
+        よく使う変換メニューを自分の言葉で追加できます。
+      </p>
     </div>
   </section>
 );
@@ -379,45 +560,40 @@ const MobileFeaturesSection = () => (
 const MobileKeyboardSection = () => (
   <section
     data-anim-section="mobile-keyboard"
-    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#C8BCFA] px-5 pb-5 pt-8 text-black"
+    className="relative w-full overflow-hidden bg-[#C8BCFA] px-5 py-14 text-black"
   >
     <div data-reveal>
-      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/42">
+      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/45">
         Keyboard
       </span>
-      <h2 className="font-display text-[32px] font-semibold leading-[1.1] max-[700px]:text-[28px]">
+      <h2 className="font-display text-[clamp(27px,8vw,33px)] font-semibold leading-[1.14]">
         いつもの
         <br />
         キーボードから、
         <br />
         すぐ変換。
       </h2>
-      <p className="mt-4 max-w-[315px] text-[13px] font-semibold leading-[1.7] text-black/58 max-[700px]:mt-3 max-[700px]:text-[12px]">
+      <p className="mt-4 max-w-[340px] text-[14px] font-semibold leading-[1.8] text-black/60">
         アプリを切り替えず、入力している場所で敬語ボタンをタップ。チャットもメールも流れを止めません。
       </p>
     </div>
 
     <div
       data-reveal-scale
-      className="relative mt-auto h-[46svh] min-h-[310px] overflow-hidden rounded-[34px] bg-[#18181A] shadow-[0_30px_70px_-38px_rgba(24,24,26,0.62)] max-[700px]:h-[42svh] max-[700px]:min-h-[250px]"
+      className="mt-8 overflow-hidden rounded-[28px] bg-[#18181A] p-5 shadow-[0_30px_70px_-38px_rgba(24,24,26,0.62)]"
     >
-      <MobileLines className="text-white" />
-      <div className="absolute left-5 right-5 top-5 rounded-[22px] bg-white px-4 py-4">
-        <span className="block text-[13px] font-semibold leading-[1.55] text-black/48">
-          資料の確認お願いします
-        </span>
-        <span className="mt-2 block text-[15px] font-bold leading-[1.45] text-black">
-          資料をご確認いただけますでしょうか
-        </span>
-      </div>
-      <div className="absolute bottom-[-4px] left-1/2 w-[390px] -translate-x-1/2 overflow-hidden rounded-t-[28px] border-t border-white/10 bg-[#C9CBD1] shadow-[0_-18px_48px_-34px_rgba(255,255,255,0.7)] max-[380px]:w-[350px]">
+      <MobileRewriteCard
+        before="資料の確認お願いします"
+        after="資料をご確認いただけますでしょうか"
+      />
+      <div className="mt-4 overflow-hidden rounded-[18px]">
         <Image
           src="/keyboard.jpg"
           alt="敬語ボタン付きキーボード"
           width={1170}
           height={1014}
-          sizes="390px"
-          className="h-auto w-full object-cover"
+          sizes="(max-width: 1023px) 100vw, 390px"
+          className="h-auto w-full"
         />
       </div>
     </div>
@@ -427,45 +603,49 @@ const MobileKeyboardSection = () => (
 const MobileCtaSection = () => (
   <section
     data-anim-section="mobile-cta"
-    className="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[#18181A] px-5 pb-6 pt-7 text-white"
+    className="relative w-full overflow-hidden bg-[#18181A] px-5 pb-10 pt-14 text-white"
   >
     <MobileLines className="text-white" />
+
     <div data-reveal className="relative z-10 flex items-center justify-between">
-      <BrandIcon className="h-10 w-10 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="40px" />
+      <div className="flex items-center gap-2.5">
+        <BrandIcon className="h-10 w-10 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="40px" />
+        <span className="font-display text-[19px] font-bold leading-none">敬語ボタン</span>
+      </div>
       <span className="rounded-full bg-[#C8BCFA] px-4 py-2 text-xs font-bold text-black">
         2026年6月更新
       </span>
     </div>
 
-    <div data-reveal className="relative z-10 mt-12 max-[700px]:mt-8">
-      <h2 className="font-display text-[36px] font-semibold leading-[1.06] max-[700px]:text-[32px]">
+    <div data-reveal className="relative z-10 mt-10">
+      <h2 className="font-display text-[clamp(30px,9vw,38px)] font-semibold leading-[1.12]">
         今すぐ、
         <br />
         最初の一通から
         <br />
         敬語ボタンを。
       </h2>
-      <p className="mt-4 max-w-[310px] text-[13px] font-medium leading-[1.75] text-white/62 max-[700px]:text-[12px]">
+      <p className="mt-4 max-w-[340px] text-[14px] font-medium leading-[1.8] text-white/65">
         App Storeからインストールして、キーボードに追加するだけ。いつでも、どのアプリでも使えます。
       </p>
     </div>
 
     <div
       data-reveal-scale
-      className="relative z-10 mt-auto rounded-[30px] bg-[#C8BCFA] p-4 text-black shadow-[0_30px_70px_-38px_rgba(200,188,250,0.86)]"
+      className="relative z-10 mt-9 rounded-[28px] bg-[#C8BCFA] p-4 text-black shadow-[0_30px_70px_-38px_rgba(200,188,250,0.86)]"
     >
-      <div className="rounded-[22px] bg-[#18181A] p-5 text-white shadow-2xl">
-        <span className="block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white/38">
+      <div className="rounded-[20px] bg-[#18181A] p-5 text-white shadow-2xl">
+        <span className="block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white/40">
           敬語ボタンより
         </span>
-        <p className="mt-4 text-[18px] font-semibold leading-[1.6] text-white/92 max-[700px]:text-[16px]">
+        <p className="mt-4 text-[16px] font-semibold leading-[1.7] text-white/92">
           言葉を整えることは、相手への敬意です。毎日のやりとりが、すこし軽くなりますように。
         </p>
       </div>
 
       <a
-        href="https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723"
-        className="mt-4 flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-white px-5 py-3 font-bold text-black"
+        href={APP_STORE_URL}
+        className="mt-4 flex h-14 items-center justify-center gap-3 rounded-2xl bg-white px-5 font-bold text-black transition-transform active:scale-[0.98]"
       >
         <AppleIcon className="h-5 w-5" />
         App Storeでダウンロード
@@ -474,8 +654,9 @@ const MobileCtaSection = () => (
 
     <div
       data-reveal
-      className="relative z-10 mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-white/52"
+      className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-[13px] font-semibold text-white/55"
     >
+      <a href="https://www.core7-jp.com/">運営会社</a>
       <Link href="/support">サポート</Link>
       <Link href="/terms">利用規約</Link>
       <Link href="/privacy">プライバシー</Link>
@@ -806,12 +987,54 @@ const FooterSection = () => (
         data-reveal
         className="lg:absolute lg:right-20 lg:bottom-12 flex flex-wrap lg:flex-col items-center lg:items-end justify-center gap-x-7 gap-y-3 text-[13px] font-medium text-black/60 z-30"
       >
+        <a
+          href="https://www.core7-jp.com/"
+          className="hover:text-black transition-colors"
+        >
+          運営会社
+        </a>
         <Link href="/support" className="hover:text-black transition-colors">サポート</Link>
         <Link href="/terms" className="hover:text-black transition-colors">利用規約</Link>
         <Link href="/privacy" className="hover:text-black transition-colors">プライバシー</Link>
       </div>
     </div>
   </div>
+);
+
+const DiscoverySection = () => (
+  <section className="w-full bg-white px-6 py-20 text-[#18181A] lg:py-28">
+    <div className="mx-auto max-w-5xl">
+      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-black/40">
+        AI keyboard for Japanese writing
+      </p>
+      <h2 className="mt-4 max-w-3xl font-display text-[32px] font-semibold leading-tight lg:text-[48px]">
+        敬語を考える時間を減らす、
+        <br />
+        iPhoneのAIキーボード。
+      </h2>
+      <p className="mt-6 max-w-3xl text-[15px] leading-8 text-black/60 lg:text-base">
+        敬語ボタンは、文章を敬語に直したいときに入力欄からそのまま使える日本語キーボードアプリです。就活の連絡、上司へのSlack、取引先へのメール、先生へのメッセージなど、丁寧さに迷う場面で自然な候補を提案します。
+      </p>
+
+      <div className="mt-14 grid gap-8 lg:grid-cols-3">
+        {discoveryFaq.map(({ question, answer }) => (
+          <article key={question} className="border-t border-black/15 pt-6">
+            <h3 className="font-display text-lg font-semibold leading-relaxed">{question}</h3>
+            <p className="mt-3 text-sm leading-7 text-black/55">{answer}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-12 flex flex-wrap items-center gap-6 text-sm font-semibold">
+        <Link href="/ai-keigo-keyboard" className="border-b border-black pb-1">
+          AI敬語キーボードについて詳しく見る
+        </Link>
+        <a href="https://www.core7-jp.com/" className="border-b border-black/30 pb-1 text-black/60">
+          開発・運営：株式会社Core7
+        </a>
+      </div>
+    </div>
+  </section>
 );
 
 export default function Home() {
@@ -946,7 +1169,20 @@ export default function Home() {
   );
 
   return (
-    <div id="smooth-wrapper" ref={wrapper}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(appJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <div id="smooth-wrapper" ref={wrapper}>
       <div id="smooth-content">
         <div className="w-full bg-[#18181A] flex flex-col items-center overflow-x-hidden">
           <MobileLanding />
@@ -1106,8 +1342,10 @@ export default function Home() {
           <CtaSection />
           <FooterSection />
           </div>
+          <DiscoverySection />
         </div>
       </div>
     </div>
+    </>
   );
 }

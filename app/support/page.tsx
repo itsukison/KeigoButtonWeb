@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "サポート",
   description:
     "敬語ボタンの設定方法、使い方、トラブルシューティング、お問い合わせ窓口についてのご案内です。",
+  alternates: { canonical: "/support" },
 };
 
 export default function SupportPage() {
