@@ -32,13 +32,29 @@ const discoveryFaq = [
   },
 ];
 
+// Internal routes the homepage links to. They carry crawl discovery and
+// internal link equity to the pages that target 「敬語変換」-class queries —
+// please keep them reachable from this page (any styling/placement is fine).
+const siteLinks = [
+  { href: "/keigo-henkan", label: "敬語変換ツール（無料）" },
+  { href: "/keigo-check", label: "敬語チェック" },
+  { href: "/keigo-test", label: "敬語テスト20問" },
+  { href: "/reibun", label: "場面別 例文集" },
+  { href: "/blog", label: "記事一覧" },
+  { href: "/ai-keigo-keyboard", label: "AI敬語キーボードとは" },
+];
+
 const appJsonLd = {
   "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "@id": "https://keigobutton.vercel.app/#app",
+  // Must stay `SoftwareApplication`: every other page references this same @id
+  // (see lib/site.ts → softwareApplicationNode), and two @types on one @id
+  // makes the entity ambiguous. It is also the type Google documents for app
+  // rich results. Keep this and lib/site.ts in agreement.
+  "@type": "SoftwareApplication",
+  "@id": "https://keigobutton.com/#app",
   name: "敬語ボタン",
   alternateName: ["KeigoButton", "敬語ボタン｜AIキーボード"],
-  url: "https://keigobutton.vercel.app/",
+  url: "https://keigobutton.com/",
   downloadUrl: APP_STORE_URL,
   description:
     "LINE・メール・DMの文章を、入力中のアプリを離れずに自然な敬語へ書き直せるiPhone向けAIキーボードアプリ。",
@@ -60,9 +76,9 @@ const appJsonLd = {
     "通常の日本語入力は端末内で処理",
   ],
   screenshot: [
-    "https://keigobutton.vercel.app/home.png",
-    "https://keigobutton.vercel.app/keyboard.jpg",
-    "https://keigobutton.vercel.app/prompts.png",
+    "https://keigobutton.com/home.png",
+    "https://keigobutton.com/keyboard.jpg",
+    "https://keigobutton.com/prompts.png",
   ],
   publisher: {
     "@type": "Organization",
@@ -600,6 +616,37 @@ const MobileKeyboardSection = () => (
   </section>
 );
 
+const MobileFaqSection = () => (
+  <section
+    data-anim-section="mobile-faq"
+    className="relative w-full overflow-hidden bg-white px-5 py-14 text-black"
+  >
+    <div data-reveal>
+      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.18em] text-black/35">
+        よくある質問
+      </span>
+      <h2 className="font-display text-[clamp(27px,8vw,33px)] font-semibold leading-[1.14]">
+        敬語を考える時間を
+        <br />
+        減らすための、
+        <br />
+        AIキーボード。
+      </h2>
+    </div>
+
+    <div
+      data-reveal
+      className="mt-6 rounded-[24px] bg-[#F9F9F9] px-5 py-2"
+    >
+      <FaqAccordion compact />
+    </div>
+
+    <div data-reveal>
+      <FaqLinks compact />
+    </div>
+  </section>
+);
+
 const MobileCtaSection = () => (
   <section
     data-anim-section="mobile-cta"
@@ -654,12 +701,21 @@ const MobileCtaSection = () => (
 
     <div
       data-reveal
-      className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-[13px] font-semibold text-white/55"
+      className="relative z-10 mt-8 flex flex-col items-center gap-5 text-[13px] font-semibold text-white/55"
     >
-      <a href="https://www.core7-jp.com/">運営会社</a>
-      <Link href="/support">サポート</Link>
-      <Link href="/terms">利用規約</Link>
-      <Link href="/privacy">プライバシー</Link>
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        {siteLinks.map(({ href, label }) => (
+          <Link key={href} href={href}>
+            {label}
+          </Link>
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+        <a href="https://www.core7-jp.com/">運営会社</a>
+        <Link href="/support">サポート</Link>
+        <Link href="/terms">利用規約</Link>
+        <Link href="/privacy">プライバシー</Link>
+      </div>
     </div>
   </section>
 );
@@ -670,6 +726,7 @@ const MobileLanding = () => (
     <MobileAboutSection />
     <MobileFeaturesSection />
     <MobileKeyboardSection />
+    <MobileFaqSection />
     <MobileCtaSection />
   </div>
 );
@@ -982,6 +1039,18 @@ const FooterSection = () => (
         </div>
       </div>
 
+      {/* Explore links — mirrors the legal column on the left */}
+      <div
+        data-reveal
+        className="lg:absolute lg:left-20 lg:bottom-12 flex flex-wrap lg:flex-col items-center lg:items-start justify-center gap-x-7 gap-y-3 text-[13px] font-medium text-black/60 z-30"
+      >
+        {siteLinks.map(({ href, label }) => (
+          <Link key={href} href={href} className="hover:text-black transition-colors">
+            {label}
+          </Link>
+        ))}
+      </div>
+
       {/* Legal links */}
       <div
         data-reveal
@@ -1001,37 +1070,121 @@ const FooterSection = () => (
   </div>
 );
 
-const DiscoverySection = () => (
-  <section className="w-full bg-white px-6 py-20 text-[#18181A] lg:py-28">
-    <div className="mx-auto max-w-5xl">
-      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-black/40">
-        AI keyboard for Japanese writing
-      </p>
-      <h2 className="mt-4 max-w-3xl font-display text-[32px] font-semibold leading-tight lg:text-[48px]">
-        敬語を考える時間を減らす、
-        <br />
-        iPhoneのAIキーボード。
-      </h2>
-      <p className="mt-6 max-w-3xl text-[15px] leading-8 text-black/60 lg:text-base">
-        敬語ボタンは、文章を敬語に直したいときに入力欄からそのまま使える日本語キーボードアプリです。就活の連絡、上司へのSlack、取引先へのメール、先生へのメッセージなど、丁寧さに迷う場面で自然な候補を提案します。
-      </p>
+// Accordion FAQ — panels stay mounted (height-animated) so every Q&A remains
+// in the DOM for search engines; it backs the FAQPage JSON-LD above.
+const FaqAccordion = ({ compact = false }: { compact?: boolean }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-      <div className="mt-14 grid gap-8 lg:grid-cols-3">
-        {discoveryFaq.map(({ question, answer }) => (
-          <article key={question} className="border-t border-black/15 pt-6">
-            <h3 className="font-display text-lg font-semibold leading-relaxed">{question}</h3>
-            <p className="mt-3 text-sm leading-7 text-black/55">{answer}</p>
-          </article>
-        ))}
-      </div>
+  return (
+    <div className="flex flex-col">
+      {discoveryFaq.map(({ question, answer }, index) => {
+        const open = openIndex === index;
+        return (
+          <div key={question} className={index > 0 ? "border-t border-black/10" : ""}>
+            <button
+              type="button"
+              aria-expanded={open}
+              onClick={() => setOpenIndex(open ? null : index)}
+              className={`flex w-full items-center justify-between gap-4 text-left ${
+                compact ? "py-4" : "py-5 lg:py-6"
+              }`}
+            >
+              <span
+                className={`font-display font-semibold leading-relaxed text-[#18181A] ${
+                  compact ? "text-[15px]" : "text-base lg:text-lg"
+                }`}
+              >
+                {question}
+              </span>
+              <span
+                className={`flex shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                  compact ? "h-8 w-8" : "h-9 w-9"
+                } ${open ? "rotate-45 bg-[#18181A] text-white" : "bg-black/[0.05] text-black/60"}`}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </button>
+            <div
+              className={`grid transition-all duration-300 ease-out ${
+                open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <p
+                  className={`pr-10 leading-7 text-black/55 ${
+                    compact ? "pb-4 text-[13px]" : "pb-5 text-sm lg:pb-6"
+                  }`}
+                >
+                  {answer}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
-      <div className="mt-12 flex flex-wrap items-center gap-6 text-sm font-semibold">
-        <Link href="/ai-keigo-keyboard" className="border-b border-black pb-1">
-          AI敬語キーボードについて詳しく見る
-        </Link>
-        <a href="https://www.core7-jp.com/" className="border-b border-black/30 pb-1 text-black/60">
-          開発・運営：株式会社Core7
-        </a>
+const FaqLinks = ({ compact = false }: { compact?: boolean }) => (
+  <div
+    className={`flex flex-wrap items-center font-semibold ${
+      compact ? "mt-6 gap-x-5 gap-y-2.5 text-[13px]" : "mt-8 gap-6 text-sm"
+    }`}
+  >
+    {siteLinks.map(({ href, label }, index) => (
+      <Link
+        key={href}
+        href={href}
+        className={
+          index === 0
+            ? "border-b border-black pb-1"
+            : "border-b border-black/30 pb-1 text-black/60"
+        }
+      >
+        {label}
+      </Link>
+    ))}
+    <a href="https://www.core7-jp.com/" className="border-b border-black/30 pb-1 text-black/60">
+      開発・運営：株式会社Core7
+    </a>
+  </div>
+);
+
+const FaqSection = () => (
+  <section
+    data-anim-section="faq"
+    className="w-full bg-white relative flex justify-center pb-16 lg:pb-20 shrink-0"
+  >
+    <div className="w-full max-w-[1400px] px-6 lg:px-20">
+      <div
+        data-reveal
+        className="bg-[#F9F9F9] rounded-[32px] p-8 lg:p-14 flex flex-col lg:flex-row lg:gap-20"
+      >
+        <div className="lg:w-[40%] shrink-0 mb-8 lg:mb-0">
+          <span className="text-black/40 text-[11px] font-bold tracking-[0.15em] uppercase mb-4 block">
+            よくある質問
+          </span>
+          <h2 className="font-display text-[28px] lg:text-[2.75rem] font-semibold leading-[1.15] text-black mb-5">
+            敬語を考える時間を減らす、
+            <br />
+            iPhoneのAIキーボード。
+          </h2>
+          <p className="text-black/50 text-[14px] lg:text-[15px] leading-7 font-sans">
+            敬語ボタンは、文章を敬語に直したいときに入力欄からそのまま使える日本語キーボードアプリです。就活の連絡、上司へのSlack、取引先へのメール、先生へのメッセージなど、丁寧さに迷う場面で自然な候補を提案します。
+          </p>
+          <div className="hidden lg:block">
+            <FaqLinks />
+          </div>
+        </div>
+        <div className="flex-1">
+          <FaqAccordion />
+          <div className="lg:hidden">
+            <FaqLinks compact />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1090,11 +1243,13 @@ export default function Home() {
           "about",
           "transition",
           "features",
+          "faq",
           "cta",
           "footer",
           "mobile-about",
           "mobile-features",
           "mobile-keyboard",
+          "mobile-faq",
           "mobile-cta",
         ].forEach((section) => {
           const root = `[data-anim-section="${section}"]`;
@@ -1339,10 +1494,10 @@ export default function Home() {
           <AboutSection />
           <DarkToLightTransition />
           <FeaturesSection />
+          <FaqSection />
           <CtaSection />
           <FooterSection />
           </div>
-          <DiscoverySection />
         </div>
       </div>
     </div>

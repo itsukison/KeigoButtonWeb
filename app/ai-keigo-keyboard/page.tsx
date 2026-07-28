@@ -44,14 +44,14 @@ export default function AiKeigoKeyboardPage() {
     inLanguage: "ja",
     datePublished: "2026-07-19",
     dateModified: "2026-07-19",
-    mainEntityOfPage: "https://keigobutton.vercel.app/ai-keigo-keyboard",
+    mainEntityOfPage: "https://keigobutton.com/ai-keigo-keyboard",
     author: {
       "@type": "Organization",
       "@id": "https://www.core7-jp.com/#organization",
       name: "株式会社Core7",
       url: "https://www.core7-jp.com/",
     },
-    about: { "@id": "https://keigobutton.vercel.app/#app" },
+    about: { "@id": "https://keigobutton.com/#app" },
   };
 
   const faqJsonLd = {
