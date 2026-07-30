@@ -336,7 +336,7 @@ const MobileGallery = () => {
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {galleryShots.map((shot, index) => (
           <figure
@@ -945,20 +945,19 @@ const CtaSection = () => (
         </a>
       </div>
 
-      <div
-        data-reveal-scale
-        className="absolute bottom-0 left-0 right-0 flex justify-center items-end z-10 translate-y-[150px] sm:translate-y-[200px] lg:translate-y-[220px] scale-[0.6] sm:scale-[0.75] lg:scale-100 origin-bottom"
-      >
-        <Starburst className="absolute bottom-[200px] sm:bottom-[300px] lg:bottom-[400px] left-10 lg:left-[15%] w-[160px] lg:w-[240px] h-[160px] lg:h-[240px] text-white z-0 opacity-50 lg:opacity-100" />
+      <div className="absolute bottom-0 left-0 right-0 z-10 translate-y-[150px] sm:translate-y-[200px] lg:translate-y-[220px] scale-[0.6] sm:scale-[0.75] lg:scale-100 origin-bottom">
+        <div data-reveal-scale className="relative flex w-full justify-center items-end">
+          <Starburst className="absolute bottom-[200px] sm:bottom-[300px] lg:bottom-[400px] left-10 lg:left-[15%] w-[160px] lg:w-[240px] h-[160px] lg:h-[240px] text-white z-0 opacity-50 lg:opacity-100" />
 
-        <div className="hidden sm:block relative z-10 transform scale-95 translate-x-12 translate-y-16">
-          <ResultDetailPhone />
-        </div>
-        <div className="relative z-20 transform scale-[1.05] shadow-[0_-20px_40px_-10px_rgba(0,0,0,0.4)]">
-          <PhoneMockup />
-        </div>
-        <div className="hidden sm:block relative z-10 transform scale-95 -translate-x-12 translate-y-16">
-          <ComposePhone />
+          <div className="hidden sm:block relative z-10 transform scale-95 translate-x-12 translate-y-16">
+            <ResultDetailPhone />
+          </div>
+          <div className="relative z-20 transform scale-[1.05] shadow-[0_-20px_40px_-10px_rgba(0,0,0,0.4)]">
+            <PhoneMockup />
+          </div>
+          <div className="hidden sm:block relative z-10 transform scale-95 -translate-x-12 translate-y-16">
+            <ComposePhone />
+          </div>
         </div>
       </div>
     </div>
@@ -1366,7 +1365,7 @@ export default function Home() {
             >
               <div className="flex items-center gap-2.5">
                 <BrandIcon className="h-10 w-10 drop-shadow-[0_8px_18px_rgba(200,188,250,0.35)]" sizes="40px" />
-                <span className="font-display font-bold text-2xl tracking-tight hidden lg:block">
+                <span className="font-display font-bold text-2xl tracking-tight text-white hidden lg:block">
                   敬語ボタン
                 </span>
               </div>
