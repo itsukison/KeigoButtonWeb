@@ -41,7 +41,6 @@ const siteLinks = [
   { href: "/keigo-test", label: "敬語テスト20問" },
   { href: "/reibun", label: "場面別 例文集" },
   { href: "/blog", label: "記事一覧" },
-  { href: "/ai-keigo-keyboard", label: "AI敬語キーボードとは" },
 ];
 
 const appJsonLd = {

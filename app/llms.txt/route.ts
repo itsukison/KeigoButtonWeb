@@ -95,9 +95,6 @@ function build(): string {
   lines.push("## アプリについて");
   lines.push("");
   lines.push(
-    `- [敬語に直せるAIキーボードとは](${SITE_URL}/ai-keigo-keyboard): AIキーボードの仕組み、使える場面、AIチャットへのコピペとの違い。`,
-  );
-  lines.push(
     `- [サポート・設定手順](${SITE_URL}/support): キーボードの追加、フルアクセスの許可、切り替え方、トラブルシューティング。`,
   );
   lines.push(`- [プライバシーポリシー](${SITE_URL}/privacy): 取得する情報、AI送信の範囲、保存と同意の扱い。`);

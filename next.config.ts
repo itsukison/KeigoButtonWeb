@@ -27,6 +27,17 @@ const nextConfig: NextConfig = {
         destination: "https://keigobutton.com/:path*",
         permanent: true,
       },
+      // /ai-keigo-keyboard was a pre-SEO page (1,001 chars, no row in the
+      // keyword map) competing with this article for the same 「iPhone 敬語
+      // キーボード」cluster. Search Console had it at "Discovered – currently
+      // not indexed" on 2026-07-30, so nothing is being thrown away by folding
+      // it in. `permanent: true` emits 308, which Google consolidates the same
+      // way as a 301.
+      {
+        source: "/ai-keigo-keyboard",
+        destination: "/blog/iphone-keigo-keyboard",
+        permanent: true,
+      },
     ];
   },
 };

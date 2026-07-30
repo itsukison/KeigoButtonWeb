@@ -1,0 +1,320 @@
+{
+ "date": "2026-07-30",
+ "rows": [
+  {
+   "url": "https://keigobutton.com",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T22:38:05Z",
+   "googleCanonical": "https://keigobutton.com",
+   "userCanonical": "https://keigobutton.com/",
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/keigo-henkan",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T20:54:07Z",
+   "googleCanonical": "https://keigobutton.com/keigo-henkan",
+   "userCanonical": "https://keigobutton.com/keigo-henkan",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/keigo-check",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-28T11:41:51Z",
+   "googleCanonical": "https://keigobutton.com/keigo-check",
+   "userCanonical": "https://keigobutton.com/keigo-check",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/keigo-test",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:49:22Z",
+   "googleCanonical": "https://keigobutton.com/keigo-test",
+   "userCanonical": "https://keigobutton.com/keigo-test",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/reibun",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:49:22Z",
+   "googleCanonical": "https://keigobutton.com/reibun",
+   "userCanonical": "https://keigobutton.com/reibun",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog",
+   "verdict": "NEUTRAL",
+   "coverage": "クロール済み - インデックス未登録",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:49:22Z",
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/ai-keigo-keyboard",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/support",
+   "verdict": "NEUTRAL",
+   "coverage": "URL が Google に認識されていません",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/privacy",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/terms",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/blog/keigo-henkan-tool-hikaku",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T02:46:45Z",
+   "googleCanonical": "https://keigobutton.com/blog/keigo-henkan-tool-hikaku",
+   "userCanonical": "https://keigobutton.com/blog/keigo-henkan-tool-hikaku",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog/ai-keyboard-osusume",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-28T20:58:57Z",
+   "googleCanonical": "https://keigobutton.com/blog/ai-keyboard-osusume",
+   "userCanonical": "https://keigobutton.com/blog/ai-keyboard-osusume",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog/chatgpt-keigo-henkan",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T08:42:37Z",
+   "googleCanonical": "https://keigobutton.com/blog/chatgpt-keigo-henkan",
+   "userCanonical": "https://keigobutton.com/blog/chatgpt-keigo-henkan",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog/iphone-keigo-keyboard",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T02:36:12Z",
+   "googleCanonical": "https://keigobutton.com/blog/iphone-keigo-keyboard",
+   "userCanonical": "https://keigobutton.com/blog/iphone-keigo-keyboard",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog/niju-keigo",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T18:16:30Z",
+   "googleCanonical": "https://keigobutton.com/blog/niju-keigo",
+   "userCanonical": "https://keigobutton.com/blog/niju-keigo",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/blog/keigo-shurui",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-29T20:16:05Z",
+   "googleCanonical": "https://keigobutton.com/blog/keigo-shurui",
+   "userCanonical": "https://keigobutton.com/blog/keigo-shurui",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/reibun/taichofuryo-kyuka",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:52:40Z",
+   "googleCanonical": "https://keigobutton.com/reibun/taichofuryo-kyuka",
+   "userCanonical": "https://keigobutton.com/reibun/taichofuryo-kyuka",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/reibun/shimekiri-okure",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/saisoku",
+   "verdict": "NEUTRAL",
+   "coverage": "クロール済み - インデックス未登録",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:52:41Z",
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/nittei-chosei",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:52:40Z",
+   "googleCanonical": "https://keigobutton.com/reibun/nittei-chosei",
+   "userCanonical": "https://keigobutton.com/reibun/nittei-chosei",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/reibun/shukatsu-mail",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-30T04:49:22Z",
+   "googleCanonical": "https://keigobutton.com/reibun/shukatsu-mail",
+   "userCanonical": "https://keigobutton.com/reibun/shukatsu-mail",
+   "rich": [
+    "パンくずリスト"
+   ]
+  },
+  {
+   "url": "https://keigobutton.com/reibun/orei-mail",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/misu-owabi",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/kotowaru",
+   "verdict": "NEUTRAL",
+   "coverage": "検出 - インデックス未登録",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/yukyu-shinsei",
+   "verdict": "NEUTRAL",
+   "coverage": "URL が Google に認識されていません",
+   "robots": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "fetch": "PAGE_FETCH_STATE_UNSPECIFIED",
+   "lastCrawl": null,
+   "googleCanonical": null,
+   "userCanonical": null,
+   "rich": []
+  },
+  {
+   "url": "https://keigobutton.com/reibun/henshin-okure",
+   "verdict": "PASS",
+   "coverage": "送信して登録されました",
+   "robots": "ALLOWED",
+   "fetch": "SUCCESSFUL",
+   "lastCrawl": "2026-07-28T07:09:43Z",
+   "googleCanonical": "https://keigobutton.com/reibun/henshin-okure",
+   "userCanonical": "https://keigobutton.com/reibun/henshin-okure",
+   "rich": [
+    "パンくずリスト"
+   ]
+  }
+ ],
+ "queries": []
+}

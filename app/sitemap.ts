@@ -19,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Hubs.
     { url: `${SITE_URL}/reibun`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.85 },
     { url: `${SITE_URL}/blog`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.8 },
-    { url: `${SITE_URL}/ai-keigo-keyboard`, lastModified: "2026-07-28", changeFrequency: "monthly", priority: 0.8 },
 
     { url: `${SITE_URL}/support`, lastModified: "2026-06-08", changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/privacy`, lastModified: "2026-07-02", changeFrequency: "yearly", priority: 0.3 },

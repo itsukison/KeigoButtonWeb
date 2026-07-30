@@ -61,9 +61,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // Next.js build output and framework internals carry no indexable
-        // content; keeping them out of crawl reports reduces noise.
-        disallow: ["/_next/static/chunks/", "/api/"],
+        // JS chunks stay crawlable so Googlebot can fully render the
+        // interactive tool pages; /api/ has no indexable content.
+        disallow: ["/api/"],
       },
       { userAgent: AI_CRAWLERS, allow: "/" },
     ],
