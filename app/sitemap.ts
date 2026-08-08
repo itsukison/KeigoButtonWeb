@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/support`, lastModified: "2026-06-08", changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/privacy`, lastModified: "2026-07-02", changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/terms`, lastModified: "2026-06-08", changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/legal`, lastModified: "2026-08-08", changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const articleRoutes: MetadataRoute.Sitemap = ARTICLES.map((article) => ({

@@ -99,6 +99,7 @@ function build(): string {
   );
   lines.push(`- [プライバシーポリシー](${SITE_URL}/privacy): 取得する情報、AI送信の範囲、保存と同意の扱い。`);
   lines.push(`- [利用規約](${SITE_URL}/terms)`);
+  lines.push(`- [特定商取引法に基づく表記](${SITE_URL}/legal)`);
   lines.push("");
 
   lines.push("## Optional");

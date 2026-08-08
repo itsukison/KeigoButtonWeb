@@ -714,6 +714,7 @@ const MobileCtaSection = () => (
         <Link href="/support">サポート</Link>
         <Link href="/terms">利用規約</Link>
         <Link href="/privacy">プライバシー</Link>
+        <Link href="/legal">特商法表記</Link>
       </div>
     </div>
   </section>
@@ -1063,6 +1064,7 @@ const FooterSection = () => (
         <Link href="/support" className="hover:text-black transition-colors">サポート</Link>
         <Link href="/terms" className="hover:text-black transition-colors">利用規約</Link>
         <Link href="/privacy" className="hover:text-black transition-colors">プライバシー</Link>
+        <Link href="/legal" className="hover:text-black transition-colors">特商法表記</Link>
       </div>
     </div>
   </div>

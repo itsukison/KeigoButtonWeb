@@ -95,6 +95,7 @@ export function SiteFooter() {
               <li><Link href="/support" className="hover:text-black">サポート・使い方</Link></li>
               <li><Link href="/terms" className="hover:text-black">利用規約</Link></li>
               <li><Link href="/privacy" className="hover:text-black">プライバシーポリシー</Link></li>
+              <li><Link href="/legal" className="hover:text-black">特定商取引法に基づく表記</Link></li>
               <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-black">{CONTACT_EMAIL}</a></li>
             </ul>
           </div>

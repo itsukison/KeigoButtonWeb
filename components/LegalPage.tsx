@@ -52,6 +52,9 @@ function SiteHeader() {
           <Link href="/privacy" className="hover:text-black transition-colors">
             プライバシー
           </Link>
+          <Link href="/legal" className="hover:text-black transition-colors">
+            特商法表記
+          </Link>
         </nav>
       </div>
     </header>
@@ -82,6 +85,9 @@ function SiteFooter() {
           </Link>
           <Link href="/privacy" className="hover:text-black transition-colors">
             プライバシー
+          </Link>
+          <Link href="/legal" className="hover:text-black transition-colors">
+            特商法表記
           </Link>
         </nav>
         <div className="text-right">
