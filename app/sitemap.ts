@@ -9,7 +9,8 @@ import { REIBUN } from "@/content/reibun";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 1 },
+    { url: SITE_URL, lastModified: "2026-08-08", changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE_URL}/mobile`, lastModified: "2026-08-08", changeFrequency: "monthly", priority: 0.9 },
 
     // Tools — the primary organic entry points.
     { url: `${SITE_URL}/keigo-henkan`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.95 },

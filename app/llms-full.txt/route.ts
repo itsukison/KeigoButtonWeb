@@ -20,9 +20,10 @@ function build(): string {
   out.push("# 敬語ボタン（KeigoButton）— 全ページ本文");
   out.push("");
   out.push(
-    `iPhone向け日本語AIキーボードアプリ「敬語ボタン」の公式サイト（${SITE_URL}）の全文です。` +
-      `開発・運営: ${PUBLISHER_NAME}（${PUBLISHER_URL}）。ダウンロード: ${APP_STORE_URL}。` +
-      "最終更新: 2026-07-28。",
+    `Mac・iPhone向け日本語AI文章作成アプリ「敬語ボタン」の公式サイト（${SITE_URL}）の全文です。` +
+      `Mac版は入力中の場所から、iPhone版はキーボードから文章を書き換えられます。` +
+      `開発・運営: ${PUBLISHER_NAME}（${PUBLISHER_URL}）。iPhone版: ${APP_STORE_URL}。` +
+      "最終更新: 2026-08-08。",
   );
   out.push("");
   out.push(

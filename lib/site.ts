@@ -18,7 +18,11 @@ export const PUBLISHER_NAME = "株式会社Core7";
 // Stable JSON-LD node identifiers. Every page that references the app or the
 // publisher points at these @ids instead of restating the entity, so search
 // engines and LLMs resolve one canonical node per thing.
-export const APP_ID = `${SITE_URL}/#app`;
+export const MOBILE_APP_ID = `${SITE_URL}/mobile#app`;
+export const MAC_APP_ID = `${SITE_URL}/#app`;
+// Existing article and tool pages describe the iPhone keyboard, so their
+// long-standing APP_ID reference continues to resolve to that app entity.
+export const APP_ID = MOBILE_APP_ID;
 export const ORG_ID = `${PUBLISHER_URL}#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 
@@ -52,7 +56,7 @@ export const softwareApplicationNode = {
   "@id": APP_ID,
   name: SITE_NAME,
   alternateName: ["KeigoButton", "敬語ボタン｜AIキーボード", "敬語ボタン｜AI変換・返信キーボード"],
-  url: `${SITE_URL}/`,
+  url: `${SITE_URL}/mobile`,
   downloadUrl: APP_STORE_URL,
   installUrl: APP_STORE_URL,
   description:
@@ -79,6 +83,35 @@ export const softwareApplicationNode = {
   screenshot: [absolute("/home.png"), absolute("/keyboard.jpg"), absolute("/prompts.png")],
   publisher: { "@id": ORG_ID },
   sameAs: [APP_STORE_URL],
+} as const;
+
+export const macSoftwareApplicationNode = {
+  "@type": "SoftwareApplication",
+  "@id": MAC_APP_ID,
+  name: `${SITE_NAME} Mac版`,
+  alternateName: ["KeigoButton for Mac", "敬語ボタン macOS版"],
+  url: `${SITE_URL}/`,
+  description:
+    "画面下のバーから、入力中の文章をコピーや貼り付けなしで自然な敬語や目的に合う表現へ書き換えられるmacOSアプリ。",
+  applicationCategory: "UtilitiesApplication",
+  applicationSubCategory: "AI文章作成支援",
+  operatingSystem: "macOS 14以降",
+  inLanguage: "ja",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: 0,
+    priceCurrency: "JPY",
+    url: `${SITE_URL}/`,
+  },
+  featureList: [
+    "入力中の文章をその場で自然な敬語に書き換え",
+    "コピー・貼り付け・アプリ切り替え不要",
+    "選択範囲または入力欄全体を自動判定",
+    "iPhone版と変換ボタンを同期",
+    "Mail・Slack・Gmail・Notion・Chrome・Wordなどで利用",
+  ],
+  publisher: { "@id": ORG_ID },
 } as const;
 
 type JsonLdNode = Record<string, unknown>;

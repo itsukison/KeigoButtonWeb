@@ -3,6 +3,8 @@ import Image from "next/image";
 import { APP_STORE_URL, CONTACT_EMAIL, PUBLISHER_NAME, PUBLISHER_URL } from "@/lib/site";
 
 const NAV = [
+  { href: "/", label: "Mac版" },
+  { href: "/mobile", label: "iPhone版" },
   { href: "/keigo-henkan", label: "敬語変換" },
   { href: "/keigo-check", label: "敬語チェック" },
   { href: "/keigo-test", label: "敬語テスト" },
@@ -38,7 +40,7 @@ export function SiteHeader() {
           href={APP_STORE_URL}
           className="ml-auto shrink-0 rounded-full bg-[#18181A] px-4 py-2 text-[12px] font-bold text-white transition-transform active:scale-[0.98] lg:px-5 lg:text-[13px]"
         >
-          無料アプリを入手
+          iPhone版を無料で入手
         </a>
       </div>
 
@@ -63,13 +65,13 @@ export function SiteFooter() {
           <div>
             <span className="font-display text-[15px] font-bold">敬語ボタン</span>
             <p className="mt-3 max-w-xs text-[13px] leading-7 text-black/50">
-              LINE・メール・DMの文章を、入力中のアプリを離れずに自然な敬語へ書き直せるiPhone向けAIキーボードです。
+              Macでは入力中の場所からそのまま、iPhoneではキーボードから。文章を自然な敬語へ書き直せるAIアプリです。
             </p>
             <a
               href={APP_STORE_URL}
               className="mt-5 inline-block rounded-xl bg-[#18181A] px-5 py-2.5 text-[13px] font-bold text-white"
             >
-              App Storeでダウンロード
+              iPhone版をApp Storeで入手
             </a>
           </div>
 
@@ -92,6 +94,8 @@ export function SiteFooter() {
             </span>
             <ul className="mt-4 flex flex-col gap-2.5 text-black/60">
               <li><a href={PUBLISHER_URL} className="hover:text-black">{PUBLISHER_NAME}</a></li>
+              <li><Link href="/" className="hover:text-black">Mac版</Link></li>
+              <li><Link href="/mobile" className="hover:text-black">iPhone版</Link></li>
               <li><Link href="/support" className="hover:text-black">サポート・使い方</Link></li>
               <li><Link href="/terms" className="hover:text-black">利用規約</Link></li>
               <li><Link href="/privacy" className="hover:text-black">プライバシーポリシー</Link></li>
@@ -102,7 +106,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-black/10 pt-6 text-[12px] text-black/40">
-          © {new Date().getFullYear()} Core7, Inc. 敬語ボタンはiPhone向けの日本語AIキーボードアプリです。
+          © {new Date().getFullYear()} Core7, Inc. 敬語ボタンはMacとiPhoneで使える日本語AI文章作成アプリです。
         </div>
       </div>
     </footer>

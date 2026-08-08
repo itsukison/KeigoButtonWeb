@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { PUBLISHER_NAME, PUBLISHER_URL, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -17,21 +17,25 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "敬語ボタン｜敬語に直せるAIキーボード",
+    default: "敬語ボタン｜Mac・iPhoneで文章をその場で整える",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "敬語ボタンは、LINE・メール・DMの文章をキーボード上で自然な敬語に書き直せるiPhone向けAIキーボードアプリです。アプリを切り替えず、タップした文章だけをAIで整えます。無料の敬語変換ツール・敬語チェック・敬語テストも公開しています。",
+    "Macでは入力中の場所からそのまま、iPhoneではキーボードから。文章を自然な敬語や目的に合う表現へ書き直せるAI文章作成アプリです。",
   applicationName: SITE_NAME,
   authors: [{ name: PUBLISHER_NAME, url: PUBLISHER_URL }],
   creator: PUBLISHER_NAME,
   publisher: PUBLISHER_NAME,
-  alternates: {
-    canonical: "/",
-  },
   keywords: [
     "敬語ボタン",
     "敬語 変換",
@@ -39,6 +43,8 @@ export const metadata: Metadata = {
     "敬語 チェック",
     "二重敬語",
     "敬語 AI",
+    "Mac 敬語",
+    "macOS AI 文章作成",
     "AIキーボード",
     "日本語キーボード",
     "メール 敬語",
@@ -61,25 +67,19 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "敬語ボタン｜敬語に直せるAIキーボード",
+    title: "敬語ボタン｜Mac・iPhoneで文章をその場で整える",
     description:
-      "LINE・メール・DMの文章を、キーボード上で自然な敬語へ。アプリを切り替えずに使えるiPhone向けAIキーボード。",
+      "Macでは入力中の場所から、iPhoneではキーボードから。文章を自然な敬語へ書き直せます。",
     url: "/",
     siteName: "敬語ボタン",
     images: [
       {
-        url: "/home.png",
-        alt: "敬語ボタンのアプリ画面",
+        url: "/mac-footer.png",
+        alt: "敬語ボタン",
       },
     ],
     locale: "ja_JP",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "敬語ボタン｜敬語に直せるAIキーボード",
-    description: "文章をキーボード上で自然な敬語へ。iPhone向けAIキーボードアプリ。",
-    images: ["/home.png"],
   },
 };
 
@@ -89,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${jakarta.variable} h-full`}
+      className={`${notoSansJP.variable} ${jakarta.variable} ${inter.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-white text-[var(--foreground)]">
