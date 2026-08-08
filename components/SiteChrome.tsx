@@ -18,10 +18,10 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-5 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
-            src="/iconbgremoved copy.png"
+            src="/brand-icon.png"
             alt=""
-            width={1200}
-            height={1200}
+            width={256}
+            height={256}
             sizes="30px"
             className="h-[30px] w-[30px] object-contain"
           />

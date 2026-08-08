@@ -24,7 +24,7 @@ export default function Nav({ onDownload }) {
       <nav className="nav__inner" aria-label="メイン">
         <a className="nav__brand" href="#top">
           <span className="nav__mark">
-            <img src="/mac-icon.png" alt="" width="26" height="26" />
+            <img src="/brand-icon.png" alt="" width="26" height="26" />
           </span>
           敬語ボタン
         </a>

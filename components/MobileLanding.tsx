@@ -10,7 +10,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
-const APP_ICON_SRC = "/iconbgremoved copy.png";
+const APP_ICON_SRC = "/brand-icon.png";
 const APP_STORE_URL =
   "https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723";
 
@@ -111,8 +111,8 @@ const BrandIcon = ({
   <Image
     src={APP_ICON_SRC}
     alt={alt}
-    width={1200}
-    height={1200}
+    width={256}
+    height={256}
     sizes={sizes}
     className={`object-contain ${className}`}
   />

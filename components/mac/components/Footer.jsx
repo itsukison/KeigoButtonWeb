@@ -31,7 +31,7 @@ export default function Footer({ onDownload }) {
 
           <div className="footer__column footer__company">
             <a className="footer__brand" href="#top">
-              <img src="/mac-icon.png" alt="" width="28" height="28" />
+              <img src="/brand-icon.png" alt="" width="28" height="28" />
               敬語ボタン
             </a>
             <div className="footer__legal-links">
