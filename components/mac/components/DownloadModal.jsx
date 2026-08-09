@@ -114,7 +114,7 @@ function StepArt({ index }) {
         <rect x="14" y="16" width="92" height="58" rx="6" />
         <path d="M14 30h92" />
         <rect x="24" y="40" width="72" height="16" rx="4" fill="var(--accent-soft)" stroke="none" />
-        <image href="/brand-icon.png" x="28" y="42" width="12" height="12" />
+        <AppIconImage x={28} y={42} size={12} />
         <path d="M45 46h32M45 51h22" opacity=".65" />
         <circle cx="88" cy="24" r="6" />
         <path d="M88 21v6m-2.4-2.4L88 27l2.4-2.4" />
@@ -124,7 +124,7 @@ function StepArt({ index }) {
   if (index === 1) {
     return (
       <svg className="art" viewBox="0 0 120 90" {...stroke}>
-        <image href="/brand-icon.png" x="12" y="22" width="42" height="42" />
+        <AppIconImage x={12} y={22} size={42} />
         <rect x="74" y="34" width="30" height="26" rx="4" strokeDasharray="4 3" />
         <path d="M50 60q14 12 26 2" strokeDasharray="3 3" />
         <path d="M74 60l4-2-1 4z" fill="currentColor" />
@@ -148,7 +148,7 @@ function StepArt({ index }) {
             />
           )),
         )}
-        <image href="/brand-icon.png" x="42" y="40" width="16" height="16" />
+        <AppIconImage x={42} y={40} size={16} />
       </svg>
     )
   }
@@ -158,9 +158,32 @@ function StepArt({ index }) {
       <path d="M14 30h92" />
       <rect x="24" y="40" width="48" height="6" rx="3" fill="var(--accent-soft)" stroke="none" />
       <rect x="24" y="54" width="34" height="6" rx="3" fill="var(--accent-soft)" stroke="none" />
-      <image href="/brand-icon.png" x="27" y="38" width="10" height="10" />
+      <AppIconImage x={27} y={38} size={10} />
       <rect x="80" y="38" width="18" height="10" rx="5" fill="var(--accent)" stroke="none" />
       <circle cx="93" cy="43" r="3.4" fill="#fff" stroke="none" />
     </svg>
+  )
+}
+
+function AppIconImage({ x, y, size }) {
+  const clipId = `app-icon-${x}-${y}-${size}`
+  const radius = size * 0.22
+
+  return (
+    <>
+      <defs>
+        <clipPath id={clipId}>
+          <rect x={x} y={y} width={size} height={size} rx={radius} />
+        </clipPath>
+      </defs>
+      <image
+        href="/brand-icon.png"
+        x={x}
+        y={y}
+        width={size}
+        height={size}
+        clipPath={`url(#${clipId})`}
+      />
+    </>
   )
 }
