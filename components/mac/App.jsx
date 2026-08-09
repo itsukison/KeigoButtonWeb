@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { MAC_DOWNLOAD_URL } from '@/lib/site'
+import { MacI18nProvider } from './i18n'
 
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
@@ -14,7 +15,7 @@ import Faq from './components/Faq.jsx'
 import Footer from './components/Footer.jsx'
 import DownloadModal from './components/DownloadModal.jsx'
 
-export default function App() {
+export default function App({ lang = 'ja' }) {
   const [modal, setModal] = useState(false)
   const downloadUrl =
     process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL ||
@@ -36,7 +37,7 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <MacI18nProvider lang={lang}>
       <Nav onDownload={openDownload} />
 
       <main>
@@ -59,6 +60,6 @@ export default function App() {
       <Footer onDownload={openDownload} />
 
       {modal && <DownloadModal downloadUrl={downloadUrl} onClose={() => setModal(false)} />}
-    </>
+    </MacI18nProvider>
   )
 }

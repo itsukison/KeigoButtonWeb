@@ -16,6 +16,8 @@
  * permanent 50/month tier already does that job (`docs/pricing.md` §3).
  */
 
+import { fill } from '@/lib/i18n'
+
 export const LIMITS = {
   free: 50,
   pro: 1000, // ≈33/day — beyond any human writing pace (docs/pricing.md §7)
@@ -27,47 +29,58 @@ export const PRICE = {
   yearlyTotal: 14400,
 }
 
-// ¥1,480 × 12 = ¥17,760, so annual saves ¥3,360 = 2.27 months.
-export const YEARLY_SAVE_LABEL = '2ヶ月分以上お得'
-
+// The amounts never change with the language: the product is billed in yen on every
+// surface, and a converted figure on the page would not be the figure at the card.
 const yen = (n) => `¥${n.toLocaleString('ja-JP')}`
 
-export const PLANS = [
-  {
-    id: 'free',
-    name: '無料',
-    blurb: 'まず試す',
-    price: (cycle) => ({ amount: yen(0), period: cycle === 'yearly' ? '/ 年' : '/ 月' }),
-    features: [
-      `月${LIMITS.free}回まで書き換え`,
-      'ボタンは全種類使える',
-      'iPhone版とボタンが同期',
-      'クレジットカード不要',
+/**
+ * Built from the dictionary rather than exported as a constant, because the page now
+ * renders in three languages from one deployment — a module-level array would be one
+ * language for whoever loaded it first.
+ */
+export function plans(t) {
+  const counts = {
+    free: LIMITS.free.toLocaleString('en-US'),
+    pro: LIMITS.pro.toLocaleString('en-US'),
+  }
+
+  return {
+    YEARLY_SAVE_LABEL: t.pricing.save,
+    PLANS: [
+      {
+        id: 'free',
+        name: t.pricing.free.name,
+        blurb: t.pricing.free.blurb,
+        price: (cycle) => ({
+          amount: yen(0),
+          period: cycle === 'yearly' ? t.pricing.perYear : t.pricing.perMonth,
+        }),
+        features: t.pricing.free.features.map((f) => fill(f, counts)),
+        cta: t.pricing.free.cta,
+        ctaAction: 'download',
+        featured: false,
+        foot: t.pricing.free.foot,
+      },
+      {
+        id: 'pro',
+        name: t.pricing.pro.name,
+        blurb: t.pricing.pro.blurb,
+        // Annual leads with the monthly equivalent so it compares against ¥1,480 in
+        // one step, with the yearly total as the secondary line.
+        price: (cycle) =>
+          cycle === 'yearly'
+            ? {
+                amount: yen(PRICE.yearlyPerMonth),
+                period: t.pricing.perMonth,
+                note: fill(t.pricing.yearlyNote, { total: yen(PRICE.yearlyTotal) }),
+              }
+            : { amount: yen(PRICE.monthly), period: t.pricing.perMonth, note: t.pricing.monthlyNote },
+        features: t.pricing.pro.features.map((f) => fill(f, counts)),
+        cta: t.pricing.pro.cta,
+        ctaAction: 'subscribe',
+        featured: true,
+        foot: t.pricing.pro.foot,
+      },
     ],
-    cta: 'Mac版をダウンロード',
-    ctaAction: 'download',
-    featured: false,
-    foot: 'そのまま使い続けられます',
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    blurb: '毎日書く人へ',
-    // Annual leads with the monthly equivalent so it compares against ¥1,480 in
-    // one step, with the yearly total as the secondary line.
-    price: (cycle) =>
-      cycle === 'yearly'
-        ? { amount: yen(PRICE.yearlyPerMonth), period: '/ 月', note: `年払い ${yen(PRICE.yearlyTotal)}` }
-        : { amount: yen(PRICE.monthly), period: '/ 月', note: '月払い' },
-    features: [
-      '無料プランのすべて',
-      `月${LIMITS.pro.toLocaleString('ja-JP')}回まで書き換え`,
-      'Apple Pay対応',
-      'いつでもワンクリックで解約',
-    ],
-    cta: 'この価格ではじめる',
-    ctaAction: 'subscribe',
-    featured: true,
-    foot: 'いつでも解約できます',
-  },
-]
+  }
+}

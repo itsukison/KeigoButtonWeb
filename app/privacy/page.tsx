@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { alternatesFor } from "@/lib/alternates";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
   description:
     "敬語ボタンにおけるユーザー情報の取扱いについて定めたプライバシーポリシーです。",
-  alternates: { canonical: "/privacy" },
+  alternates: alternatesFor("/privacy"),
 };
 
 export default function PrivacyPolicyPage() {

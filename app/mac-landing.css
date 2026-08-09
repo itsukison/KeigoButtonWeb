@@ -153,6 +153,14 @@
   --section-gap: 112px;
 }
 
+/* Latin letterforms carry more visual weight than the Japanese glyphs at the
+   same numeric value. Keep the hierarchy, but soften bold and semibold text on
+   the English route only. */
+[lang='en'] .mac-landing {
+  --weight-semibold: 500;
+  --weight-bold: 600;
+}
+
 /* ===========================================================================
    Product visuals.
 
@@ -1152,7 +1160,7 @@ body:has(.mac-landing) {
   justify-self: end;
   display: flex;
   align-items: center;
-  gap: var(--space-20);
+  gap: var(--space-12);
 }
 
 .mac-landing .nav__cta .btn { padding: 11px 18px; }
@@ -1444,6 +1452,20 @@ body:has(.mac-landing) {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+/* AppWindow is a flex item here. Without an explicit width it shrink-wraps its
+   message and remains at flex-start, even though the outer artwork is centered. */
+.mac-landing .step__window {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.mac-landing .step__window > .win {
+  width: 100%;
+  min-width: 0;
 }
 
 .mac-landing .step__num {
@@ -2098,7 +2120,7 @@ body:has(.mac-landing) {
   margin-top: clamp(34px, 4vw, 64px);
   color: #17131b;
   font-size: clamp(72px, 12vw, 200px);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: 0.78;
   letter-spacing: -0.085em;
   white-space: nowrap;
@@ -2276,4 +2298,94 @@ body:has(.mac-landing) {
     font-size: clamp(58px, 18.5vw, 108px);
     line-height: 0.84;
   }
+}
+
+/* -------------------------------------------------------------------------
+   Compact language dropdown
+   ------------------------------------------------------------------------- */
+
+.mac-landing .nav__language {
+  position: relative;
+  font-size: 13px;
+}
+
+.mac-landing .nav__language summary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--body-text);
+  background: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.mac-landing .nav__language summary::-webkit-details-marker { display: none; }
+
+.mac-landing .nav__language summary:hover,
+.mac-landing .nav__language[open] summary {
+  border-color: var(--hairline-strong);
+  background: #fff;
+}
+
+.mac-landing .nav__language-chevron {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 140ms ease;
+}
+
+.mac-landing .nav__language[open] .nav__language-chevron {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+
+.mac-landing .nav__language ul {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 132px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mac-landing .nav__language a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: var(--body-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mac-landing .nav__language a:hover { background: var(--accent-soft); }
+
+.mac-landing .nav__language a[aria-current='page'] {
+  color: var(--ink);
+  font-weight: var(--weight-medium);
+  background: var(--surface);
+}
+
+@media (max-width: 480px) {
+  .mac-landing .nav__language summary {
+    width: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .mac-landing .nav__language summary > span:first-child { display: none; }
 }

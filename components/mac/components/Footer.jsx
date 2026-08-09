@@ -1,50 +1,54 @@
 import { AppleIcon } from './product/Product.jsx'
+import { href } from '@/lib/i18n'
+import { useLang, useT } from '../i18n'
 
 export default function Footer({ onDownload }) {
+  const t = useT()
+  const lang = useLang()
   return (
     <footer className="footer">
       <img className="footer__art" src="/mac-footer.png" alt="" aria-hidden="true" />
 
       <div className="shell footer__inner">
         <div className="footer__content">
-          <nav className="footer__column footer__navigation" aria-label="フッターナビゲーション">
-            <p className="footer__heading">ナビゲーション</p>
-            <a href="#how">使い方</a>
-            <a href="#features">できること</a>
-            <a href="#pricing">料金</a>
-            <a href="#faq">よくある質問</a>
-            <a href="/mobile">iPhone版</a>
-            <a href="/keigo-henkan">無料の敬語変換</a>
-            <a href="/blog">敬語の記事</a>
+          <nav className="footer__column footer__navigation" aria-label={t.footer.navAria}>
+            <p className="footer__heading">{t.footer.navHeading}</p>
+            <a href="#how">{t.nav.how}</a>
+            <a href="#features">{t.nav.features}</a>
+            <a href="#pricing">{t.nav.pricing}</a>
+            <a href="#faq">{t.nav.faq}</a>
+            <a href="/mobile">{t.footer.mobile}</a>
+            <a href="/keigo-henkan">{t.footer.converter}</a>
+            <a href="/blog">{t.footer.articles}</a>
           </nav>
 
           <div className="footer__column footer__download">
-            <p className="footer__heading">Macでも、敬語ボタン。</p>
+            <p className="footer__heading">{t.footer.downloadHeading}</p>
             <p className="footer__copy">
-              いま書いている場所で、<br />そのまま文章を整えます。
+              {t.footer.downloadCopy[0]}<br />{t.footer.downloadCopy[1]}
             </p>
             <button className="footer__button" type="button" onClick={onDownload}>
               <AppleIcon />
-              無料でダウンロード
+              {t.footer.downloadButton}
             </button>
           </div>
 
           <div className="footer__column footer__company">
             <a className="footer__brand" href="#top">
               <img src="/brand-icon.png" alt="" width="28" height="28" />
-              敬語ボタン
+              {t.brand}
             </a>
             <div className="footer__legal-links">
-              <a href="/terms">利用規約</a>
-              <a href="/privacy">プライバシーポリシー</a>
-              <a href="mailto:keigobutton@gmail.com">お問い合わせ</a>
+              <a href={href(lang, '/terms')}>{t.footer.terms}</a>
+              <a href={href(lang, '/privacy')}>{t.footer.privacy}</a>
+              <a href="mailto:keigobutton@gmail.com">{t.footer.contact}</a>
             </div>
-            <p className="footer__copyright">© 2026 株式会社Core7</p>
+            <p className="footer__copyright">{t.footer.copyright}</p>
           </div>
         </div>
 
-        <a className="footer__wordmark" href="#top" aria-label="ページ上部へ戻る">
-          敬語ボタン
+        <a className="footer__wordmark" href="#top" aria-label={t.footer.toTop}>
+          {t.brand}
         </a>
       </div>
     </footer>

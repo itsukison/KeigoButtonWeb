@@ -8,6 +8,7 @@ import {
   OverlayBar,
   ResultPanel,
 } from './product/Product.jsx'
+import { useT } from '../i18n'
 
 /**
  * Willow's split hero (content.md R9): copy left, and on the right a real app
@@ -23,9 +24,6 @@ import {
  * writes back" untold.
  */
 
-const DRAFT = '明日の定例、15時からに変更してもらえませんか。あと資料の最終版も送ります。'
-const REWRITTEN =
-  '恐れ入りますが、明日の定例を15時からに変更いただけますでしょうか。あわせて資料の最終版も共有いたします。'
 
 const PHASES = [
   { key: 'idle', ms: 1700 },
@@ -36,6 +34,9 @@ const PHASES = [
 ]
 
 export default function Hero({ onDownload }) {
+  const t = useT()
+  const DRAFT = t.hero.draft
+  const REWRITTEN = t.hero.rewritten
   const [i, setI] = useState(0)
   const phase = PHASES[i].key
 
@@ -47,8 +48,9 @@ export default function Hero({ onDownload }) {
       setI(1) // park on the expanded row — the most informative single frame
       return
     }
-    const t = setTimeout(() => setI((n) => (n + 1) % PHASES.length), PHASES[i].ms)
-    return () => clearTimeout(t)
+    // Renamed off `t`, which is now the string table from `useT()`.
+    const timer = setTimeout(() => setI((n) => (n + 1) % PHASES.length), PHASES[i].ms)
+    return () => clearTimeout(timer)
   }, [i])
 
   const showRewritten = phase === 'done'
@@ -63,32 +65,32 @@ export default function Hero({ onDownload }) {
           <span className="hero__badge">
             <Dot />
             <span>
-              iPhone版「敬語ボタン」は <b>5,000人以上</b> に使われています
+              {t.hero.badge[0]}<b>{t.hero.badge[1]}</b>{t.hero.badge[2]}
             </span>
           </span>
 
-          <h1 className="h-display">いま書いている場所で、そのまま整える。</h1>
+          <h1 className="h-display">{t.hero.title}</h1>
 
           {/* The "コピーも、貼り付けも、アプリの切り替えもいりません" half was cut:
               the next section's H2 is that sentence, so the hero was spending
               its lede on a line the reader meets again one screen later. */}
           <p className="lede measure" style={{ marginTop: 'var(--space-24)' }}>
-            画面下のバーにホバーして、自分のボタンを押すだけ。
+            {t.hero.lede}
           </p>
 
           <div className="hero__actions">
             <button className="btn btn--filled btn--lg" onClick={onDownload}>
               <AppleIcon />
-              Mac版をダウンロード
+              {t.hero.download}
             </button>
             <a className="btn btn--outline btn--lg" href={APP_STORE_URL}>
               <AppleIcon />
-              iPhone版を入手
+              {t.hero.secondary}
             </a>
           </div>
 
           <p className="caption hero__meta">
-            macOS 14 以降 · 無料で使えます · iPhone版と同じアカウント
+            {t.hero.meta}
           </p>
         </div>
 
@@ -103,13 +105,13 @@ export default function Hero({ onDownload }) {
                 ) : (
                   <OverlayBar
                     collapsed={phase === 'idle' || phase === 'done'}
-                    hot={phase === 'hover' ? '敬語' : null}
+                    hot={phase === 'hover' ? t.hero.hotButton : null}
                   />
                 )}
               </div>
             }
           >
-            <AppWindow title="メール — 新規メッセージ">
+            <AppWindow title={t.hero.windowTitle}>
               <div
                 className={`win__field${phase !== 'idle' ? ' win__field--focus' : ''}${showRewritten ? ' win__field--flash' : ''}`}
               >

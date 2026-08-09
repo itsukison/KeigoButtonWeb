@@ -1,4 +1,5 @@
 import { Reveal } from '../hooks/useReveal.jsx'
+import { useT } from '../i18n'
 
 /**
  * Poke's floating-icon field (content.md R2), used for CAPABILITY rather than
@@ -23,12 +24,12 @@ import { Reveal } from '../hooks/useReveal.jsx'
  */
 
 const APPS = [
-  { name: 'メール', icon: 'mail', x: 8, y: 22, d: 0 },
+  { nameKey: 'mail', icon: 'mail', x: 8, y: 22, d: 0 },
   { name: 'Slack', icon: 'slack', x: 26, y: 58, d: 1.1 },
   { name: 'Gmail', icon: 'gmail', x: 20, y: 6, d: 2.3 },
   { name: 'Notion', icon: 'notion', x: 46, y: 34, d: 0.6 },
   { name: 'Chrome', icon: 'chrome', x: 62, y: 70, d: 1.8 },
-  { name: 'メモ', icon: 'notes', x: 72, y: 14, d: 0.3 },
+  { nameKey: 'notes', icon: 'notes', x: 72, y: 14, d: 0.3 },
   { name: 'Word', icon: 'word', x: 84, y: 48, d: 2.7 },
   { name: 'X', icon: 'x', x: 44, y: 78, d: 1.4 },
   { name: 'LINE', icon: 'line', x: 6, y: 76, d: 2.0 },
@@ -36,21 +37,19 @@ const APPS = [
 ]
 
 export default function Everywhere() {
+  const t = useT()
   return (
     <section className="section">
       <Reveal className="shell">
-        <h2 className="h-heading measure center">
-          テキストを打てる場所なら、どこでも。
-        </h2>
+        <h2 className="h-heading measure center">{t.everywhere.title}</h2>
         <p className="body measure center" style={{ marginTop: 'var(--space-20)' }}>
-          アプリごとの拡張機能も、プラグインも、設定もありません。
-          カーソルが置ける入力欄なら、そこが作業場所になります。
+          {t.everywhere.body}
         </p>
 
         <div className="every__field" aria-hidden="true">
           {APPS.map((a) => (
             <span
-              key={a.name}
+              key={a.icon}
               className="every__chip"
               style={{
                 left: `${a.x}%`,
@@ -66,13 +65,13 @@ export default function Everywhere() {
                 height="20"
                 loading="lazy"
               />
-              {a.name}
+              {a.nameKey ? t.everywhere.apps[a.nameKey] : a.name}
             </span>
           ))}
         </div>
 
         <p className="caption center" style={{ marginTop: 'var(--space-24)' }}>
-          ブラウザやSlackのように少し特殊な入力欄を持つアプリでも、読み取り方法を自動で切り替えて対応します。
+          {t.everywhere.note}
         </p>
       </Reveal>
     </section>

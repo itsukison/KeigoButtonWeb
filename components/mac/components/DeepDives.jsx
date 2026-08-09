@@ -1,5 +1,6 @@
 import { Reveal } from '../hooks/useReveal.jsx'
 import { AppWindow, GeneratingCapsule, ResultPanel } from './product/Product.jsx'
+import { useT } from '../i18n'
 
 /**
  * Poke's numbered alternating rows (content.md R3/R4), separated by hairlines
@@ -16,6 +17,7 @@ import { AppWindow, GeneratingCapsule, ResultPanel } from './product/Product.jsx
  */
 
 export default function DeepDives() {
+  const t = useT()
   return (
     <section id="features">
       <div className="shell">
@@ -24,14 +26,10 @@ export default function DeepDives() {
         <Reveal className="dive">
           <div className="dive__copy">
             <p className="mono dive__eyebrow">(1)</p>
-            <h3 className="h-heading-sm">ボタンは、あなたが決める。</h3>
-            <p className="body dive__body measure">
-              「敬語に」「短く」「英訳」——よく使う直し方をボタンにしておけます。
-              iPhone版で作ったボタンは、そのままMacにも並びます。
-              どちらで編集しても、両方に反映されます。
-            </p>
+            <h3 className="h-heading-sm">{t.dives.one.title}</h3>
+            <p className="body dive__body measure">{t.dives.one.body}</p>
             <a className="dive__link" href="#how">
-              使い方を見る <span aria-hidden="true">→</span>
+              {t.dives.one.link} <span aria-hidden="true">→</span>
             </a>
           </div>
           <div className="dive__stage">
@@ -44,11 +42,8 @@ export default function DeepDives() {
         <Reveal className="dive dive--reverse">
           <div className="dive__copy">
             <p className="mono dive__eyebrow">(2)</p>
-            <h3 className="h-heading-sm">選択しなくても、書き換えられる。</h3>
-            <p className="body dive__body measure">
-              一部を選べば、その部分だけ。何も選ばなければ、入力欄の文章まるごと。
-              どちらにするかを指定する操作はありません。カーソルがある場所を見ています。
-            </p>
+            <h3 className="h-heading-sm">{t.dives.two.title}</h3>
+            <p className="body dive__body measure">{t.dives.two.body}</p>
           </div>
           <div className="dive__stage" style={{ flexDirection: 'column', gap: 20 }}>
             <SelectionCompare />
@@ -60,13 +55,10 @@ export default function DeepDives() {
         <Reveal className="dive">
           <div className="dive__copy">
             <p className="mono dive__eyebrow">(3)</p>
-            <h3 className="h-heading-sm">置き換わる前に、確認できる。</h3>
-            <p className="body dive__body measure">
-              生成中はバーが細いキャプセルに変わり、終わるとその場に結果が表示されます。
-              気に入らなければ再生成、良ければそのまま挿入するだけです。
-            </p>
+            <h3 className="h-heading-sm">{t.dives.three.title}</h3>
+            <p className="body dive__body measure">{t.dives.three.body}</p>
             <p className="mono" style={{ marginTop: 'var(--space-20)' }}>
-              挿入は Enter だけ
+              {t.dives.three.mono}
             </p>
           </div>
           <div className="dive__stage" style={{ flexDirection: 'column', gap: 28 }}>
@@ -85,17 +77,12 @@ export default function DeepDives() {
 
 /** The settings window is eggshell — the light half of AGENTS.md §8's two ramps. */
 function ButtonEditor() {
-  const rows = [
-    { name: '敬語', desc: '取引先に送れる文章に整える', on: true },
-    { name: '要約', desc: '要点だけを短くまとめる', on: true },
-    { name: '英訳', desc: '自然な英語に訳す', on: true },
-    { name: '丁寧に', desc: 'やわらかい言い回しにする', on: true },
-    { name: 'カジュアル', desc: '社内向けにくだけた調子へ', on: false },
-  ]
+  const t = useT()
+  const rows = t.dives.editorRows
 
   return (
     <div className="editor">
-      <div className="editor__head">ボタン</div>
+      <div className="editor__head">{t.dives.editorHead}</div>
       {rows.map((r) => (
         <div className="editor__row" key={r.name}>
           <span className="editor__grip" aria-hidden="true">
@@ -109,7 +96,7 @@ function ButtonEditor() {
             <span className="editor__name">{r.name}</span>
             <span className="editor__desc" style={{ display: 'block' }}>{r.desc}</span>
           </span>
-          <span className="editor__switch" data-on={String(r.on)} aria-hidden="true" />
+          <span className="editor__switch" data-on={String(!r.off)} aria-hidden="true" />
         </div>
       ))}
     </div>
@@ -117,25 +104,26 @@ function ButtonEditor() {
 }
 
 function SelectionCompare() {
+  const t = useT()
   return (
     <>
       <Case
-        label="一部を選んだとき"
-        note="選んだところだけが変わります"
+        label={t.dives.two.selectedLabel}
+        note={t.dives.two.selectedNote}
         field={
           <>
-            お世話になっております。
-            <span className="win__sel">この件、明日までにお願いします。</span>
-            よろしくお願いいたします。
+            {t.dives.two.fieldLead}
+            <span className="win__sel">{t.dives.two.fieldSelected}</span>
+            {t.dives.two.fieldTail}
           </>
         }
       />
       <Case
-        label="何も選ばないとき"
-        note="入力欄の文章がまるごと対象になります"
+        label={t.dives.two.wholeLabel}
+        note={t.dives.two.wholeNote}
         field={
           <>
-            お世話になっております。この件、明日までにお願いします。よろしくお願いいたします。
+            {t.dives.two.fieldLead}{t.dives.two.fieldSelected}{t.dives.two.fieldTail}
             <span className="win__caret" />
           </>
         }
@@ -145,12 +133,13 @@ function SelectionCompare() {
 }
 
 function Case({ label, note, field }) {
+  const t = useT()
   return (
     <div className="pv" style={{ width: '100%', maxWidth: 420 }}>
       <p className="mono" style={{ marginBottom: 8 }}>{label}</p>
       {/* .win is height:100%, so it needs a sized parent to render at all. */}
       <div style={{ height: 148 }}>
-        <AppWindow title="Gmail — 作成" metaLines={1}>
+        <AppWindow title={t.dives.two.windowTitle} metaLines={1}>
           <div className="win__field win__field--focus" style={{ fontSize: 11 }}>
             {field}
           </div>

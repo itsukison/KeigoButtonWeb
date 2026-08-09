@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AppleIcon } from './product/Product.jsx'
+import { LOCALES, href } from '@/lib/i18n'
+import { useLang, useT } from '../i18n'
 
 /**
  * Willow's nav: a plain fixed bar on the canvas — mark and wordmark left, links
@@ -10,6 +12,9 @@ import { AppleIcon } from './product/Product.jsx'
  * not Willow's, and the rhyme was not worth the divergence.
  */
 export default function Nav({ onDownload }) {
+  const t = useT()
+  const lang = useLang()
+  const currentLocale = LOCALES.find((locale) => locale.code === lang)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -21,26 +26,48 @@ export default function Nav({ onDownload }) {
 
   return (
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
-      <nav className="nav__inner" aria-label="メイン">
+      <nav className="nav__inner" aria-label={t.nav.aria}>
         <a className="nav__brand" href="#top">
           <span className="nav__mark">
             <img src="/brand-icon.png" alt="" width="26" height="26" />
           </span>
-          敬語ボタン
+          {t.brand}
         </a>
 
         <ul className="nav__links">
-          <li><a className="nav__link" href="#how">使い方</a></li>
-          <li><a className="nav__link" href="#features">できること</a></li>
-          <li><a className="nav__link" href="#pricing">料金</a></li>
-          <li><a className="nav__link" href="#faq">よくある質問</a></li>
-          <li><a className="nav__link" href="/mobile">iPhone版</a></li>
+          <li><a className="nav__link" href="#how">{t.nav.how}</a></li>
+          <li><a className="nav__link" href="#features">{t.nav.features}</a></li>
+          <li><a className="nav__link" href="#pricing">{t.nav.pricing}</a></li>
+          <li><a className="nav__link" href="#faq">{t.nav.faq}</a></li>
+          <li><a className="nav__link" href="/mobile">{t.nav.mobile}</a></li>
         </ul>
 
         <div className="nav__cta">
+          {/* Details keeps every locale as a real link while presenting the
+              choices as a compact dropdown. Endonyms are never translated. */}
+          <details className="nav__language">
+            <summary aria-label={`${t.nav.language}: ${currentLocale.endonym}`}>
+              <span>{currentLocale.endonym}</span>
+              <span className="nav__language-chevron" aria-hidden="true" />
+            </summary>
+            <ul aria-label={t.nav.language}>
+              {LOCALES.map((locale) => (
+                <li key={locale.code}>
+                  <a
+                    href={href(locale.code, '/')}
+                    hrefLang={locale.htmlLang}
+                    aria-current={locale.code === lang ? 'page' : undefined}
+                  >
+                    {locale.endonym}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+
           <button className="btn btn--filled" onClick={onDownload}>
             <AppleIcon />
-            Mac版をダウンロード
+            {t.nav.download}
           </button>
         </div>
       </nav>

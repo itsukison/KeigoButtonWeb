@@ -1,5 +1,6 @@
 import { Reveal } from '../hooks/useReveal.jsx'
 import { AppWindow, OverlayBar } from './product/Product.jsx'
+import { useT } from '../i18n'
 
 /**
  * Willow's 01/02/03 storyboard (content.md R10). This is the section that
@@ -10,32 +11,16 @@ import { AppWindow, OverlayBar } from './product/Product.jsx'
  * what makes them read as consecutive frames rather than three screenshots.
  */
 
-const STEPS = [
-  {
-    n: '01',
-    title: '書く（選んでも、選ばなくても）',
-    body: 'いつも通りアプリで文章を書きます。直したい部分を選んでも、何も選ばなくても構いません。',
-  },
-  {
-    n: '02',
-    title: 'バーにホバーする',
-    body: '画面の下のバーにカーソルを乗せると、自分のボタンが横に並びます。',
-  },
-  {
-    n: '03',
-    title: '押すと、その場で置き換わる',
-    body: '押した瞬間に書き換えが始まり、元の文章と入れ替わります。貼り付ける操作はありません。',
-  },
-]
-
 export default function HowItWorks() {
+  const t = useT()
+  const STEPS = t.how.steps.map((s, i) => ({ ...s, n: `0${i + 1}` }))
   return (
     <section className="section section--band" id="how">
       <Reveal className="shell" style={{ textAlign: 'center' }}>
-        <p className="eyebrow">使い方</p>
-        <h2 className="h-heading center">3秒で終わります。</h2>
+        <p className="eyebrow">{t.how.eyebrow}</p>
+        <h2 className="h-heading center">{t.how.title}</h2>
         <p className="body center" style={{ marginTop: 'var(--space-16)' }}>
-          覚えることは、ホバーして押すことだけ。
+          {t.how.lede}
         </p>
 
         <div className="steps" style={{ textAlign: 'left' }}>
@@ -54,7 +39,7 @@ export default function HowItWorks() {
         </div>
 
         <p className="caption center" style={{ marginTop: 'var(--space-40)' }}>
-          ボタンにない指示は ✎ から自由に入力できます。
+          {t.how.note}
         </p>
       </Reveal>
     </section>
@@ -63,8 +48,9 @@ export default function HowItWorks() {
 
 /** Three frames of one continuous scene, at a scale that fits the card. */
 function StepArt({ index }) {
-  const before = '明日の定例、15時からに変更してもらえませんか。'
-  const after = '恐れ入りますが、明日の定例を15時からに変更いただけますでしょうか。'
+  const t = useT()
+  const before = t.how.before
+  const after = t.how.after
 
   return (
     <div
@@ -78,8 +64,8 @@ function StepArt({ index }) {
         gap: 10,
       }}
     >
-      <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
-        <AppWindow title="Slack — スレッド" metaLines={2}>
+      <div className="step__window">
+        <AppWindow title={t.how.windowTitle} metaLines={2}>
           <div className="win__field win__field--focus" style={{ fontSize: 11 }}>
             {index === 2 ? (
               <span className="win__sel">{after}</span>
@@ -96,7 +82,7 @@ function StepArt({ index }) {
       {/* Frames 1 and 3 both show the collapsed bar — the difference between
           them is the text, which is exactly the before/after being sold. */}
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <OverlayBar collapsed={index !== 1} hot={index === 1 ? '敬語' : null} />
+        <OverlayBar collapsed={index !== 1} hot={index === 1 ? t.hero.hotButton : null} />
       </div>
     </div>
   )

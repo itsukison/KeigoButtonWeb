@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { ARTICLES } from "@/content/articles";
 import { REIBUN } from "@/content/reibun";
+import { SPINE_PATHS } from "@/lib/alternates";
+import { PREFIXED_LANGS, href } from "@/lib/i18n";
 
 /**
  * Derived from the content registries so a new article or 例文 page is in the
@@ -27,6 +29,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/legal`, lastModified: "2026-08-08", changeFrequency: "yearly", priority: 0.3 },
   ];
 
+  // The translated spine only. The Japanese tool and article pages have no English
+  // or Chinese counterpart by decision (lib/i18n.ts), so they appear once, as they
+  // always have — listing a URL that does not exist is worse than listing nothing.
+  const localizedRoutes: MetadataRoute.Sitemap = PREFIXED_LANGS.flatMap((lang) =>
+    SPINE_PATHS.map((path) => ({
+      url: `${SITE_URL}${href(lang, path)}`,
+      lastModified: "2026-08-09",
+      changeFrequency: "monthly" as const,
+      // Below their Japanese originals: these are new, and the Japanese pages are
+      // the ones with the history and the links.
+      priority: path === "/" ? 0.8 : 0.5,
+    })),
+  );
+
   const articleRoutes: MetadataRoute.Sitemap = ARTICLES.map((article) => ({
     url: `${SITE_URL}/blog/${article.slug}`,
     lastModified: article.updated,
@@ -41,5 +57,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...articleRoutes, ...reibunRoutes];
+  return [...staticRoutes, ...localizedRoutes, ...articleRoutes, ...reibunRoutes];
 }

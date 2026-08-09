@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useT } from '../i18n'
 
 /**
  * Henji's install modal (content.md R1) with a fourth step Henji doesn't have:
@@ -10,30 +11,10 @@ import { useEffect, useRef } from 'react'
  * than a generic rounded square that leaves users guessing what to drag.
  */
 
-const STEPS = [
-  {
-    label: 'ステップ1',
-    title: '開く',
-    body: 'ダウンロードフォルダの KeigoButton.dmg を開きます。',
-  },
-  {
-    label: 'ステップ2',
-    title: 'インストール',
-    body: 'アプリケーションフォルダにドラッグ&ドロップします。',
-  },
-  {
-    label: 'ステップ3',
-    title: '起動',
-    body: 'Launchpad またはアプリケーションフォルダから起動します。',
-  },
-  {
-    label: 'ステップ4',
-    title: '許可する',
-    body: 'システム設定 › アクセシビリティ で 敬語ボタン をオンにします。この許可がないと文章を読み取れません。',
-  },
-]
 
 export default function DownloadModal({ downloadUrl, onClose }) {
+  const t = useT()
+  const STEPS = t.modal.steps
   const closeRef = useRef(null)
 
   useEffect(() => {
@@ -57,19 +38,19 @@ export default function DownloadModal({ downloadUrl, onClose }) {
         <div className="modal__head">
           <div>
             <h2 className="h-heading-sm" id="dl-title">
-              {downloadUrl ? 'インストールして、許可する' : 'Mac版はまもなく公開します'}
+              {downloadUrl ? t.modal.title : t.modal.titleSoon}
             </h2>
             <p className="body-sm" style={{ marginTop: 'var(--space-12)' }}>
               {downloadUrl ? (
                 <>
-                  ダウンロードが始まります。始まらない場合は{' '}
+                  {t.modal.lead[0]}
                   <a href={downloadUrl} style={{ textDecoration: 'underline' }}>
-                    手動でダウンロード
+                    {t.modal.lead[1]}
                   </a>
-                  できます。
+                  {t.modal.lead[2]}
                 </>
               ) : (
-                '署名・公証済みの配布版を準備中です。公開後、このページからダウンロードできるようになります。'
+                t.modal.bodySoon
               )}
             </p>
           </div>
@@ -77,7 +58,7 @@ export default function DownloadModal({ downloadUrl, onClose }) {
             className="modal__close"
             onClick={onClose}
             ref={closeRef}
-            aria-label="閉じる"
+            aria-label={t.modal.close}
           >
             ✕
           </button>
@@ -97,7 +78,7 @@ export default function DownloadModal({ downloadUrl, onClose }) {
         </div>
 
         <p className="caption" style={{ marginTop: 'var(--space-32)' }}>
-          macOS 14 以降が必要です。うまくいかない場合はお問い合わせください。
+          {t.modal.note}
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Noto_Sans_JP, Noto_Sans_SC, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { PUBLISHER_NAME, PUBLISHER_URL, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -7,6 +7,19 @@ const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+/**
+ * 简体中文 only. 汉字 shared with Japanese have different regional glyph forms, and a
+ * Japanese font draws the Japanese ones — legible to a Chinese reader, but visibly
+ * the wrong shapes. The variable is applied by a `[lang="zh-Hans"]` rule in
+ * `globals.css`, so the Japanese and English pages are unaffected.
+ */
+const notoSansSC = Noto_Sans_SC({
+  variable: "--font-noto-sans-sc",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -89,7 +102,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${jakarta.variable} ${inter.variable} h-full`}
+      className={`${notoSansJP.variable} ${notoSansSC.variable} ${jakarta.variable} ${inter.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full bg-white text-[var(--foreground)]">

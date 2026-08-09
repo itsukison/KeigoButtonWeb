@@ -10,6 +10,8 @@
  * here is faithful enough to ship with.
  */
 
+import { useT } from '../../i18n'
+
 /* --- The pill mark ------------------------------------------------------- */
 /* The real one: the same full-colour keycap the app's own `BrandGlyph` draws on
    the bar. Not the outline cut — this recreation sits on the overlay's #141312,
@@ -20,22 +22,23 @@ export function Mark({ className, ...rest }) {
 
 /* --- The bar ------------------------------------------------------------- */
 
-const DEFAULT_BUTTONS = ['敬語', '要約', '英訳', '丁寧に']
+export function OverlayBar({ buttons, hot = null, collapsed = false }) {
+  const t = useT()
+  const labels = buttons ?? t.product.buttons
 
-export function OverlayBar({ buttons = DEFAULT_BUTTONS, hot = null, collapsed = false }) {
   if (collapsed) {
     return (
-      <div className="bar bar--collapsed" role="img" aria-label="画面下のバー（待機中）">
+      <div className="bar bar--collapsed" role="img" aria-label={t.product.barIdleAria}>
         <Mark className="bar__mark" />
       </div>
     )
   }
 
   return (
-    <div className="bar" role="img" aria-label="バーを展開した状態。自分のボタンが並んでいます">
+    <div className="bar" role="img" aria-label={t.product.barExpandedAria}>
       <Mark className="bar__mark" />
       <span className="bar__rule" />
-      {buttons.map((label) => (
+      {labels.map((label) => (
         <span
           key={label}
           className={`bar__btn${hot === label ? ' bar__btn--hot' : ''}`}
@@ -53,11 +56,14 @@ export function OverlayBar({ buttons = DEFAULT_BUTTONS, hot = null, collapsed = 
 
 /* --- Generating capsule -------------------------------------------------- */
 
-export function GeneratingCapsule({ label = '書き換えています' }) {
+export function GeneratingCapsule({ label }) {
+  const t = useT()
+  const displayLabel = label ?? t.product.generating
+
   return (
-    <div className="gen" role="img" aria-label={`${label}。バーがキャプセルに変わります`}>
+    <div className="gen" role="img" aria-label={t.product.generatingAria}>
       <div className="gen__inner">
-        <span>{label}</span>
+        <span>{displayLabel}</span>
         <span className="gen__dots" aria-hidden="true">
           <i className="gen__dot" />
           <i className="gen__dot" />
@@ -71,11 +77,13 @@ export function GeneratingCapsule({ label = '書き換えています' }) {
 /* --- Result panel -------------------------------------------------------- */
 
 export function ResultPanel({
-  prompt = '敬語',
-  body = '恐れ入りますが、明日の定例を15時からに変更いただけますでしょうか。あわせて資料の最終版も共有いたします。',
+  prompt,
+  body,
 }) {
+  const t = useT()
+
   return (
-    <div className="res" role="img" aria-label="書き換え結果のパネル">
+    <div className="res" role="img" aria-label={t.product.resultAria}>
       <div className="res__head">
         <span className="res__pager">
           <span className="res__chev">‹</span>
@@ -84,8 +92,8 @@ export function ResultPanel({
         </span>
         <span className="res__x">✕</span>
       </div>
-      <div className="res__prompt">{prompt}</div>
-      <div className="res__body">{body}</div>
+      <div className="res__prompt">{prompt ?? t.product.resultPrompt}</div>
+      <div className="res__body">{body ?? t.product.resultBody}</div>
       <div className="res__foot">
         <span className="res__tools" aria-hidden="true">
           <RefreshIcon />
@@ -94,7 +102,7 @@ export function ResultPanel({
           <ThumbIcon down />
         </span>
         <span className="res__insert">
-          挿入 <span aria-hidden="true">⏎</span>
+          {t.product.insert} <span aria-hidden="true">⏎</span>
         </span>
       </div>
     </div>
@@ -103,7 +111,9 @@ export function ResultPanel({
 
 /* --- Mock app window ----------------------------------------------------- */
 
-export function AppWindow({ title = 'メール — 新規メッセージ', children, metaLines = 3 }) {
+export function AppWindow({ title, children, metaLines = 3 }) {
+  const t = useT()
+
   return (
     <div className="win">
       <div className="win__chrome">
@@ -112,7 +122,7 @@ export function AppWindow({ title = 'メール — 新規メッセージ', child
           <i className="win__light" />
           <i className="win__light" />
         </span>
-        <span className="win__title">{title}</span>
+        <span className="win__title">{title ?? t.product.windowTitle}</span>
       </div>
       <div className="win__body">
         {Array.from({ length: metaLines }).map((_, i) => (

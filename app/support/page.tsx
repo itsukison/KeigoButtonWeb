@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { alternatesFor } from "@/lib/alternates";
 
 export const metadata: Metadata = {
   title: "サポート",
   description:
     "敬語ボタンの設定方法、使い方、トラブルシューティング、お問い合わせ窓口についてのご案内です。",
-  alternates: { canonical: "/support" },
+  alternates: alternatesFor("/support"),
 };
 
 export default function SupportPage() {

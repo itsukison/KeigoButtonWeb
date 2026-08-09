@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
+import type { Lang } from "@/lib/i18n";
 
 /// The three screens the Mac app's billing flow returns to.
 ///
@@ -14,6 +15,8 @@ import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
 /// about four seconds, and the long-prose layout would bury the one thing that
 /// matters — that it worked, and where to go now.
 type Props = {
+  /** Drives the chrome's links and labels; defaults to the Japanese site. */
+  lang?: Lang;
   eyebrow: string;
   title: string;
   body: ReactNode;
@@ -22,10 +25,10 @@ type Props = {
   children?: ReactNode;
 };
 
-export function BillingResult({ eyebrow, title, body, primary, children }: Props) {
+export function BillingResult({ lang = "ja", eyebrow, title, body, primary, children }: Props) {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <SiteHeader />
+      <SiteHeader lang={lang} />
       <main className="flex-1 flex items-start justify-center px-6 py-24 md:py-32">
         <div className="w-full max-w-[520px]">
           <p className="text-[12px] tracking-[0.18em] text-[var(--muted)] uppercase mb-4">
@@ -64,7 +67,7 @@ export function BillingResult({ eyebrow, title, body, primary, children }: Props
           </p>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </div>
   );
 }

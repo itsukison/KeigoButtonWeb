@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { alternatesFor } from "@/lib/alternates";
 
 export const metadata: Metadata = {
   title: "利用規約",
   description:
     "敬語ボタンの利用にあたっての条件を定めた利用規約です。",
-  alternates: { canonical: "/terms" },
+  alternates: alternatesFor("/terms"),
 };
 
 export default function TermsPage() {

@@ -135,3 +135,18 @@ a.link-underline:hover {
 .legal-prose strong {
   font-weight: 600;
 }
+
+/* 简体中文 pages only.
+   汉字 shared with Japanese have different regional glyph forms, and a Japanese font
+   draws the Japanese ones — legible to a Chinese reader, but visibly the wrong
+   shapes. SC goes ahead of JP rather than replacing it, because the Chinese pages
+   still show Japanese text inside the product mockups (the buttons write Japanese —
+   see laptop/AGENTS.md §17). Scoped to the wrapper `LangShell` renders, so the
+   Japanese and English pages never load or apply it. */
+[lang="zh-Hans"] {
+  --font-sans: var(--font-noto-sans-sc), var(--font-noto-sans-jp), -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-jakarta), var(--font-noto-sans-sc),
+    var(--font-noto-sans-jp), -apple-system, sans-serif;
+  font-family: var(--font-sans);
+}
