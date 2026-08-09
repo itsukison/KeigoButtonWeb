@@ -8,6 +8,8 @@ export const SITE_TAGLINE = "敬語に直せるAIキーボード";
 
 export const APP_STORE_URL =
   "https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723";
+export const MAC_DOWNLOAD_URL =
+  "https://github.com/itsukison/KeigoDesktop/releases/latest/download/KeigoButton.dmg";
 
 export const APP_STORE_ID = "6777901723";
 export const CONTACT_EMAIL = "keigobutton@gmail.com";
@@ -91,6 +93,8 @@ export const macSoftwareApplicationNode = {
   name: `${SITE_NAME} Mac版`,
   alternateName: ["KeigoButton for Mac", "敬語ボタン macOS版"],
   url: `${SITE_URL}/`,
+  downloadUrl: MAC_DOWNLOAD_URL,
+  installUrl: MAC_DOWNLOAD_URL,
   description:
     "画面下のバーから、入力中の文章をコピーや貼り付けなしで自然な敬語や目的に合う表現へ書き換えられるmacOSアプリ。",
   applicationCategory: "UtilitiesApplication",
@@ -102,7 +106,7 @@ export const macSoftwareApplicationNode = {
     "@type": "Offer",
     price: 0,
     priceCurrency: "JPY",
-    url: `${SITE_URL}/`,
+    url: MAC_DOWNLOAD_URL,
   },
   featureList: [
     "入力中の文章をその場で自然な敬語に書き換え",

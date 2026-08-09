@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { MAC_DOWNLOAD_URL } from '@/lib/site'
 
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
@@ -15,7 +16,9 @@ import DownloadModal from './components/DownloadModal.jsx'
 
 export default function App() {
   const [modal, setModal] = useState(false)
-  const downloadUrl = process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL
+  const downloadUrl =
+    process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL ||
+    MAC_DOWNLOAD_URL
 
   const openDownload = useCallback(() => {
     if (downloadUrl) window.location.assign(downloadUrl)
