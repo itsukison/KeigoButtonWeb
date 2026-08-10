@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import { Reveal } from '../hooks/useReveal.jsx'
 import { plans } from '../data/pricing.js'
-import { useT } from '../i18n'
+import { useT, useLang } from '../i18n'
 
 /**
  * Poke's pricing block (content.md R6) with two cards instead of three —
  * AGENTS.md §10 puts team surfaces out of scope, so a third column would be
  * an empty "Enterprise" placeholder.
  *
- * Amounts live in src/data/pricing.js and are final — see docs/pricing.md.
+ * Amounts live in ../data/pricing.js and are final — see docs/pricing.md.
+ *
+ * **The language decides the currency**, and it is passed rather than read inside the
+ * data module for the same reason the dictionary is: all three languages render from
+ * one deployment, so anything resolved at module scope is one language for whoever
+ * loaded it first.
  */
 export default function Pricing({ onDownload, onSubscribe }) {
   const t = useT()
-  const { PLANS, YEARLY_SAVE_LABEL } = plans(t)
+  const lang = useLang()
+  const { PLANS, YEARLY_SAVE_LABEL } = plans(t, lang)
   const [cycle, setCycle] = useState('monthly')
 
   return (

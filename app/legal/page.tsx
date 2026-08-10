@@ -69,12 +69,36 @@ export default function LegalNoticePage() {
                 <strong>Mac版アプリ 有料プラン「Pro」：</strong>
                 書き換え 月1,000回まで
                 <br />
-                ・月払い：月額 ¥1,480（税込）
+                ・月払い：月額 ¥1,480
                 <br />
-                ・年払い：年額 ¥14,400（税込）／月あたり ¥1,200 相当
+                ・年払い：年額 ¥14,400／月あたり ¥1,200 相当
+              </p>
+              {/*
+                Added 2026-08-10. The Mac app charges USD to anyone using it in English
+                (laptop/docs/pricing.md §1), so a 販売価格 disclosure listing only yen
+                understates what a real buyer is charged. Which currency applies is
+                decided by the app's display language and is shown again at checkout.
+              */}
+              <p className="mt-3">
+                アプリの表示言語を英語に設定してご購入の場合は、米ドル建てでのご請求となります。
+                <br />
+                ・月払い：月額 US$12
+                <br />
+                ・年払い：年額 US$120／月あたり US$10 相当
               </p>
               <p className="mt-3">
-                価格はすべて消費税を含む総額です。プランの内容および価格は、Mac版アプリ内の購入画面にも表示します。
+                はじめてご利用の方に対し、最初のご請求分に限り割引価格をご提示する場合があります。割引後の金額、割引が適用される期間、および次回以降の通常価格は、いずれも購入手続きの画面に表示します。
+              </p>
+              {/*
+                **Not 「税込」.** laptop/docs/billing.md §10: Core7 is a 免税事業者 and not an
+                適格請求書発行事業者, so a 消費税 claim is not ours to make — and 消費税法第63条's
+                総額表示義務 excludes 免税事業者 by the text of the article, so nothing required
+                the word either. The Mac app's plan card and the landing page have carried
+                this sentence since 2026-08-08; this page was the last one still asserting
+                「価格はすべて消費税を含む総額です」.
+              */}
+              <p className="mt-3">
+                表示価格が実際にご請求される金額です。プランの内容および価格は、Mac版アプリ内の購入画面にも表示します。
               </p>
             </td>
           </tr>

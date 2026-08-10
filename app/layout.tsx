@@ -30,10 +30,15 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+// **300 is loaded for the English route only**, where `app/mac-landing.css` shifts the
+// whole weight scale one step lighter under `[lang='en']`. It has to be requested here
+// or the override silently does nothing: a weight that was never loaded does not fall
+// back to the next one down — the browser synthesises it from 400 and draws something
+// indistinguishable from 400.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 

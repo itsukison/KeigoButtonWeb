@@ -483,7 +483,10 @@ const en = {
     cycleAria: 'Billing period',
     monthly: 'Monthly',
     yearly: 'Yearly',
-    save: 'Over 2 months free',
+    // Not "over". The yen plan saves 2.27 months, so 「2ヶ月分以上お得」 is a floor and
+    // needs the 以上; $144 − $120 is EXACTLY two months, and claiming more than that
+    // of a number a reader can check in one step is the wrong kind of wrong.
+    save: '2 months free',
     recommended: 'Recommended',
     taxNote: 'The price shown is the amount you are charged.',
     perMonth: '/ month',

@@ -154,11 +154,59 @@
 }
 
 /* Latin letterforms carry more visual weight than the Japanese glyphs at the
-   same numeric value. Keep the hierarchy, but soften bold and semibold text on
-   the English route only. */
+   same numeric value, so the English route runs the whole scale one step
+   lighter — 300/400/500/600 against Japanese's 400/500/600/700.
+
+   **One step everywhere, rather than a lighter body or lighter headings.**
+   The hierarchy is the four steps' relationship to each other, and moving them
+   as a block is what keeps it intact: a display line still outweighs a heading,
+   which still outweighs a label. Softening only the heavy end — which is where
+   this started, at semibold and bold alone — left 400 body copy sitting under
+   600 headings and read as a mismatch rather than as a lighter page.
+
+   300 has to be in the Inter weight list in `app/layout.tsx`. An unloaded
+   weight is not rounded to the nearest loaded one; it is synthesised from 400
+   and looks exactly like 400.
+
+   Japanese and Chinese deliberately do not get this. Their glyphs pack far
+   more strokes into the same em box, and at 300 a 16px kanji starts losing the
+   strokes that distinguish it from its neighbours — the same asymmetry
+   `laptop/AGENTS.md` §17 records when it keeps one optical constant for CJK
+   and refuses to split one for English. */
 [lang='en'] .mac-landing {
+  --weight-regular: 300;
+  --weight-medium: 400;
   --weight-semibold: 500;
   --weight-bold: 600;
+}
+
+/* Two places where one step is not enough, and both are large type. Weight
+   reads as heavier the larger it is set, so the display line and the section
+   headings — 48px and 40px — take a second step down to 300. At that size the
+   letterforms carry themselves and the thin setting is the entire effect.
+   Below 28px it would start costing legibility, which is why `.h-heading-sm`
+   is not in this list.
+
+   The negative tracking on these was tuned for a heavy face: tight letter-
+   spacing exists to close the gaps a bold weight opens up, and left alone
+   under a light face it makes the line look cramped rather than tight. So it
+   is eased back by roughly a quarter. */
+[lang='en'] .mac-landing .h-display {
+  font-weight: 300;
+  letter-spacing: -0.021em;
+}
+
+[lang='en'] .mac-landing .h-heading {
+  font-weight: 300;
+  letter-spacing: -0.018em;
+}
+
+/* The price is the one number on this page a reader holds against another
+   number — ¥1,200 against ¥1,480, $10 against $12 — so it keeps a step more
+   weight than the headings above it. It is 32px, so it still moves. */
+[lang='en'] .mac-landing .plan__amount {
+  font-weight: 500;
+  letter-spacing: -0.024em;
 }
 
 /* ===========================================================================
