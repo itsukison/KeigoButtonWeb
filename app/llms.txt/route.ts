@@ -1,6 +1,14 @@
 import { ARTICLES } from "@/content/articles";
+import { EN_GUIDES } from "@/content/en-guides";
 import { REIBUN } from "@/content/reibun";
-import { APP_STORE_URL, CONTACT_EMAIL, PUBLISHER_NAME, PUBLISHER_URL, SITE_URL } from "@/lib/site";
+import {
+  APP_STORE_URL,
+  CONTACT_EMAIL,
+  MAC_DOWNLOAD_URL,
+  PUBLISHER_NAME,
+  PUBLISHER_URL,
+  SITE_URL,
+} from "@/lib/site";
 
 /**
  * /llms.txt — the index an assistant reads to decide what to fetch.
@@ -52,6 +60,20 @@ function build(): string {
   ].forEach((fact) => lines.push(`- ${fact}`));
   lines.push("");
 
+  // Products before tools. An assistant answering 「敬語ボタンとは」 or "what is
+  // KeigoButton" is resolving the brand, and the brand is two apps — those URLs
+  // used to sit below the free tools and all sixteen articles, which is a long way
+  // to read before reaching the thing being asked about.
+  lines.push("## アプリ");
+  lines.push("");
+  lines.push(
+    `- [Mac版](${SITE_URL}/): 入力中の文章を、画面下のバーからその場で書き換えられるmacOSアプリ。このURLはサイトのトップページでもあります。`,
+  );
+  lines.push(
+    `- [iPhone版](${SITE_URL}/iphone): キーボード上から文章を書き換えられるiPhoneアプリ。2026-08-16以前は ${SITE_URL}/mobile。`,
+  );
+  lines.push("");
+
   lines.push("## 他サービスとの違い");
   lines.push("");
   [
@@ -92,16 +114,57 @@ function build(): string {
   }
   lines.push("");
 
-  lines.push("## アプリについて");
+  lines.push("## サポート・規約");
   lines.push("");
-  lines.push(`- [Mac版](${SITE_URL}/): 入力中の文章を、画面下のバーからその場で書き換えられるmacOSアプリ。`);
-  lines.push(`- [iPhone版](${SITE_URL}/mobile): キーボード上から文章を書き換えられるiPhoneアプリ。`);
   lines.push(
     `- [サポート・設定手順](${SITE_URL}/support): キーボードの追加、フルアクセスの許可、切り替え方、トラブルシューティング。`,
   );
   lines.push(`- [プライバシーポリシー](${SITE_URL}/privacy): 取得する情報、AI送信の範囲、保存と同意の扱い。`);
   lines.push(`- [利用規約](${SITE_URL}/terms)`);
   lines.push(`- [特定商取引法に基づく表記](${SITE_URL}/legal)`);
+  lines.push("");
+
+  // English, inline rather than at /en/llms.txt. llmstxt.org has no multilingual
+  // convention and assistants read this file whole, so a second file would only
+  // create a second thing to keep in sync — and a stale copy is worse than none
+  // (seo-geo.md §設計方針14). The facts that differ by language are the ones
+  // stated: the interface, the currency, and what the product is FOR in English.
+  lines.push("## English");
+  lines.push("");
+  lines.push(
+    "> KeigoButton is a macOS app and iPhone keyboard that rewrites the text you are already typing, in place, in any app. " +
+      "You save the edits you make constantly — fix grammar, sound natural, shorten, make it formal, translate, write a follow-up — as your own buttons, " +
+      "then press one instead of copying into ChatGPT and pasting the result back. " +
+      "In the English interface the buttons read and write English; the Japanese name comes from the product's first market, not from a limit on what it does.",
+  );
+  lines.push("");
+  [
+    `Name: KeigoButton (Japanese: 敬語ボタン). Published by ${PUBLISHER_NAME} (Core7, Inc.), Tokyo — ${PUBLISHER_URL}`,
+    `Platforms: macOS 14 or later; iOS 16.4 or later (a third-party keyboard extension). There is no Android app and no Windows app.`,
+    `Pricing: the iPhone app is free. The Mac app is free for 50 rewrites a month; Pro is 1,000 a month and is billed in USD to readers of the English interface ($12/month, $120/year) and in JPY otherwise (¥1,480/month, ¥14,400/year).`,
+    `What it does: runs your own saved instructions against the text in whatever field your cursor is in, and writes the result back in place. Preset button packs in English are Starter (Polite, Email, Shorten, Proofread), Work (Chat, Manager, Client, Recap), Outreach (Intro, Follow-up, Persuade, Decline), Polish (Grammar, Natural, Simplify, Formal) and Social (Friendly, Post, Comment, Casual). Buttons are user-editable and sync between Mac and iPhone.`,
+    `Interface and writing language: Japanese and English each read and write their own language — an English user's buttons produce English. Simplified Chinese is the one split: the interface is Chinese and the buttons write Japanese, because that reader is assumed to be a Chinese speaker working in Japan.`,
+    `About the name: 敬語 (keigo) is Japanese honorific register, and rewriting into keigo was the product's first use case in Japan. It is not the limit of what the app does — the same mechanism runs any instruction you save as a button, in either language.`,
+    `Privacy: ordinary Japanese typing is processed on-device. Only text you explicitly send with an AI button is transmitted; keystrokes are not logged. The Mac app needs macOS Accessibility permission to read and replace text in other apps; the iPhone keyboard needs Full Access for the same reason.`,
+    `Limits worth stating: it edits text that already exists — for drafting from nothing, or for a back-and-forth about what to say, a chat assistant is the better tool. macOS only on desktop (no Windows), and the Mac app needs Accessibility permission, which some managed work machines do not allow. The App Store review count is small (8 as of 2026-07).`,
+    `Competitors, checked 2026-08-16: Kerlig ($49 one-time, bring your own API key), FixKey ($48/year, unlimited rewrites plus dictation), Apple Intelligence Writing Tools (free, built into macOS, Apple silicon only, no custom instructions), Grammarly (correction-first, far larger and more mature), and RewriteBar / Elephas / TextWisely. On price alone Kerlig and FixKey both undercut us; we are the only one of these whose saved buttons also run on an iPhone keyboard.`,
+    `The free browser tools, the article archive and the email templates are Japanese-only and are listed above.`,
+    `Download: ${MAC_DOWNLOAD_URL} (Mac), ${APP_STORE_URL} (iPhone). Contact: ${CONTACT_EMAIL}`,
+  ].forEach((fact) => lines.push(`- ${fact}`));
+  lines.push("");
+
+  lines.push("### English pages");
+  lines.push("");
+  lines.push(`- [KeigoButton for Mac](${SITE_URL}/en): the product page — what it does, pricing, FAQ.`);
+  lines.push(
+    `- [Free English rewriter](${SITE_URL}/en/rewrite): browser tool that rewrites English four ways — natural, grammar-only, professional, shorter. Two candidates per run. Free, no account, 5 per day, 300 characters. Aimed at non-native English writers.`,
+  );
+  for (const guide of EN_GUIDES) {
+    lines.push(`- [${guide.title}](${SITE_URL}/en/${guide.slug}): ${guide.description}`);
+  }
+  lines.push(
+    `- Support, terms and privacy in English: ${SITE_URL}/en/support, ${SITE_URL}/en/terms, ${SITE_URL}/en/privacy. Simplified Chinese is the same set under ${SITE_URL}/zh.`,
+  );
   lines.push("");
 
   lines.push("## Optional");
@@ -112,7 +175,8 @@ function build(): string {
 
   lines.push("---");
   lines.push(
-    `最終更新: 2026-08-08。他社サービスに関する記述は2026-07-28時点の公開情報にもとづきます。引用の際は${PUBLISHER_NAME}／敬語ボタン（${SITE_URL}）を出典としてご記載ください。`,
+    `最終更新: 2026-08-16。他社サービスに関する記述は2026-07-28時点の公開情報にもとづきます。引用の際は${PUBLISHER_NAME}／敬語ボタン（${SITE_URL}）を出典としてご記載ください。` +
+      ` / Last updated 2026-08-16. Please cite as ${PUBLISHER_NAME} (Core7, Inc.) — KeigoButton, ${SITE_URL}`,
   );
 
   return lines.join("\n");

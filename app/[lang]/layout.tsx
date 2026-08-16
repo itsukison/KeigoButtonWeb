@@ -14,7 +14,7 @@ import { PREFIXED_LANGS, isLang } from "@/lib/i18n";
  * `dynamicParams = false` makes anything other than `en` and `zh` a 404 rather than
  * an attempted render, so `/foo` behaves exactly as it did before this segment
  * existed. Static routes still win over this dynamic one, which is what keeps
- * `/mobile`, `/blog` and `/reibun` resolving to their Japanese pages.
+ * `/iphone`, `/blog` and `/reibun` resolving to their Japanese pages.
  */
 export const dynamicParams = false;
 

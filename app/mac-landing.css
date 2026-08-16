@@ -2437,3 +2437,434 @@ body:has(.mac-landing) {
 
   .mac-landing .nav__language summary > span:first-child { display: none; }
 }
+
+/* ---------------------------------------------------------------------------
+   Documents — the English guide pages (`/en/<slug>`).
+
+   Additive only: every selector below is under `.mac-doc`, which the landing page
+   does not use, so none of the landing's own rules are touched. The tokens are the
+   landing's tokens, which is what makes a guide read as the same site rather than a
+   blog bolted onto it.
+--------------------------------------------------------------------------- */
+
+.mac-landing .mac-doc {
+  padding-top: 132px;
+  padding-bottom: var(--space-96);
+}
+
+.mac-landing .mac-doc__head {
+  max-width: 46rem;
+  margin-bottom: var(--space-48);
+}
+
+.mac-landing .mac-doc__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+.mac-landing .mac-doc__lead {
+  margin-top: var(--space-24);
+  color: var(--graphite);
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  max-width: 40em;
+}
+
+/* The body column is narrower than the shell: long-form prose at the landing's
+   full width runs to ~120 characters, which is unreadable. */
+.mac-landing .mac-doc__body {
+  max-width: 46rem;
+}
+
+.mac-landing .mac-doc__h2 {
+  margin-top: var(--space-56);
+  margin-bottom: var(--space-16);
+  scroll-margin-top: 96px;
+}
+
+.mac-landing .mac-doc__h3 {
+  margin-top: var(--space-36);
+  margin-bottom: var(--space-12);
+}
+
+.mac-landing .mac-doc__p {
+  margin-top: var(--space-16);
+  color: var(--body-text);
+  font-size: var(--text-body);
+  line-height: 1.75;
+}
+
+.mac-landing .mac-doc__p strong,
+.mac-landing .mac-doc__list strong {
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+}
+
+.mac-landing .mac-doc__body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mac-landing .mac-doc__body a:hover { color: var(--accent-strong); }
+
+.mac-landing .mac-doc__list {
+  margin-top: var(--space-16);
+  padding-left: 1.25em;
+  color: var(--body-text);
+  font-size: var(--text-body);
+  line-height: 1.75;
+  list-style: disc;
+}
+
+.mac-landing .mac-doc__list--ordered { list-style: decimal; }
+.mac-landing .mac-doc__list li { margin-top: var(--space-8); }
+.mac-landing .mac-doc__list li::marker { color: var(--muted); }
+
+.mac-landing .mac-doc__tablewrap { margin-top: var(--space-32); }
+
+/* Wide tables scroll in their own box so the page body never scrolls sideways. */
+.mac-landing .mac-doc__tablescroll {
+  overflow-x: auto;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card);
+}
+
+.mac-landing .mac-doc__table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+}
+
+.mac-landing .mac-doc__table th,
+.mac-landing .mac-doc__table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.mac-landing .mac-doc__table th {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.mac-landing .mac-doc__table td { color: var(--body-text); }
+.mac-landing .mac-doc__table tr:last-child td { border-bottom: 0; }
+
+.mac-landing .mac-doc__caption {
+  margin-top: var(--space-12);
+  color: var(--muted);
+  font-size: var(--text-caption);
+}
+
+.mac-landing .mac-doc__rewrite {
+  margin-top: var(--space-32);
+  padding: var(--space-24);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.mac-landing .mac-doc__rewriteRow + .mac-doc__rewriteRow { margin-top: var(--space-16); }
+
+.mac-landing .mac-doc__rewriteLabel {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: var(--canvas);
+  border: 1px solid var(--hairline-strong);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.mac-landing .mac-doc__rewriteRow--after .mac-doc__rewriteLabel {
+  background: var(--accent-wash);
+  border-color: var(--accent-soft);
+  color: var(--accent);
+}
+
+.mac-landing .mac-doc__rewriteText {
+  margin-top: var(--space-8);
+  color: var(--graphite);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+.mac-landing .mac-doc__rewriteRow--after .mac-doc__rewriteText { color: var(--ink); }
+
+.mac-landing .mac-doc__rewriteNote {
+  margin-top: var(--space-16);
+  color: var(--muted);
+  font-size: var(--text-body-sm);
+}
+
+.mac-landing .mac-doc__callout {
+  margin-top: var(--space-32);
+  padding: var(--space-24);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius-card);
+  background: var(--accent-wash);
+}
+
+.mac-landing .mac-doc__calloutTitle {
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-body);
+}
+
+.mac-landing .mac-doc__callout .mac-doc__p { margin-top: var(--space-8); }
+
+.mac-landing .mac-doc__tool {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-16);
+  margin-top: var(--space-32);
+}
+
+.mac-landing .mac-doc__toolNote {
+  color: var(--muted);
+  font-size: var(--text-body-sm);
+}
+
+/* FAQ, related links and the closing CTA. */
+.mac-landing .mac-doc__faqItem {
+  padding: var(--space-24) 0;
+  border-top: 1px solid var(--hairline);
+  max-width: 46rem;
+}
+
+.mac-landing .mac-doc__faqQ {
+  color: var(--ink);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-semibold);
+  line-height: 1.5;
+}
+
+.mac-landing .mac-doc__related {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-16);
+  margin-top: var(--space-24);
+}
+
+.mac-landing .mac-doc__relatedCard {
+  display: block;
+  padding: var(--space-24);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.mac-landing .mac-doc__relatedCard:hover {
+  border-color: var(--accent-soft);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.mac-landing .mac-doc__relatedTitle {
+  font-weight: var(--weight-semibold);
+  line-height: 1.45;
+}
+
+.mac-landing .mac-doc__relatedNote {
+  margin-top: var(--space-8);
+  color: var(--muted);
+  font-size: var(--text-body-sm);
+}
+
+.mac-landing .mac-doc__cta {
+  margin-top: var(--space-56);
+  padding: var(--space-40);
+  border-radius: var(--radius-card-lg);
+  background: var(--surface);
+  border: 1px solid var(--hairline-strong);
+  max-width: 46rem;
+}
+
+.mac-landing .mac-doc__ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  margin-top: var(--space-24);
+}
+
+@media (max-width: 720px) {
+  .mac-landing .mac-doc { padding-top: 108px; }
+  .mac-landing .mac-doc__table { min-width: 36rem; }
+  .mac-landing .mac-doc__cta { padding: var(--space-24); }
+}
+
+/* ---------------------------------------------------------------------------
+   The free English rewriter (`/en/rewrite`). Additive, `.enrw` prefix only.
+--------------------------------------------------------------------------- */
+
+.mac-landing .enrw {
+  max-width: 46rem;
+  margin-top: var(--space-40);
+  padding: var(--space-32);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card-lg);
+  background: var(--canvas);
+}
+
+.mac-landing .enrw__modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-8);
+}
+
+.mac-landing .enrw__mode {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-input);
+  background: var(--canvas);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.mac-landing .enrw__mode:hover { background: var(--surface); }
+
+.mac-landing .enrw__mode--on {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.mac-landing .enrw__modeLabel {
+  color: var(--ink);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.mac-landing .enrw__modeHint {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.mac-landing .enrw__label {
+  display: block;
+  margin-top: var(--space-24);
+  margin-bottom: var(--space-8);
+  color: var(--graphite);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.mac-landing .enrw__input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-input);
+  background: var(--canvas);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.mac-landing .enrw__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.mac-landing .enrw__input::placeholder { color: var(--muted); }
+
+.mac-landing .enrw__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin: var(--space-12) 0 var(--space-16);
+}
+
+.mac-landing .enrw__sample { padding: 8px 12px; font-size: var(--text-body-sm); }
+
+.mac-landing .enrw__count {
+  color: var(--muted);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.mac-landing .enrw__count--over { color: #b4402f; }
+
+.mac-landing .enrw__note {
+  margin-top: var(--space-12);
+  color: var(--muted);
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+}
+
+.mac-landing .enrw__note--warn { color: #b4402f; }
+
+.mac-landing .enrw__result { margin-top: var(--space-24); }
+
+.mac-landing .enrw__result--error {
+  padding: var(--space-24);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.mac-landing .enrw__candidate {
+  position: relative;
+  margin-top: var(--space-12);
+  padding: var(--space-24);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius-card);
+  background: var(--accent-wash);
+}
+
+.mac-landing .enrw__candidateTag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: var(--canvas);
+  border: 1px solid var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.mac-landing .enrw__candidateText {
+  margin-top: var(--space-12);
+  color: var(--ink);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+.mac-landing .enrw__copy { margin-top: var(--space-16); padding: 8px 14px; font-size: var(--text-body-sm); }
+
+@media (max-width: 720px) {
+  .mac-landing .enrw { padding: var(--space-24); }
+}
+
+/* Phrase-aware wrapping for the Japanese and Chinese hero headline.
+   CJK text has no spaces, so the browser fills each line to capacity and will
+   happily break 「そのまま」 after 「そ」 — which is what the 2026-08-17 headline
+   did once the brand name was added. `auto-phrase` breaks at phrase boundaries
+   instead. Unsupported browsers fall back to `normal`, i.e. exactly the previous
+   behaviour, so this is additive in the strict sense. Scoped to the hero: it is
+   the only headline long enough for the difference to show, and the English face
+   is unaffected either way (`auto-phrase` only changes CJK). */
+.mac-landing .hero .h-display {
+  word-break: auto-phrase;
+}

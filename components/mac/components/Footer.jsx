@@ -2,9 +2,26 @@ import { AppleIcon } from './product/Product.jsx'
 import { href } from '@/lib/i18n'
 import { useLang, useT } from '../i18n'
 
+/**
+ * The English guides, listed only in the English footer.
+ *
+ * Hardcoded here rather than imported from `content/en-guides.ts` because this is a
+ * client component: importing the registry to read four labels would pull every
+ * guide's full `blocks` array into the browser bundle. A wrong href here 404s
+ * visibly, which is the failure mode worth accepting for that trade.
+ */
+const EN_GUIDE_LINKS = [
+  { href: '/en/rewrite', label: 'Free English rewriter' },
+  { href: '/en/ai-writing-apps-mac', label: 'AI writing apps for Mac' },
+  { href: '/en/grammarly-alternative-mac', label: 'Grammarly alternatives' },
+  { href: '/en/apple-intelligence-writing-tools-alternative', label: 'Apple Intelligence alternative' },
+  { href: '/en/rewrite-text-any-app-mac', label: 'Rewrite text in any app' },
+]
+
 export default function Footer({ onDownload }) {
   const t = useT()
   const lang = useLang()
+  const isEn = lang === 'en'
   return (
     <footer className="footer">
       <img className="footer__art" src="/mac-footer.png" alt="" aria-hidden="true" />
@@ -17,9 +34,28 @@ export default function Footer({ onDownload }) {
             <a href="#features">{t.nav.features}</a>
             <a href="#pricing">{t.nav.pricing}</a>
             <a href="#faq">{t.nav.faq}</a>
-            <a href="/mobile">{t.footer.mobile}</a>
+            <a href="/iphone">{t.footer.mobile}</a>
+            {/* The internal hub. `/` is the only page on this property Google
+                crawls, so these are the links that carry discovery and equity to
+                the pages targeting 「敬語変換」-class queries (seo-geo.md §設計方針5).
+                Restyle or move them freely; do not drop them. */}
+            {/* English readers get the English cluster; the Japanese tool pages
+                target Japanese queries and are not what an English visitor came
+                for. Both lists still link the free converter, which is the one
+                Japanese page useful in any language. */}
+            {isEn
+              ? EN_GUIDE_LINKS.map((link) => (
+                  <a key={link.href} href={link.href}>{link.label}</a>
+                ))
+              : (
+                <>
+                  <a href="/keigo-check">{t.footer.checker}</a>
+                  <a href="/keigo-test">{t.footer.test}</a>
+                  <a href="/reibun">{t.footer.reibun}</a>
+                  <a href="/blog">{t.footer.articles}</a>
+                </>
+              )}
             <a href="/keigo-henkan">{t.footer.converter}</a>
-            <a href="/blog">{t.footer.articles}</a>
           </nav>
 
           <div className="footer__column footer__download">
@@ -39,6 +75,10 @@ export default function Footer({ onDownload }) {
               {t.brand}
             </a>
             <div className="footer__legal-links">
+              {/* `/en/support` and `/zh/support` are in the sitemap; without this
+                  link they are in nothing else, because the Mac landing does not
+                  render SiteChrome and SiteChrome is where the support link lived. */}
+              <a href={href(lang, '/support')}>{t.chrome.support}</a>
               <a href={href(lang, '/terms')}>{t.footer.terms}</a>
               <a href={href(lang, '/privacy')}>{t.footer.privacy}</a>
               <a href="mailto:keigobutton@gmail.com">{t.footer.contact}</a>

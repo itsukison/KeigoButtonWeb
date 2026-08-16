@@ -101,13 +101,20 @@ const ja = {
   // Page metadata. Kept beside the copy rather than in the route files so a title
   // and the H1 under it cannot drift apart, and so adding a language means adding
   // one block rather than editing five `generateMetadata`s.
+  // Page metadata for `/`, which is **the brand root, not the Mac product page**.
+  // The body it renders is the Mac landing, but the URL is the one that ranks for
+  // the brand query 「敬語ボタン」 — 5,000+ of those searchers are on a phone looking
+  // for the iPhone keyboard. Titling it 「敬語ボタン Mac版」 answered a query nobody
+  // typed: position went 4.0 → 7.7 and clicks to zero in the week after 2026-08-08
+  // (Search Console, measured 2026-08-16). Brand first, both platforms named, and
+  // the Mac promise kept in the description where the page can actually deliver it.
   seo: {
     mac: {
-      title: '敬語ボタン Mac版｜いま書いている場所で、そのまま整える',
+      title: '敬語ボタン｜Mac・iPhoneで文章をその場で敬語に',
       description:
-        '画面下のバーから、いま入力している文章をその場で自然な敬語や目的に合う表現へ。コピーや貼り付け、アプリの切り替えなしで使える敬語ボタン Mac版です。',
-      ogTitle: '敬語ボタン Mac版',
-      ogDescription: 'いま書いている場所で、そのまま整える。',
+        'Macでは入力中の場所からそのまま、iPhoneではキーボードから。文章を自然な敬語や目的に合う表現へ書き直せるAIアプリです。Mac版はmacOS 14以降、無料で使いはじめられます。',
+      ogTitle: '敬語ボタン',
+      ogDescription: 'Mac・iPhoneで、いま書いている場所のまま敬語に。',
     },
   },
   // The product name. Japanese and Chinese readers both know it by its Japanese
@@ -134,7 +141,11 @@ const ja = {
   },
   hero: {
     badge: ['iPhone版「敬語ボタン」は ', '5,000人以上', ' に使われています'],
-    title: 'いま書いている場所で、そのまま整える。',
+    // 21字。旧「いま書いている場所で、そのまま整える。」は19字で、ブランド名が
+    // h1に一度も出てこなかった。左カラムは1280pxグリッドの約1fr（≒610px）、
+    // --text-display は48pxなので1行あたり約13字——19字も21字も2行に収まる。
+    // 3行に落ちるのは26字を超えたあたりからで、そこは越えていない。
+    title: '敬語ボタンは、書く場所で、そのまま整える。',
     lede: '画面下のバーにホバーして、自分のボタンを押すだけ。',
     download: 'Mac版をダウンロード',
     secondary: 'iPhone版を入手',
@@ -291,7 +302,15 @@ const ja = {
     privacy: 'プライバシーポリシー',
     contact: 'お問い合わせ',
     mobile: 'iPhone版',
+    // The five links below are the site's internal hub (seo-geo.md §設計方針5). They
+    // were on the old homepage, and the 2026-08-08 desktop merge left only two of
+    // them — /keigo-check, the largest impression driver on the property (139
+    // impressions, pos 9.1 / 28d), lost its only link from the one page Google
+    // actually crawls. Any styling or placement is fine; keep them reachable.
     converter: '無料の敬語変換',
+    checker: '敬語チェック',
+    test: '敬語テスト20問',
+    reibun: '場面別 例文集',
     articles: '敬語の記事',
     copyright: '© 2026 株式会社Core7',
     toTop: 'ページ上部へ戻る',
@@ -332,7 +351,9 @@ const en = {
     terms: 'Terms',
     privacy: 'Privacy Policy',
     legal: 'Legal notice (Japan)',
-    copyright: 'KeigoButton is a Japanese-language AI writing app for Mac and iPhone.',
+    // Was "a Japanese-language AI writing app", which is false in this interface:
+    // English buttons write English (`AppLanguage.writesJapanese`).
+    copyright: 'KeigoButton is an AI writing app for Mac and iPhone that rewrites your text where you already write it.',
   },
   billing: {
     backToApp: 'Back to KeigoButton',
@@ -365,13 +386,23 @@ const en = {
       note1: 'It can take a few seconds to apply. If nothing looks different, wait a moment and reopen the app.',
     },
   },
+  // **The English product is not a Japanese product.** `AppLanguage.writesJapanese`
+  // is `self != .english`: an English user's buttons read and write English, and the
+  // English preset packs are Starter / Work / Outreach / Polish / Social — grammar,
+  // tone, cold email, "read like a native writer". 敬語 is the name of the wedge that
+  // opened the Japanese market, not a description of the category.
+  //
+  // So the English metadata targets the category, not the wedge: one-click AI
+  // rewriting anywhere on macOS, against Grammarly / Apple Intelligence Writing
+  // Tools / copy-paste-into-ChatGPT. Titling this page around "keigo" would have
+  // aimed it at Japanese learners, who are not the buyer and never were.
   seo: {
     mac: {
-      title: 'KeigoButton for Mac — polish your writing where you already write it',
+      title: 'KeigoButton — one-click AI rewriting in every Mac app',
       description:
-        'Hover the bar at the bottom of your screen and press one of your own buttons. Your text is rewritten in place, with no copying, pasting or switching apps. Free on macOS 14 and later.',
-      ogTitle: 'KeigoButton for Mac',
-      ogDescription: 'Polish your writing where you already write it.',
+        'Press one of your own buttons and the text you are writing is rewritten in place — grammar, tone, length, translation, a follow-up. Works in Mail, Slack, Gmail, Notion, Word and anywhere else you can put a cursor, with no copying into ChatGPT and pasting back. Free on macOS 14 and later.',
+      ogTitle: 'KeigoButton',
+      ogDescription: 'One-click AI rewriting, in every app on your Mac.',
     },
   },
   brand: 'KeigoButton',
@@ -392,8 +423,13 @@ const en = {
   },
   hero: {
     badge: ['The iPhone app is used by ', 'more than 5,000 people', ''],
-    title: 'Polish your writing where you already write it.',
-    lede: 'Hover the bar at the bottom of the screen and press one of your own buttons.',
+    // "Polish" named the wrong category: it reads as a proofreader, and proofreading
+    // is the one thing this is not — Apple Intelligence and Grammarly both do that
+    // already and for less. What the product actually is, is your own saved
+    // instructions applied in place, anywhere. Same line count and near-identical
+    // measure, so the hero's layout is unchanged.
+    title: 'Your own AI rewrite buttons, in every app.',
+    lede: 'Hover the bar at the bottom of the screen and press one. Your text is rewritten where it stands.',
     download: 'Download for Mac',
     secondary: 'Get it for iPhone',
     meta: 'macOS 14 or later · Free to use · The same account as the iPhone app',
@@ -551,8 +587,14 @@ const en = {
     privacy: 'Privacy Policy',
     contact: 'Contact',
     mobile: 'For iPhone',
-    converter: 'Free polite Japanese converter',
-    articles: 'Japanese writing guides',
+    // These five point at Japanese-only pages, as they already did. An English
+    // reader of this site is someone writing Japanese, so a Japanese tool is a
+    // useful destination for them — the label says which language they will land in.
+    converter: 'Free keigo converter (JA)',
+    checker: 'Keigo mistake checker (JA)',
+    test: 'Keigo test, 20 questions (JA)',
+    reibun: 'Japanese email templates (JA)',
+    articles: 'Japanese writing guides (JA)',
     copyright: '© 2026 Core7, Inc.',
     toTop: 'Back to top',
   },
@@ -626,11 +668,11 @@ const zh = {
   },
   seo: {
     mac: {
-      title: '敬語ボタン Mac 版｜就在你正在写字的地方，直接整理好',
+      title: '敬語ボタン｜在 Mac 和 iPhone 上把日语文章改写成敬语',
       description:
-        '把光标移到画面下方的工具栏上，按下自己的按钮，文字就会在原处被改写。无需复制、粘贴或切换应用。支持 macOS 14 及以上，免费使用。',
-      ogTitle: '敬語ボタン Mac 版',
-      ogDescription: '就在你正在写字的地方，直接整理好。',
+        '在 Mac 上就从你正在输入的地方，在 iPhone 上则从键盘中，把日语文章改写成自然的敬语和商务用语的 AI 应用。Mac 版支持 macOS 14 及以上，可免费开始使用。',
+      ogTitle: '敬語ボタン',
+      ogDescription: '在 Mac 和 iPhone 上，就地把文章改写成敬语。',
     },
   },
   brand: '敬語ボタン',
@@ -811,6 +853,9 @@ const zh = {
     contact: '联系我们',
     mobile: 'iPhone版',
     converter: '無料の敬語変換',
+    checker: '敬語チェック',
+    test: '敬語テスト20問',
+    reibun: '場面別 例文集',
     articles: '敬語の記事',
     copyright: '© 2026 株式会社Core7',
     toTop: '返回页面顶部',

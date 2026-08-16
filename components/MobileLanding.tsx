@@ -7,12 +7,11 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { APP_STORE_URL, MOBILE_APP_ID, SITE_URL } from "@/lib/site";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 const APP_ICON_SRC = "/brand-icon.png";
-const APP_STORE_URL =
-  "https://apps.apple.com/jp/app/%E6%95%AC%E8%AA%9E%E3%83%9C%E3%82%BF%E3%83%B3-ai%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89/id6777901723";
 
 const discoveryFaq = [
   {
@@ -50,10 +49,10 @@ const appJsonLd = {
   // makes the entity ambiguous. It is also the type Google documents for app
   // rich results. Keep this and lib/site.ts in agreement.
   "@type": "SoftwareApplication",
-  "@id": "https://keigobutton.com/mobile#app",
+  "@id": MOBILE_APP_ID,
   name: "敬語ボタン",
   alternateName: ["KeigoButton", "敬語ボタン｜AIキーボード"],
-  url: "https://keigobutton.com/mobile",
+  url: `${SITE_URL}/iphone`,
   downloadUrl: APP_STORE_URL,
   description:
     "LINE・メール・DMの文章を、入力中のアプリを離れずに自然な敬語へ書き直せるiPhone向けAIキーボードアプリ。",

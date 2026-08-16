@@ -22,7 +22,7 @@ function navFor(lang: Lang) {
   }
   return [
     { href: "/", label: "Mac版" },
-    { href: "/mobile", label: "iPhone版" },
+    { href: "/iphone", label: "iPhone版" },
     { href: "/keigo-henkan", label: "敬語変換" },
     { href: "/keigo-check", label: "敬語チェック" },
     { href: "/keigo-test", label: "敬語テスト" },
@@ -140,11 +140,11 @@ export function SiteFooter({ lang = "ja" }: { lang?: Lang }) {
             <ul className="mt-4 flex flex-col gap-2.5 text-black/60">
               <li><a href={PUBLISHER_URL} className="hover:text-black">{PUBLISHER_NAME}</a></li>
               <li><Link href={href(lang, "/")} className="hover:text-black">{t.chrome.mac}</Link></li>
-              {/* `/mobile` and `/legal` are Japanese-only: the iPhone app is a
+              {/* `/iphone` and `/legal` are Japanese-only: the iPhone app is a
                   Japanese keyboard and 特商法 is a Japanese statutory filing. The
                   three that are translated are listed in every language. */}
               {isJa ? (
-                <li><Link href="/mobile" className="hover:text-black">{t.chrome.mobile}</Link></li>
+                <li><Link href="/iphone" className="hover:text-black">{t.chrome.mobile}</Link></li>
               ) : null}
               <li><Link href={href(lang, "/support")} className="hover:text-black">{t.chrome.support}</Link></li>
               <li><Link href={href(lang, "/terms")} className="hover:text-black">{t.chrome.terms}</Link></li>

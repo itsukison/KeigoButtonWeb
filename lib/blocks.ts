@@ -34,8 +34,20 @@ export const plain = (text: string) =>
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
     .replace(/\*\*([^*]+)\*\*/g, "$1");
 
+/**
+ * Labels `blocksToText` wraps around the two block types that carry a sentence
+ * of their own rather than only user copy. They were Japanese literals inline,
+ * which silently produced 「そのまま送ると:」 in the middle of an English page's
+ * llms-full.txt entry once the English guides existed.
+ */
+const TEXT_LABELS = {
+  ja: { before: "そのまま送ると", after: "敬語ボタンの候補", tool: "関連ツール" },
+  en: { before: "Before", after: "After", tool: "Related tool" },
+} as const;
+
 /** Flattens blocks to markdown-ish plain text for the llms-full.txt export. */
-export function blocksToText(blocks: readonly Block[]): string {
+export function blocksToText(blocks: readonly Block[], lang: "ja" | "en" = "ja"): string {
+  const L = TEXT_LABELS[lang];
   const out: string[] = [];
   for (const block of blocks) {
     switch (block.type) {
@@ -63,7 +75,7 @@ export function blocksToText(blocks: readonly Block[]): string {
         break;
       case "rewrite":
         out.push(
-          `そのまま送ると: ${plain(block.before)}\n敬語ボタンの候補: ${plain(block.after)}${
+          `${L.before}: ${plain(block.before)}\n${L.after}: ${plain(block.after)}${
             block.note ? `\n（${plain(block.note)}）` : ""
           }`,
         );
@@ -72,7 +84,7 @@ export function blocksToText(blocks: readonly Block[]): string {
         out.push(`**${plain(block.title)}** ${plain(block.text)}`);
         break;
       case "tool":
-        out.push(`関連ツール: ${plain(block.label)} — ${block.href}`);
+        out.push(`${L.tool}: ${plain(block.label)} — ${block.href}`);
         break;
       case "cta":
         break;

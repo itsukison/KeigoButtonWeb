@@ -11,7 +11,14 @@ import { useLang, useT } from '../i18n'
  * product's own capsule. That shape is Henji's (landing_reference/19.29.24),
  * not Willow's, and the rhyme was not worth the divergence.
  */
-export default function Nav({ onDownload }) {
+/**
+ * `home` is the path the section anchors belong to, and it is empty on the landing
+ * itself — where `#how` is a jump within the page. The guide pages reuse this nav,
+ * and there a bare `#how` scrolls to nothing, so they pass their language root and
+ * the anchors become real cross-page links. The landing's markup is unchanged when
+ * `home` is empty, which is the only state it is ever in.
+ */
+export default function Nav({ onDownload, home = '' }) {
   const t = useT()
   const lang = useLang()
   const currentLocale = LOCALES.find((locale) => locale.code === lang)
@@ -27,7 +34,7 @@ export default function Nav({ onDownload }) {
   return (
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
       <nav className="nav__inner" aria-label={t.nav.aria}>
-        <a className="nav__brand" href="#top">
+        <a className="nav__brand" href={home || '#top'}>
           <span className="nav__mark">
             <img src="/brand-icon.png" alt="" width="26" height="26" />
           </span>
@@ -35,11 +42,11 @@ export default function Nav({ onDownload }) {
         </a>
 
         <ul className="nav__links">
-          <li><a className="nav__link" href="#how">{t.nav.how}</a></li>
-          <li><a className="nav__link" href="#features">{t.nav.features}</a></li>
-          <li><a className="nav__link" href="#pricing">{t.nav.pricing}</a></li>
-          <li><a className="nav__link" href="#faq">{t.nav.faq}</a></li>
-          <li><a className="nav__link" href="/mobile">{t.nav.mobile}</a></li>
+          <li><a className="nav__link" href={`${home}#how`}>{t.nav.how}</a></li>
+          <li><a className="nav__link" href={`${home}#features`}>{t.nav.features}</a></li>
+          <li><a className="nav__link" href={`${home}#pricing`}>{t.nav.pricing}</a></li>
+          <li><a className="nav__link" href={`${home}#faq`}>{t.nav.faq}</a></li>
+          <li><a className="nav__link" href="/iphone">{t.nav.mobile}</a></li>
         </ul>
 
         <div className="nav__cta">

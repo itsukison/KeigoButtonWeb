@@ -1,4 +1,5 @@
 import { ARTICLES } from "@/content/articles";
+import { EN_GUIDES } from "@/content/en-guides";
 import { REIBUN } from "@/content/reibun";
 import { QUIZ } from "@/content/quiz";
 import { RULES } from "@/content/keigo-rules";
@@ -175,10 +176,48 @@ function build(): string {
     out.push("-".repeat(72));
   }
 
+  // ---- English cluster ----
+  // Appended in full rather than summarised: the point of this file is that one
+  // fetch replaces crawling every route, and an English answer assembled from a
+  // Japanese summary of an English page is the drift this file exists to prevent.
+  out.push("");
+  out.push("=".repeat(72));
+  out.push("");
+  out.push("# English guides");
+  out.push("");
+  out.push(
+    "KeigoButton is a macOS app and iPhone keyboard that rewrites the text you are already typing, " +
+      "in place, in any app, using instructions you save as your own buttons. In the English interface " +
+      "the buttons read and write English. Competitor facts below were checked on 2026-08-16 and are " +
+      "dated in the copy; where a competitor is cheaper or more capable, it is stated.",
+  );
+  out.push("");
+
+  for (const guide of EN_GUIDES) {
+    out.push("");
+    out.push(`## ${guide.title} — ${SITE_URL}/en/${guide.slug}`);
+    out.push("");
+    out.push(`Primary query: ${guide.keyword}. Updated ${guide.updated}.`);
+    out.push("");
+    out.push(guide.lead);
+    out.push("");
+    out.push(blocksToText(guide.blocks, "en"));
+    out.push("");
+    out.push("### Frequently asked questions");
+    out.push("");
+    for (const { q, a } of guide.faq) {
+      out.push(`**${q}**`);
+      out.push(a);
+      out.push("");
+    }
+    out.push("-".repeat(72));
+  }
+
   out.push("");
   out.push(
     `出典表記: ${PUBLISHER_NAME}／敬語ボタン（${SITE_URL}）。` +
-      "内容は執筆時点のものです。他社サービスの料金・評価は変動するため、最新情報は各社の公式サイトをご確認ください。",
+      "内容は執筆時点のものです。他社サービスの料金・評価は変動するため、最新情報は各社の公式サイトをご確認ください。" +
+      ` / Cite as ${PUBLISHER_NAME} (Core7, Inc.) — KeigoButton, ${SITE_URL}. Competitor pricing moves; verify against each vendor's own site.`,
   );
 
   return out.join("\n").replace(/\n{4,}/g, "\n\n\n");

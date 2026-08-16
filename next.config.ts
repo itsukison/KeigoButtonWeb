@@ -38,6 +38,18 @@ const nextConfig: NextConfig = {
         destination: "/blog/iphone-keigo-keyboard",
         permanent: true,
       },
+      // /mobile → /iphone. The iPhone landing was moved off `/` on 2026-08-08 and
+      // parked at /mobile, which Google never fetched (URL Inspection, 2026-08-16:
+      // "検出 - インデックス未登録", lastCrawlTime null) — so the slug is being
+      // corrected while there is still nothing to lose. `/mobile` is the URL shape
+      // Google documents for the deprecated separate-mobile-site configuration; the
+      // page is a product page for the iPhone app, not a device variant of the site,
+      // and `/iphone` also matches the query text (「敬語ボタン iPhone」).
+      {
+        source: "/mobile",
+        destination: "/iphone",
+        permanent: true,
+      },
     ];
   },
 };

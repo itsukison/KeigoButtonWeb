@@ -7,7 +7,7 @@ import {
   graph,
   macSoftwareApplicationNode,
   organizationNode,
-  websiteNode,
+  websiteNodeFor,
 } from "@/lib/site";
 
 /**
@@ -58,7 +58,12 @@ export function MacHome({ lang }: { lang: Lang }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            graph(organizationNode, websiteNode, macSoftwareApplicationNode, faqNode(macFaq)),
+            graph(
+              organizationNode,
+              websiteNodeFor(lang),
+              macSoftwareApplicationNode(lang),
+              faqNode(macFaq),
+            ),
           ).replace(/</g, "\\u003c"),
         }}
       />
