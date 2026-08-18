@@ -35,7 +35,7 @@ export function MacDocShell({ lang, children }: { lang: Lang; children: ReactNod
           page a bare `#pricing` scrolls to nothing. */}
       <Nav onDownload={openDownload} home={href(lang, "/")} />
       <main>{children}</main>
-      <Footer onDownload={openDownload} />
+      <Footer onDownload={openDownload} home={href(lang, "/")} />
       {modal && <DownloadModal downloadUrl={downloadUrl} onClose={() => setModal(false)} />}
     </MacI18nProvider>
   );

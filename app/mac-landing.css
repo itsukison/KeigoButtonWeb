@@ -2452,6 +2452,24 @@ body:has(.mac-landing) {
   padding-bottom: var(--space-96);
 }
 
+/* The measure column (46rem) plus the TOC rail (15rem) plus the gap between
+   them, centred as one block. Everything in the document lives inside this, so
+   the h1, the prose, the FAQ and the related cards all share one left edge —
+   which is what was actually wrong before: the body stopped at 46rem while the
+   related grid ran the full 1280, and the page read as lopsided rather than
+   narrow. */
+.mac-landing .mac-doc__wrap {
+  max-width: 66rem;
+  margin-inline: auto;
+}
+
+.mac-landing .mac-doc__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) 15rem;
+  gap: var(--space-40) clamp(40px, 5vw, 80px);
+  align-items: start;
+}
+
 .mac-landing .mac-doc__head {
   max-width: 46rem;
   margin-bottom: var(--space-48);
@@ -2653,7 +2671,7 @@ body:has(.mac-landing) {
 
 .mac-landing .mac-doc__related {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: var(--space-16);
   margin-top: var(--space-24);
 }
@@ -2676,11 +2694,13 @@ body:has(.mac-landing) {
 }
 
 .mac-landing .mac-doc__relatedTitle {
+  display: block;
   font-weight: var(--weight-semibold);
   line-height: 1.45;
 }
 
 .mac-landing .mac-doc__relatedNote {
+  display: block;
   margin-top: var(--space-8);
   color: var(--muted);
   font-size: var(--text-body-sm);
@@ -2867,4 +2887,92 @@ body:has(.mac-landing) {
    is unaffected either way (`auto-phrase` only changes CJK). */
 .mac-landing .hero .h-display {
   word-break: auto-phrase;
+}
+
+/* ---------------------------------------------------------------------------
+   Table of contents rail.
+
+   These pages are 6–9 minute comparison reads with five to eight sections, and
+   they are scanned rather than read start to finish — so the space to the right
+   of the measure is spent on navigation instead of being left blank. This is
+   also why the layout is a grid rather than a centred column: recentring would
+   have removed the imbalance without giving the reader anything.
+--------------------------------------------------------------------------- */
+
+.mac-landing .mac-doc__toc {
+  position: sticky;
+  top: 104px;
+  padding-left: var(--space-24);
+  border-left: 1px solid var(--hairline);
+}
+
+.mac-landing .mac-doc__tocHeading {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mac-landing .mac-doc__tocList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.mac-landing .mac-doc__tocList a {
+  color: var(--body-text);
+  font-size: var(--text-body-sm);
+  line-height: 1.45;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.mac-landing .mac-doc__tocList a:hover { color: var(--ink); }
+
+/* Below the two-column breakpoint the rail becomes a plain card directly under
+   the lede — `order` moves it above the prose, because a table of contents that
+   appears after the article it indexes is decoration. */
+@media (max-width: 1080px) {
+  .mac-landing .mac-doc__wrap { max-width: 46rem; }
+
+  .mac-landing .mac-doc__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mac-landing .mac-doc__toc {
+    position: static;
+    order: -1;
+    padding: var(--space-24);
+    border-left: 0;
+    border: 1px solid var(--hairline-strong);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+  }
+
+  .mac-landing .mac-doc__tocList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--space-8) var(--space-24);
+  }
+}
+
+/* A secondary group heading inside the footer's navigation column. Smaller than
+   the column heading it sits under, and spaced away from the links above it, so
+   the column reads as two short lists rather than one long one. */
+.mac-landing .footer__heading--sub {
+  margin-top: var(--space-20);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  opacity: 0.55;
+}
+
+/* The rewriter and the prose used to sit directly under the page header and
+   carried their own top margin for that. They are now the first child of the
+   layout's main column, which already has the header's margin above it and the
+   grid's row gap beside it — so the margin doubled up. */
+.mac-landing .mac-doc__main > .enrw:first-child,
+.mac-landing .mac-doc__main > .mac-doc__body:first-child > .mac-doc__h2:first-child {
+  margin-top: 0;
 }

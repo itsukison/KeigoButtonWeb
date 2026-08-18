@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EN_GUIDES, enGuide } from "@/content/en-guides";
 import { MacProse } from "@/components/mac/MacProse";
+import { MacToc } from "@/components/mac/MacToc";
 import { MacDocShell } from "@/components/mac/MacDocShell";
 import { isLang } from "@/lib/i18n";
+import { tableOfContents } from "@/lib/blocks";
 import {
   APP_STORE_URL,
   MAC_DOWNLOAD_URL,
@@ -82,6 +84,12 @@ export default async function EnGuidePage({ params }: Props) {
 
   const url = `${SITE_URL}/en/${guide.slug}`;
   const related = guide.related.map(enGuide).filter((g) => g !== undefined);
+  // `faq-heading` is rendered by this template, not by the blocks, so it has to be
+  // appended here or the rail would stop short of a section the reader can see.
+  const toc = [
+    ...tableOfContents(guide.blocks),
+    { id: "faq-heading", text: "Frequently asked questions" },
+  ];
 
   const articleNode = {
     "@type": "Article",
@@ -120,71 +128,89 @@ export default async function EnGuidePage({ params }: Props) {
 
       <MacDocShell lang="en">
         <article className="shell mac-doc">
-          <header className="mac-doc__head">
-            <p className="eyebrow">{guide.category}</p>
-            <h1 className="h-display">{guide.title}</h1>
-            <p className="mac-doc__lead">{guide.lead}</p>
-            <p className="mac-doc__meta">
-              <span>{guide.minutes} min read</span>
-              <span>·</span>
-              <time dateTime={guide.updated}>Updated {guide.updated}</time>
-              <span>·</span>
-              {/* Stated rather than implied: this is a comparison written by one of
+          <div className="mac-doc__wrap">
+            <header className="mac-doc__head">
+              <p className="eyebrow">{guide.category}</p>
+              <h1 className="h-display">{guide.title}</h1>
+              <p className="mac-doc__lead">{guide.lead}</p>
+              <p className="mac-doc__meta">
+                <span>{guide.minutes} min read</span>
+                <span>·</span>
+                <time dateTime={guide.updated}>Updated {guide.updated}</time>
+                <span>·</span>
+                {/* Stated rather than implied: this is a comparison written by one of
                   the products being compared, and saying so is what lets the rest of
                   it be believed (seo-geo.md §設計方針7). */}
-              <span>Written by the team behind KeigoButton</span>
-            </p>
-          </header>
+                <span>Written by the team behind KeigoButton</span>
+              </p>
+            </header>
 
-          <MacProse blocks={guide.blocks} />
+            <div className="mac-doc__layout">
+              <div className="mac-doc__main">
+                <MacProse blocks={guide.blocks} />
 
-          <section className="mac-doc__faq" aria-labelledby="faq-heading">
-            <h2 id="faq-heading" className="h-heading mac-doc__h2">
-              Frequently asked questions
-            </h2>
-            {guide.faq.map((item) => (
-              <div key={item.q} className="mac-doc__faqItem">
-                <p className="mac-doc__faqQ">{item.q}</p>
-                <p className="mac-doc__p">{item.a}</p>
+                <section className="mac-doc__faq" aria-labelledby="faq-heading">
+                  <h2 id="faq-heading" className="h-heading mac-doc__h2">
+                    Frequently asked questions
+                  </h2>
+                  {guide.faq.map((item) => (
+                    <div key={item.q} className="mac-doc__faqItem">
+                      <p className="mac-doc__faqQ">{item.q}</p>
+                      <p className="mac-doc__p">{item.a}</p>
+                    </div>
+                  ))}
+                </section>
+
+                <section className="mac-doc__cta">
+                  <h2 className="h-heading-sm">Try it on your Mac</h2>
+                  <p className="mac-doc__p">
+                    Free for 50 rewrites a month, no card required. macOS 14 or
+                    later, Apple silicon and Intel.
+                  </p>
+                  <div className="mac-doc__ctaActions">
+                    <a
+                      className="btn btn--filled btn--lg"
+                      href={MAC_DOWNLOAD_URL}
+                    >
+                      Download for Mac
+                    </a>
+                    <a
+                      className="btn btn--outline btn--lg"
+                      href={APP_STORE_URL}
+                    >
+                      Get it for iPhone
+                    </a>
+                  </div>
+                </section>
+
+                {related.length > 0 ? (
+                  <section aria-labelledby="related-heading">
+                    <h2 id="related-heading" className="h-heading mac-doc__h2">
+                      Keep reading
+                    </h2>
+                    <div className="mac-doc__related">
+                      {related.map((item) => (
+                        <Link
+                          key={item.slug}
+                          href={`/en/${item.slug}`}
+                          className="mac-doc__relatedCard"
+                        >
+                          <span className="mac-doc__relatedTitle">
+                            {item.title}
+                          </span>
+                          <span className="mac-doc__relatedNote">
+                            {item.category}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
               </div>
-            ))}
-          </section>
 
-          <section className="mac-doc__cta">
-            <h2 className="h-heading-sm">Try it on your Mac</h2>
-            <p className="mac-doc__p">
-              Free for 50 rewrites a month, no card required. macOS 14 or later, Apple
-              silicon and Intel.
-            </p>
-            <div className="mac-doc__ctaActions">
-              <a className="btn btn--filled btn--lg" href={MAC_DOWNLOAD_URL}>
-                Download for Mac
-              </a>
-              <a className="btn btn--outline btn--lg" href={APP_STORE_URL}>
-                Get it for iPhone
-              </a>
+              <MacToc items={toc} />
             </div>
-          </section>
-
-          {related.length > 0 ? (
-            <section aria-labelledby="related-heading">
-              <h2 id="related-heading" className="h-heading mac-doc__h2">
-                Keep reading
-              </h2>
-              <div className="mac-doc__related">
-                {related.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/en/${item.slug}`}
-                    className="mac-doc__relatedCard"
-                  >
-                    <span className="mac-doc__relatedTitle">{item.title}</span>
-                    <span className="mac-doc__relatedNote">{item.category}</span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ) : null}
+          </div>
         </article>
       </MacDocShell>
     </div>
