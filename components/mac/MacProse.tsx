@@ -52,7 +52,18 @@ function inline(text: string, key: string) {
   return parts;
 }
 
-export function MacProse({ blocks }: { blocks: readonly Block[] }) {
+export function MacProse({
+  blocks,
+  lang = "en",
+}: {
+  blocks: readonly Block[];
+  lang?: "ja" | "en";
+}) {
+  const rewriteLabels =
+    lang === "ja"
+      ? { before: "受信文・元の文章", after: "書き換え・返信例" }
+      : { before: "Before", after: "After" };
+
   return (
     <div className="mac-doc__body">
       {blocks.map((block, index) => {
@@ -126,11 +137,11 @@ export function MacProse({ blocks }: { blocks: readonly Block[] }) {
             return (
               <div key={key} className="mac-doc__rewrite">
                 <div className="mac-doc__rewriteRow">
-                  <span className="mac-doc__rewriteLabel">Before</span>
+                  <span className="mac-doc__rewriteLabel">{rewriteLabels.before}</span>
                   <p className="mac-doc__rewriteText">{block.before}</p>
                 </div>
                 <div className="mac-doc__rewriteRow mac-doc__rewriteRow--after">
-                  <span className="mac-doc__rewriteLabel">After</span>
+                  <span className="mac-doc__rewriteLabel">{rewriteLabels.after}</span>
                   <p className="mac-doc__rewriteText">{block.after}</p>
                 </div>
                 {block.note ? <p className="mac-doc__rewriteNote">{block.note}</p> : null}

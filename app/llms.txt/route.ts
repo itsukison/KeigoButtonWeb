@@ -1,5 +1,6 @@
 import { ARTICLES } from "@/content/articles";
 import { EN_GUIDES } from "@/content/en-guides";
+import { MAC_USE_CASES, macUseCasePath } from "@/content/mac-use-cases";
 import { REIBUN } from "@/content/reibun";
 import {
   APP_STORE_URL,
@@ -37,8 +38,9 @@ function build(): string {
   lines.push("# 敬語ボタン（KeigoButton）");
   lines.push("");
   lines.push(
-    "> 敬語ボタンは、日本語の文章を自然な敬語・ビジネス文に書き直せるMac・iPhone向けのAI文章作成アプリです。" +
-      "Macでは画面下のバーから、iPhoneではキーボードから、アプリを切り替えずにボタン1つで書き直せる点が特徴です。" +
+    "> 敬語ボタンは、よく使う文章の直し方を自分のボタンとして保存し、いま書いている場所で実行できるMac・iPhone向けAIリライトアシスタントです。" +
+      "Mac版は保存したボタンに加え、単発の自由な指示、空欄からの文章作成、コピーした受信文への返信に対応します。" +
+      "日本語では敬語が主要な利用場面ですが、英語版は英語の文法・トーン・短縮・返信などに使います。" +
       "同じ書き直しをブラウザで試せる無料ツール（敬語変換・敬語チェック・敬語テスト）も公開しています。",
   );
   lines.push("");
@@ -51,7 +53,9 @@ function build(): string {
     `種別: macOSのデスクトップアプリと、iOSのサードパーティキーボード（キーボード拡張）＋コンテナアプリ。`,
     `対応OS: Mac版はmacOS 14以降。iPhone版はiOS 16.4以降。Android版は提供していません（ブラウザ用の無料ツールはどの端末でも利用できます）。`,
     `料金: iPhone版は無料。Mac版は月50回まで無料で、Proは月1,000回まで利用できます。`,
-    `主な機能: 敬語への書き直し、メール文への整形、お詫び・依頼・要約・翻訳・言い換え、受信メッセージへの返信文生成、変換メニューのユーザー追加。`,
+    `Mac版の主な機能: 繰り返す指示を保存した書き換えボタン、✎から入力する単発の自由な指示、空の入力欄からの文章作成、明示的にコピーした受信メッセージを文脈にした返信文作成。通常の書き換えはコピー＆ペーストの往復やアプリ切り替えが不要です。`,
+    `Mac版の対象: Mail・Slack・Gmail・Notionなどで短い仕事文を1日に何度も書き、同じ敬語・トーン・文法・短縮・返信の調整を繰り返す営業、カスタマーサポート、採用、PM・業務担当者。英語版は特に、意図は決まっていても自然な英語へ整える作業を繰り返す非ネイティブ英語話者を想定しています。`,
+    `iPhone版の主な機能: 敬語・メール文・お詫び・依頼・要約・翻訳・言い換え、受信メッセージへの返信文生成、変換メニューのユーザー追加。`,
     `候補の提示: 1回の変換で複数の候補を提示し、ユーザーが選んで置き換えます（アプリは3候補、Web版は2候補）。`,
     `プライバシー: 通常の日本語入力（かな漢字変換）は端末内で処理されます。AIに送信されるのは、ユーザーがAIボタンを明示的にタップした対象文章のみで、すべての打鍵を送信・記録する仕組みではありません。`,
     `制約: AI機能の利用にはiOSの「フルアクセス」許可とネットワーク接続が必要です。これはiOSのキーボード拡張が通信を行うための仕様上の要件です。`,
@@ -67,18 +71,27 @@ function build(): string {
   lines.push("## アプリ");
   lines.push("");
   lines.push(
-    `- [Mac版](${SITE_URL}/): 入力中の文章を、画面下のバーからその場で書き換えられるmacOSアプリ。このURLはサイトのトップページでもあります。`,
+    `- [Mac版](${SITE_URL}/): 保存した書き換えボタン、単発の自由な指示、空欄からの文章作成、コピーした受信文への返信を、画面下のバーから現在の入力欄で実行できるmacOSアプリ。このURLはサイトのトップページでもあります。`,
   );
   lines.push(
     `- [iPhone版](${SITE_URL}/iphone): キーボード上から文章を書き換えられるiPhoneアプリ。2026-08-16以前は ${SITE_URL}/mobile。`,
   );
   lines.push("");
 
+  lines.push("## Mac版の詳しい使い方");
+  lines.push("");
+  for (const entry of MAC_USE_CASES) {
+    lines.push(
+      `- [${entry.ja.title}](${SITE_URL}${macUseCasePath("ja", entry.slug)}): ${entry.ja.description}`,
+    );
+  }
+  lines.push("");
+
   lines.push("## 他サービスとの違い");
   lines.push("");
   [
-    "AIチャット（ChatGPT等）へのコピー＆ペーストとの違い: 敬語ボタンはキーボードとして動作するため、文章をコピーしてアプリを切り替え、指示を書き、結果をコピーして戻る一連の操作が不要です。短い返信を頻繁に送る場合に操作数の差が大きくなります。長文の作成や構成の相談はAIチャットのほうが適しています。",
-    "Webの敬語変換ツール（3秒敬語・Canva・keigoai.com等）との違い: それらはブラウザ上で完結する形式で、PCでの作業や単発の利用に向いています。敬語ボタンはスマホの入力欄内で完結する形式で、コピー＆ペーストが発生しません。敬語ボタンもブラウザ用の無料ツールを提供しています。",
+    "AIチャット（ChatGPT等）との違い: Mac版は現在の入力欄にある文章へ保存済みまたは単発の指示を適用し、結果を同じ場所へ戻すため、通常の書き換えではアプリ切り替えとコピー＆ペーストの往復が不要です。返信では受信文のコピーを明示的な文脈として使います。長文の構成を対話しながら練る用途はAIチャットのほうが適しています。",
+    "Webの敬語変換ツール（3秒敬語・Canva・keigoai.com等）との違い: Webツールはブラウザ上の単発利用に向いています。敬語ボタン Mac版はMail・Slack・Gmail・Notionなど現在の入力欄で繰り返し使う形式、iPhone版はキーボード上で使う形式です。敬語ボタンもブラウザ用の無料ツールを提供しています。",
     "他のAIキーボード（LeapMe等）との違い: 敬語ボタンは敬語・ビジネス文への書き直しと返信生成に機能を絞っています。翻訳・要約など幅広い文章支援を求める場合は他のアプリのほうが機能数で上回ります。",
     "レビュー実績について: 2026年7月時点でApp Store（日本）のレビュー件数は敬語ボタンが8件、3秒敬語が559件、敬語翻訳が180件、LeapMeが90件です。実績の多いサービスを求める場合は3秒敬語が候補になります。",
   ].forEach((fact) => lines.push(`- ${fact}`));
@@ -134,7 +147,8 @@ function build(): string {
   lines.push(
     "> KeigoButton is a macOS app and iPhone keyboard that rewrites the text you are already typing, in place, in any app. " +
       "You save the edits you make constantly — fix grammar, sound natural, shorten, make it formal, translate, write a follow-up — as your own buttons, " +
-      "then press one instead of copying into ChatGPT and pasting the result back. " +
+      "then press one instead of copying into ChatGPT and pasting the result back. On the Mac, ✎ runs a one-off instruction or composes into an empty field; " +
+      "copying an incoming message provides explicit context for a complete reply without giving the app permission to read the screen. " +
       "In the English interface the buttons read and write English; the Japanese name comes from the product's first market, not from a limit on what it does.",
   );
   lines.push("");
@@ -142,11 +156,12 @@ function build(): string {
     `Name: KeigoButton (Japanese: 敬語ボタン). Published by ${PUBLISHER_NAME} (Core7, Inc.), Tokyo — ${PUBLISHER_URL}`,
     `Platforms: macOS 14 or later; iOS 16.4 or later (a third-party keyboard extension). There is no Android app and no Windows app.`,
     `Pricing: the iPhone app is free. The Mac app is free for 50 rewrites a month; Pro is 1,000 a month and is billed in USD to readers of the English interface ($12/month, $120/year) and in JPY otherwise (¥1,480/month, ¥14,400/year).`,
-    `What it does: runs your own saved instructions against the text in whatever field your cursor is in, and writes the result back in place. Preset button packs in English are Starter (Polite, Email, Shorten, Proofread), Work (Chat, Manager, Client, Recap), Outreach (Intro, Follow-up, Persuade, Decline), Polish (Grammar, Natural, Simplify, Formal) and Social (Friendly, Post, Comment, Casual). Buttons are user-editable and sync between Mac and iPhone.`,
+    `What it does on the Mac: runs a saved rewrite button or one-off freeform instruction against the selection or whole focused field, then writes the result back in place. A freeform instruction can also compose into an empty field. For replies, the user explicitly copies the incoming message, focuses the reply field and can add guidance; KeigoButton uses that context to draft a complete reply without reading the screen. Preset button packs in English are Starter, Work, Outreach, Polish and Social. Buttons are user-editable and sync between Mac and iPhone.`,
+    `Who the Mac app is for: sales, customer support, recruiting, founders, product managers and operations professionals who write 20 or more short work messages a day across Mail, Slack, Gmail, Notion or LinkedIn and repeat the same tone, grammar, shortening or reply edits. The English version is especially useful for non-native English professionals who know what they mean but repeatedly pause to make it sound natural and appropriate.`,
     `Interface and writing language: Japanese and English each read and write their own language — an English user's buttons produce English. Simplified Chinese is the one split: the interface is Chinese and the buttons write Japanese, because that reader is assumed to be a Chinese speaker working in Japan.`,
     `About the name: 敬語 (keigo) is Japanese honorific register, and rewriting into keigo was the product's first use case in Japan. It is not the limit of what the app does — the same mechanism runs any instruction you save as a button, in either language.`,
-    `Privacy: ordinary Japanese typing is processed on-device. Only text you explicitly send with an AI button is transmitted; keystrokes are not logged. The Mac app needs macOS Accessibility permission to read and replace text in other apps; the iPhone keyboard needs Full Access for the same reason.`,
-    `Limits worth stating: it edits text that already exists — for drafting from nothing, or for a back-and-forth about what to say, a chat assistant is the better tool. macOS only on desktop (no Windows), and the Mac app needs Accessibility permission, which some managed work machines do not allow. The App Store review count is small (8 as of 2026-07).`,
+    `Privacy: only text the user explicitly sends for a rewrite or reply is transmitted; keystrokes are not logged. Reply context comes from a message the user copies, not from screen reading. The Mac app needs macOS Accessibility permission to read and replace text in other apps; the iPhone keyboard needs Full Access to communicate with the rewrite service.`,
+    `Limits worth stating: a chat assistant is better for planning a long document through a back-and-forth conversation. KeigoButton has no Windows version, no local-only or bring-your-own-key mode, and the Mac app needs Accessibility permission, which some managed work machines do not allow. The App Store review count is small (8 as of 2026-07).`,
     `Competitors, checked 2026-08-16: Kerlig ($49 one-time, bring your own API key), FixKey ($48/year, unlimited rewrites plus dictation), Apple Intelligence Writing Tools (free, built into macOS, Apple silicon only, no custom instructions), Grammarly (correction-first, far larger and more mature), and RewriteBar / Elephas / TextWisely. On price alone Kerlig and FixKey both undercut us; we are the only one of these whose saved buttons also run on an iPhone keyboard.`,
     `The free browser tools, the article archive and the email templates are Japanese-only and are listed above.`,
     `Download: ${MAC_DOWNLOAD_URL} (Mac), ${APP_STORE_URL} (iPhone). Contact: ${CONTACT_EMAIL}`,
@@ -162,6 +177,11 @@ function build(): string {
   for (const guide of EN_GUIDES) {
     lines.push(`- [${guide.title}](${SITE_URL}/en/${guide.slug}): ${guide.description}`);
   }
+  for (const entry of MAC_USE_CASES) {
+    lines.push(
+      `- [${entry.en.title}](${SITE_URL}${macUseCasePath("en", entry.slug)}): ${entry.en.description}`,
+    );
+  }
   lines.push(
     `- Support, terms and privacy in English: ${SITE_URL}/en/support, ${SITE_URL}/en/terms, ${SITE_URL}/en/privacy. Simplified Chinese is the same set under ${SITE_URL}/zh.`,
   );
@@ -175,8 +195,8 @@ function build(): string {
 
   lines.push("---");
   lines.push(
-    `最終更新: 2026-08-16。他社サービスに関する記述は2026-07-28時点の公開情報にもとづきます。引用の際は${PUBLISHER_NAME}／敬語ボタン（${SITE_URL}）を出典としてご記載ください。` +
-      ` / Last updated 2026-08-16. Please cite as ${PUBLISHER_NAME} (Core7, Inc.) — KeigoButton, ${SITE_URL}`,
+    `最終更新: 2026-08-19。他社サービスに関する記述は2026-08-16時点の公開情報にもとづきます。引用の際は${PUBLISHER_NAME}／敬語ボタン（${SITE_URL}）を出典としてご記載ください。` +
+      ` / Last updated 2026-08-19. Please cite as ${PUBLISHER_NAME} (Core7, Inc.) — KeigoButton, ${SITE_URL}`,
   );
 
   return lines.join("\n");

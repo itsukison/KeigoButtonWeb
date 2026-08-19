@@ -489,7 +489,7 @@ export const EN_GUIDES: EnGuide[] = [
     category: "How it works",
     minutes: 6,
     lead:
-      "If you use a chat assistant to fix your writing, you are running the same eight steps many times a day. This is what replaces them, and how it works underneath.",
+      "If you use a chat assistant to fix your writing, you may be repeating the same eight-step round trip many times a day. This is how an in-place workflow reduces the switching, and how it works underneath.",
     blocks: [
       { type: "h2", text: "The loop you are currently running", id: "loop" },
       {
@@ -508,13 +508,13 @@ export const EN_GUIDES: EnGuide[] = [
       {
         type: "p",
         text:
-          "Call it thirty seconds. The time is not really the problem — the interruption is. You left the message you were writing, and you have to rebuild where you were. Do it fifteen times a day and it is a meaningful part of your working attention.",
+          "The exact time varies. The recurring cost is the interruption: you leave the message you were writing and then have to reconstruct where you were when you return.",
       },
       { type: "h2", text: "What replaces it", id: "replacement" },
       {
         type: "p",
         text:
-          "A system-wide rewriting tool collapses those eight steps into two: **invoke, and press your button.** The text under your cursor is read, your saved instruction is applied, and the result is written back into the same field. Nothing is copied, nothing is switched to, and your clipboard is left alone.",
+          "A system-wide rewriting tool keeps the workflow in the current app: **invoke it, press your button, review the result, and insert.** The text under your cursor is read and your saved instruction is applied without moving the draft into a separate chat. For a normal rewrite, your clipboard is left alone.",
       },
       {
         type: "p",
@@ -546,7 +546,7 @@ export const EN_GUIDES: EnGuide[] = [
         type: "callout",
         title: "What Accessibility permission does not grant",
         text:
-          "It is not screen recording and it is not a keylogger. It allows reading and setting the value of the focused text element. You can revoke it at any time in System Settings › Privacy & Security › Accessibility, and the app stops working rather than degrading quietly.",
+          "Accessibility is separate from Screen Recording, but it is still a broad and sensitive permission. KeigoButton uses it to read and set the focused text element. Grant it only to software you trust; you can revoke it at any time in System Settings › Privacy & Security › Accessibility.",
       },
       { type: "h2", text: "Setting it up", id: "setup" },
       {
@@ -564,8 +564,14 @@ export const EN_GUIDES: EnGuide[] = [
         label: "Try the rewriting in your browser first",
         note: "Free, no install and no account — five a day.",
       },
+      {
+        type: "tool",
+        href: "/en/mac/custom-rewrite-prompts",
+        label: "See how custom rewrite buttons work",
+        note: "Saved buttons, one-off instructions, selections, whole fields and empty-field drafting.",
+      },
       ...closing(
-        "KeigoButton puts a small bar at the bottom of your screen. Hover it and your buttons fan out; press one and the text you are writing is replaced in place. The buttons are yours to write, and they sync to an iPhone keyboard so the same ones are there when you are replying from your phone.",
+        "KeigoButton puts a small bar at the bottom of your screen. Hover it and your buttons fan out; press one, review the result and insert it into the field. The buttons are yours to write, and they sync to an iPhone keyboard so the same ones are there when you are replying from your phone.",
       ),
     ],
     faq: [
@@ -579,7 +585,7 @@ export const EN_GUIDES: EnGuide[] = [
       },
       {
         q: "Is it safe to give an app Accessibility permission?",
-        a: "The permission allows reading and replacing the contents of the focused text field. It does not grant screen recording or keystroke logging. Grant it only to apps you have a reason to trust, prefer notarized ones, and revoke it in System Settings › Privacy & Security › Accessibility whenever you like.",
+        a: "Accessibility is separate from Screen Recording, but it is a broad permission that can control interface elements. Grant it only to apps you have a reason to trust, prefer notarized ones, and revoke it in System Settings › Privacy & Security › Accessibility whenever you like.",
       },
       {
         q: "Does the text I rewrite get sent to a server?",

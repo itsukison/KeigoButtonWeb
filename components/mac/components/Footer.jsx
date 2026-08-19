@@ -19,10 +19,17 @@ import { useLang, useT } from '../i18n'
  */
 const EN_GUIDE_LINKS = [
   { href: '/en/rewrite', label: 'Free rewriter' },
+  { href: '/en/mac/reply-assistant', label: 'AI reply assistant' },
+  { href: '/en/mac/custom-rewrite-prompts', label: 'Custom rewrite prompts' },
   { href: '/en/ai-writing-apps-mac', label: 'AI writing apps' },
   { href: '/en/grammarly-alternative-mac', label: 'Grammarly alternatives' },
   { href: '/en/apple-intelligence-writing-tools-alternative', label: 'Apple Intelligence' },
   { href: '/en/rewrite-text-any-app-mac', label: 'Rewrite in any app' },
+]
+
+const JA_MAC_GUIDE_LINKS = [
+  { href: '/mac/reply-assistant', label: 'MacでAI返信' },
+  { href: '/mac/custom-rewrite-prompts', label: 'Macで自分の指示を実行' },
 ]
 
 /** `home` mirrors `Nav`: empty on the landing, the language root elsewhere, so the
@@ -33,7 +40,16 @@ export default function Footer({ onDownload, home = '' }) {
   const isEn = lang === 'en'
   return (
     <footer className="footer">
-      <img className="footer__art" src="/mac-footer.png" alt="" aria-hidden="true" />
+      <img
+        className="footer__art"
+        src="/mac-footer.png"
+        alt=""
+        width="1672"
+        height="941"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+      />
 
       <div className="shell footer__inner">
         <div className="footer__content">
@@ -70,6 +86,14 @@ export default function Footer({ onDownload, home = '' }) {
                 <a href="/keigo-test">{t.footer.test}</a>
                 <a href="/reibun">{t.footer.reibun}</a>
                 <a href="/blog">{t.footer.articles}</a>
+                {lang === 'ja' ? (
+                  <>
+                    <p className="footer__heading footer__heading--sub">Mac版ガイド</p>
+                    {JA_MAC_GUIDE_LINKS.map((link) => (
+                      <a key={link.href} href={link.href}>{link.label}</a>
+                    ))}
+                  </>
+                ) : null}
               </>
             )}
           </nav>

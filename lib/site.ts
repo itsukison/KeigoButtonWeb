@@ -39,6 +39,10 @@ export const organizationNode = {
   name: PUBLISHER_NAME,
   alternateName: "Core7, Inc.",
   url: PUBLISHER_URL,
+  logo: absolute("/brand-icon.png"),
+  description:
+    "東京を拠点に、Mac・iPhone向けAIリライトアシスタント「敬語ボタン」を開発・運営するソフトウェア会社。",
+  knowsAbout: ["AI writing assistants", "Japanese language input", "macOS and iOS applications"],
 } as const;
 
 export const websiteNode = {
@@ -111,32 +115,34 @@ const MAC_APP_L10N = {
   ja: {
     name: `${SITE_NAME} Mac版`,
     description:
-      "画面下のバーから、入力中の文章をコピーや貼り付けなしで自然な敬語や目的に合う表現へ書き換えられるmacOSアプリ。",
+      "Mail・Slack・Gmailなどで入力中の文章を、自分で保存したボタンやその場の自由な指示で書き換え、受信文への返信も同じ場所で作れるmacOS向けAIリライトアシスタント。",
     applicationSubCategory: "AI文章作成支援",
     operatingSystem: "macOS 14以降",
     inLanguage: "ja",
     priceCurrency: "JPY",
     featureList: [
-      "入力中の文章をその場で自然な敬語に書き換え",
-      "コピー・貼り付け・アプリ切り替え不要",
+      "よく使う書き換え方を自分のボタンとして保存",
+      "単発の自由な指示で文章を書き換え、空の入力欄では文章を新規作成",
+      "コピーした受信メッセージを文脈にして返信文を作成",
+      "通常の書き換えはコピー＆ペーストの往復やアプリ切り替え不要",
       "選択範囲または入力欄全体を自動判定",
-      "iPhone版と変換ボタンを同期",
       "Mail・Slack・Gmail・Notion・Chrome・Wordなどで利用",
     ],
   },
   en: {
     name: "KeigoButton for Mac",
     description:
-      "A macOS app that rewrites the Japanese you are typing into natural keigo and business-email wording, in place, without copying, pasting or switching apps.",
-    applicationSubCategory: "AI writing assistance",
+      "A macOS AI rewrite assistant that runs saved buttons or a one-off instruction against text in any app, composes in empty fields, and drafts replies from a message you copy as context.",
+    applicationSubCategory: "AI rewriting and reply assistance",
     operatingSystem: "macOS 14 or later",
     inLanguage: "en",
     priceCurrency: "USD",
     featureList: [
-      "Rewrites Japanese into natural keigo where you are already typing",
-      "No copying, pasting or switching apps",
+      "Turns recurring edits into reusable custom rewrite buttons",
+      "Runs a one-off freeform instruction and can compose in an empty field",
+      "Drafts a complete reply from an incoming message you explicitly copy",
+      "Rewrites in place without a copy-and-paste round trip or app switching",
       "Uses your selection, or the whole field when nothing is selected",
-      "Rewrite buttons sync with the iPhone app",
       "Works in Mail, Slack, Gmail, Notion, Chrome and Word",
     ],
   },
@@ -184,6 +190,7 @@ export const macSoftwareApplicationNode = (lang: Lang) => {
     },
     featureList: l10n.featureList,
     publisher: { "@id": ORG_ID },
+    sameAs: ["https://github.com/itsukison/KeigoDesktop"],
   };
 };
 

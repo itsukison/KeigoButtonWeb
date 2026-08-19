@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { ARTICLES } from "@/content/articles";
 import { EN_GUIDES } from "@/content/en-guides";
+import { MAC_USE_CASES, macUseCasePath } from "@/content/mac-use-cases";
 import { REIBUN } from "@/content/reibun";
 import { SPINE_PATHS } from "@/lib/alternates";
 import { PREFIXED_LANGS, href } from "@/lib/i18n";
@@ -12,7 +13,7 @@ import { PREFIXED_LANGS, href } from "@/lib/i18n";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: "2026-08-08", changeFrequency: "weekly", priority: 1 },
+    { url: SITE_URL, lastModified: "2026-08-19", changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/iphone`, lastModified: "2026-08-16", changeFrequency: "monthly", priority: 0.9 },
 
     // Tools — the primary organic entry points.
@@ -36,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const localizedRoutes: MetadataRoute.Sitemap = PREFIXED_LANGS.flatMap((lang) =>
     SPINE_PATHS.map((path) => ({
       url: `${SITE_URL}${href(lang, path)}`,
-      lastModified: "2026-08-09",
+      lastModified: lang === "en" && path === "/" ? "2026-08-19" : "2026-08-09",
       changeFrequency: "monthly" as const,
       // Below their Japanese originals: these are new, and the Japanese pages are
       // the ones with the history and the links.
@@ -65,6 +66,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  // High-intent Mac workflows have paired Japanese and English pages. Keep both
+  // languages derived from one registry so sitemap, hreflang and visible copy
+  // cannot silently diverge.
+  const macUseCaseRoutes: MetadataRoute.Sitemap = MAC_USE_CASES.flatMap((entry) =>
+    (["ja", "en"] as const).map((lang) => ({
+      url: `${SITE_URL}${macUseCasePath(lang, entry.slug)}`,
+      lastModified: entry[lang].updated,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  );
+
   const articleRoutes: MetadataRoute.Sitemap = ARTICLES.map((article) => ({
     url: `${SITE_URL}/blog/${article.slug}`,
     lastModified: article.updated,
@@ -84,6 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedRoutes,
     ...enToolRoute,
     ...enGuideRoutes,
+    ...macUseCaseRoutes,
     ...articleRoutes,
     ...reibunRoutes,
   ];

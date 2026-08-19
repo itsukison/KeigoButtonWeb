@@ -70,9 +70,17 @@ export const metadata: Metadata = {
   ],
   // Set GOOGLE_SITE_VERIFICATION in Vercel to use the HTML-tag method instead
   // of the DNS TXT record. Both are accepted; whichever lands first wins.
-  verification: process.env.GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  verification:
+    process.env.GOOGLE_SITE_VERIFICATION || process.env.BING_SITE_VERIFICATION
+      ? {
+          ...(process.env.GOOGLE_SITE_VERIFICATION
+            ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+            : {}),
+          ...(process.env.BING_SITE_VERIFICATION
+            ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } }
+            : {}),
+        }
+      : undefined,
   robots: {
     index: true,
     follow: true,

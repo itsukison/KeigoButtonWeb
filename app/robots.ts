@@ -65,7 +65,7 @@ export default function robots(): MetadataRoute.Robots {
         // interactive tool pages; /api/ has no indexable content.
         disallow: ["/api/"],
       },
-      { userAgent: AI_CRAWLERS, allow: "/" },
+      { userAgent: AI_CRAWLERS, allow: "/", disallow: ["/api/"] },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

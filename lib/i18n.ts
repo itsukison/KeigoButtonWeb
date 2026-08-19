@@ -110,11 +110,11 @@ const ja = {
   // the Mac promise kept in the description where the page can actually deliver it.
   seo: {
     mac: {
-      title: '敬語ボタン｜Mac・iPhoneで文章をその場で敬語に',
+      title: '敬語ボタン｜Mac・iPhoneのAI文章書き換えアプリ',
       description:
-        'Macでは入力中の場所からそのまま、iPhoneではキーボードから。文章を自然な敬語や目的に合う表現へ書き直せるAIアプリです。Mac版はmacOS 14以降、無料で使いはじめられます。',
+        'MacのMail・Slack・Gmailなどで、よく使う指示を自分のボタンにして文章をその場で書き換え。単発の自由な指示、空欄からの文章作成、コピーした受信文への返信にも対応。macOS 14以降、月50回まで無料です。',
       ogTitle: '敬語ボタン',
-      ogDescription: 'Mac・iPhoneで、いま書いている場所のまま敬語に。',
+      ogDescription: '自分のAI書き換えボタンを、Macのどのアプリにも。',
     },
   },
   // The product name. Japanese and Chinese readers both know it by its Japanese
@@ -140,13 +140,13 @@ const ja = {
     dismiss: '閉じる',
   },
   hero: {
-    badge: ['iPhone版「敬語ボタン」は ', '5,000人以上', ' に使われています'],
+    badge: ['iPhone版「敬語ボタン」は ', '5,000人以上', ' に使われています（2026年8月時点）'],
     // 21字。旧「いま書いている場所で、そのまま整える。」は19字で、ブランド名が
     // h1に一度も出てこなかった。左カラムは1280pxグリッドの約1fr（≒610px）、
     // --text-display は48pxなので1行あたり約13字——19字も21字も2行に収まる。
     // 3行に落ちるのは26字を超えたあたりからで、そこは越えていない。
     title: '敬語ボタンは、書く場所で、そのまま整える。',
-    lede: '画面下のバーにホバーして、自分のボタンを押すだけ。',
+    lede: 'いつもの直し方は自分のボタンに。単発の指示も、受信文への返信も、書いている場所のまま。',
     download: 'Mac版をダウンロード',
     secondary: 'iPhone版を入手',
     meta: 'macOS 14 以降 · 無料で使えます · iPhone版と同じアカウント',
@@ -171,13 +171,13 @@ const ja = {
   },
   everywhere: {
     title: 'テキストを打てる場所なら、どこでも。',
-    body: 'アプリごとの拡張機能も、プラグインも、設定もありません。カーソルが置ける入力欄なら、そこが作業場所になります。',
-    note: 'ブラウザやSlackのように少し特殊な入力欄を持つアプリでも、読み取り方法を自動で切り替えて対応します。',
+    body: 'アプリごとの拡張機能やプラグインは不要です。ほとんどの編集可能な入力欄で使え、直接挿入できない場合はコピーできます。',
+    note: 'ブラウザやSlackのように特殊な入力欄を持つアプリでは、読み取り方法を自動で切り替えます。',
     apps: { mail: 'メール', notes: 'メモ' },
   },
   how: {
     eyebrow: '使い方',
-    title: '3秒で終わります。',
+    title: '3ステップで終わります。',
     lede: '覚えることは、ホバーして押すことだけ。',
     note: 'ボタンにない指示は ✎ から自由に入力できます。',
     windowTitle: 'Slack — スレッド',
@@ -193,8 +193,8 @@ const ja = {
         body: '画面の下のバーにカーソルを乗せると、自分のボタンが横に並びます。',
       },
       {
-        title: '押すと、その場で置き換わる',
-        body: '押した瞬間に書き換えが始まり、元の文章と入れ替わります。貼り付ける操作はありません。',
+        title: '押して、結果を確認する',
+        body: 'ボタンを押すと書き換えが始まります。結果を確認し、よければその場へ挿入します。',
       },
     ],
   },
@@ -398,11 +398,11 @@ const en = {
   // aimed it at Japanese learners, who are not the buyer and never were.
   seo: {
     mac: {
-      title: 'KeigoButton — one-click AI rewriting in every Mac app',
+      title: 'KeigoButton — AI rewrite assistant for every Mac app',
       description:
-        'Press one of your own buttons and the text you are writing is rewritten in place — grammar, tone, length, translation, a follow-up. Works in Mail, Slack, Gmail, Notion, Word and anywhere else you can put a cursor, with no copying into ChatGPT and pasting back. Free on macOS 14 and later.',
+        'Run your saved rewrite buttons or a one-off instruction in Mail, Slack, Gmail, Notion and Word. Rewrite text in place, compose in an empty field, or draft a reply from a message you copy as context. Free for 50 rewrites a month on macOS 14 and later.',
       ogTitle: 'KeigoButton',
-      ogDescription: 'One-click AI rewriting, in every app on your Mac.',
+      ogDescription: 'Your saved rewrites, one-off instructions and replies, in every Mac app.',
     },
   },
   brand: 'KeigoButton',
@@ -422,14 +422,14 @@ const en = {
     dismiss: 'Dismiss',
   },
   hero: {
-    badge: ['The iPhone app is used by ', 'more than 5,000 people', ''],
+    badge: ['The iPhone app is used by ', 'more than 5,000 people', ' as of August 2026'],
     // "Polish" named the wrong category: it reads as a proofreader, and proofreading
     // is the one thing this is not — Apple Intelligence and Grammarly both do that
     // already and for less. What the product actually is, is your own saved
     // instructions applied in place, anywhere. Same line count and near-identical
     // measure, so the hero's layout is unchanged.
     title: 'Your own AI rewrite buttons, in every app.',
-    lede: 'Hover the bar at the bottom of the screen and press one. Your text is rewritten where it stands.',
+    lede: 'Save the edits you repeat as buttons. Use ✎ for a one-off instruction or turn a copied message into a reply — without leaving the app you are in.',
     download: 'Download for Mac',
     secondary: 'Get it for iPhone',
     meta: 'macOS 14 or later · Free to use · The same account as the iPhone app',
@@ -453,13 +453,13 @@ const en = {
   },
   everywhere: {
     title: 'Anywhere you can type.',
-    body: 'No per-app extension, no plugin, no setup. If you can put a cursor in it, it works there.',
-    note: 'Apps with unusual text fields — browsers, Slack — are handled by switching how the text is read, automatically.',
+    body: 'No per-app extension or plugin. It works in most editable fields, with Copy as a fallback when direct insertion is unavailable.',
+    note: 'For unusual text fields in browsers and apps such as Slack, KeigoButton switches how it reads the field.',
     apps: { mail: 'Mail', notes: 'Notes' },
   },
   how: {
     eyebrow: 'How it works',
-    title: 'It takes three seconds.',
+    title: 'It takes three steps.',
     lede: 'There are two things to learn: hover, and press.',
     note: 'Anything your buttons don’t cover, type into ✎ instead.',
     windowTitle: 'Slack — Thread',
@@ -475,8 +475,8 @@ const en = {
         body: 'Put the pointer on the bar at the bottom of the screen and your buttons fan out.',
       },
       {
-        title: 'Press, and it changes in place',
-        body: 'The rewrite starts on the press and replaces your text where it stands. There is nothing to paste.',
+        title: 'Press, then review the result',
+        body: 'Press a button to start the rewrite. Review the result, then insert it back into the same field.',
       },
     ],
   },

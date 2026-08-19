@@ -1,5 +1,6 @@
 import { ARTICLES } from "@/content/articles";
 import { EN_GUIDES } from "@/content/en-guides";
+import { MAC_USE_CASES, macUseCasePath } from "@/content/mac-use-cases";
 import { REIBUN } from "@/content/reibun";
 import { QUIZ } from "@/content/quiz";
 import { RULES } from "@/content/keigo-rules";
@@ -21,10 +22,10 @@ function build(): string {
   out.push("# 敬語ボタン（KeigoButton）— 全ページ本文");
   out.push("");
   out.push(
-    `Mac・iPhone向け日本語AI文章作成アプリ「敬語ボタン」の公式サイト（${SITE_URL}）の全文です。` +
-      `Mac版は入力中の場所から、iPhone版はキーボードから文章を書き換えられます。` +
+    `Mac・iPhone向けAIリライトアシスタント「敬語ボタン（KeigoButton）」の公式サイト（${SITE_URL}）の全文です。` +
+      `Mac版は保存したボタン・単発の自由な指示・コピーした受信文への返信を入力中の場所から実行し、iPhone版はキーボードから文章を書き換えられます。` +
       `開発・運営: ${PUBLISHER_NAME}（${PUBLISHER_URL}）。iPhone版: ${APP_STORE_URL}。` +
-      "最終更新: 2026-08-08。",
+      "最終更新: 2026-08-19。",
   );
   out.push("");
   out.push(
@@ -33,6 +34,35 @@ function build(): string {
   );
   out.push("");
   out.push("=".repeat(72));
+
+  // ---- Mac workflow pages (paired Japanese and English) ----
+  out.push("");
+  out.push("=".repeat(72));
+  out.push("");
+  out.push("# Mac workflow guides / Mac版の詳しい使い方");
+  for (const entry of MAC_USE_CASES) {
+    for (const lang of ["ja", "en"] as const) {
+      const page = entry[lang];
+      out.push("");
+      out.push(`## ${page.title}`);
+      out.push("");
+      out.push(`URL: ${SITE_URL}${macUseCasePath(lang, entry.slug)}`);
+      out.push(`Updated: ${page.updated}`);
+      out.push("");
+      out.push(page.lead);
+      out.push("");
+      out.push(blocksToText(page.blocks, lang));
+      out.push("");
+      out.push(lang === "ja" ? "### よくある質問" : "### Frequently asked questions");
+      out.push("");
+      for (const { q, a } of page.faq) {
+        out.push(`**${q}**`);
+        out.push(a);
+        out.push("");
+      }
+      out.push("-".repeat(72));
+    }
+  }
 
   // ---- Tools ----
   out.push("");

@@ -1909,7 +1909,11 @@ body:has(.mac-landing) {
   font-weight: var(--weight-medium);
   letter-spacing: -0.01em;
   color: var(--ink);
+  cursor: pointer;
+  list-style: none;
 }
+
+.mac-landing .faq__q::-webkit-details-marker { display: none; }
 
 .mac-landing .faq__sign {
   flex: none;
@@ -1926,7 +1930,7 @@ body:has(.mac-landing) {
   transition: transform 220ms ease, background-color 220ms ease;
 }
 
-.mac-landing .faq__item[data-open='true'] .faq__sign {
+.mac-landing .faq__item[open] .faq__sign {
   transform: rotate(45deg);
   background: var(--ink);
   color: #fff;
