@@ -103,6 +103,9 @@ function build(): string {
     `- [敬語変換ツール](${SITE_URL}/keigo-henkan): カジュアルな文章をAIが自然なビジネス敬語に書き直します。敬語／メール文／自然な言い方／返信文の4モード。1日5回・300文字まで無料、登録不要。`,
   );
   lines.push(
+    `- [文章校正AI](${SITE_URL}/bunsho-kosei-ai): 日本語の誤字脱字・変換ミス・文法の誤り・不自然な言い回しをAIが直します。丁寧さのレベルは変えません（丁寧さを上げたい場合は敬語変換ツール）。候補は「最小限の修正」と「読みやすく整えた版」の2つ。1日5回・300文字まで無料、登録不要。`,
+  );
+  lines.push(
     `- [敬語チェック](${SITE_URL}/keigo-check): 二重敬語やビジネス敬語の誤用を判定し、言い換え候補を表示します。判定はブラウザ内で完結するため入力文は送信されません。判定ルールの全件を同ページで公開しています。`,
   );
   lines.push(
@@ -173,6 +176,9 @@ function build(): string {
   lines.push(`- [KeigoButton for Mac](${SITE_URL}/en): the product page — what it does, pricing, FAQ.`);
   lines.push(
     `- [Free English rewriter](${SITE_URL}/en/rewrite): browser tool that rewrites English four ways — natural, grammar-only, professional, shorter. Two candidates per run. Free, no account, 5 per day, 300 characters. Aimed at non-native English writers.`,
+  );
+  lines.push(
+    `- [AI reply generator](${SITE_URL}/en/reply-generator): browser tool that drafts a reply to a message you paste in — email, chat, tickets, comments, reviews. Two replies per run (straightforward and more formal). It will not invent dates, prices or commitments the incoming message does not contain. Free, no account, 5 per day, 300 characters of input.`,
   );
   for (const guide of EN_GUIDES) {
     lines.push(`- [${guide.title}](${SITE_URL}/en/${guide.slug}): ${guide.description}`);

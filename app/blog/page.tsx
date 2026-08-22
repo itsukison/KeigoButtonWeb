@@ -116,6 +116,7 @@ export default function BlogIndexPage() {
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {[
               { href: "/keigo-henkan", label: "敬語変換", note: "AIが文章を敬語に書き直します" },
+              { href: "/bunsho-kosei-ai", label: "文章校正AI", note: "誤字脱字と不自然な言い回しを直します" },
               { href: "/keigo-check", label: "敬語チェック", note: "二重敬語・誤用を判定（送信なし）" },
               { href: "/keigo-test", label: "敬語テスト", note: "20問で敬語力を診断" },
             ].map(({ href, label, note }) => (

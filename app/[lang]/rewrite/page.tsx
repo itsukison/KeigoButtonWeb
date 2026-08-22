@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EnRewriter } from "@/components/mac/EnRewriter";
+import { enGuide } from "@/content/en-guides";
 import { MacDocShell } from "@/components/mac/MacDocShell";
 import { MacToc } from "@/components/mac/MacToc";
 import {
@@ -309,7 +310,7 @@ export default async function EnRewritePage({
                       className="mac-doc__relatedCard"
                     >
                       <span className="mac-doc__relatedTitle">
-                        AI writing apps for Mac that work in every app
+                        {enGuide("ai-writing-apps-mac")?.title}
                       </span>
                       <span className="mac-doc__relatedNote">Comparisons</span>
                     </Link>
@@ -318,16 +319,25 @@ export default async function EnRewritePage({
                       className="mac-doc__relatedCard"
                     >
                       <span className="mac-doc__relatedTitle">
-                        Grammarly alternatives for Mac, compared honestly
+                        {enGuide("grammarly-alternative-mac")?.title}
                       </span>
                       <span className="mac-doc__relatedNote">Comparisons</span>
+                    </Link>
+                    <Link
+                      href="/en/reply-generator"
+                      className="mac-doc__relatedCard"
+                    >
+                      <span className="mac-doc__relatedTitle">
+                        AI reply generator
+                      </span>
+                      <span className="mac-doc__relatedNote">Free tool</span>
                     </Link>
                     <Link
                       href="/en/rewrite-text-any-app-mac"
                       className="mac-doc__relatedCard"
                     >
                       <span className="mac-doc__relatedTitle">
-                        How to rewrite text in any app on your Mac
+                        {enGuide("rewrite-text-any-app-mac")?.title}
                       </span>
                       <span className="mac-doc__relatedNote">How it works</span>
                     </Link>

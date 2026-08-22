@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Tools — the primary organic entry points.
     { url: `${SITE_URL}/keigo-henkan`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/bunsho-kosei-ai`, lastModified: "2026-08-22", changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/keigo-check`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE_URL}/keigo-test`, lastModified: "2026-07-28", changeFrequency: "monthly", priority: 0.85 },
 
@@ -45,12 +46,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  // The free English tool. Priority matches the Japanese tools, which are the
+  // The free English tools. Priority matches the Japanese tools, which are the
   // pages that actually rank on this property.
   const enToolRoute: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/en/rewrite`,
       lastModified: "2026-08-17",
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/en/reply-generator`,
+      lastModified: "2026-08-22",
       changeFrequency: "weekly",
       priority: 0.9,
     },

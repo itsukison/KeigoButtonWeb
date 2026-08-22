@@ -20,6 +20,17 @@ import type { Block } from "@/lib/blocks";
  * That is the profile seo-geo.md §設計方針1 says to enter, and it is the same shape
  * as the LeapMe case that justified the Japanese comparison cluster.
  *
+ * **Retargeted 2026-08-22, and why.** That SERP read was never checked against search
+ * volume. It has been now: `grammarly alternative for mac` is 10/month, and
+ * `ai writing apps for mac`, `apple intelligence writing tools alternative` and
+ * `rewrite text in any app mac` return no volume data at all. A weak SERP is often
+ * just a SERP with no money in it. The bodies of these four pages are unchanged — only
+ * `keyword`, `metaTitle`, `title` and `description` moved onto terms that people
+ * actually search: `ai writing assistant` (22,200), `grammarly for mac` (1,900),
+ * `chatgpt shortcut mac` (140) and `writing tools mac` (50). Full measurement in
+ * seo-geo.md §前提の修正（2026-08-22）. Do not open a new page in this cluster from a
+ * SERP read alone: measure volume first.
+ *
  * **Competitor facts were checked on 2026-08-16** against each product's own site.
  * Prices move, so every claim that can go stale carries the date in the copy, and the
  * places where a rival is genuinely better are stated rather than omitted — an LLM
@@ -63,19 +74,19 @@ const closing = (note: string): Block[] => [
 export const EN_GUIDES: EnGuide[] = [
   {
     slug: "ai-writing-apps-mac",
-    title: "AI writing apps for Mac that work in every app",
-    metaTitle: "Best AI Writing Apps for Mac (2026) — Tested and Compared",
+    title: "AI writing assistants for Mac that work in every app",
+    metaTitle: "AI Writing Assistant for Mac (2026) — 7 Apps Compared",
     description:
-      "A comparison of the macOS apps that rewrite text in place, in any app: Apple Intelligence, Grammarly, Kerlig, FixKey, Elephas, RewriteBar and KeigoButton. What each costs, how each is invoked, and which one fits which way of working.",
-    keyword: "ai writing apps for mac",
+      "An AI writing assistant that works inside the app you are already in. A comparison of the macOS options that rewrite text in place: Apple Intelligence, Grammarly, Kerlig, FixKey, Elephas, RewriteBar and KeigoButton — what each costs, how each is invoked, and which one fits which way of working.",
+    keyword: "ai writing assistant",
     alsoRanks: [
+      "ai writing apps for mac",
       "best ai writing app mac",
       "system wide ai writing mac",
       "ai rewrite tool mac",
-      "mac ai text editor any app",
     ],
     published: "2026-08-16",
-    updated: "2026-08-16",
+    updated: "2026-08-22",
     category: "Comparisons",
     minutes: 9,
     lead:
@@ -229,19 +240,19 @@ export const EN_GUIDES: EnGuide[] = [
 
   {
     slug: "grammarly-alternative-mac",
-    title: "Grammarly alternatives for Mac, compared honestly",
-    metaTitle: "Grammarly Alternative for Mac (2026) — 6 Options Compared",
+    title: "Grammarly on the Mac, and six alternatives compared honestly",
+    metaTitle: "Grammarly for Mac (2026) — What It Does, and 6 Alternatives",
     description:
-      "Looking for a Grammarly alternative on macOS? A comparison of Apple Intelligence Writing Tools, Kerlig, FixKey, LanguageTool, RewriteBar and KeigoButton — what each replaces, what each costs, and where Grammarly is still the better choice.",
-    keyword: "grammarly alternative for mac",
+      "Grammarly for Mac, and what to use instead: a comparison of Apple Intelligence Writing Tools, Kerlig, FixKey, LanguageTool, RewriteBar and KeigoButton — what each replaces, what each costs, and where Grammarly is still the better choice.",
+    keyword: "grammarly for mac",
     alsoRanks: [
+      "grammarly alternative for mac",
       "grammarly alternatives mac",
       "grammarly replacement macos",
       "cheaper than grammarly mac",
-      "free grammarly alternative mac",
     ],
     published: "2026-08-16",
-    updated: "2026-08-16",
+    updated: "2026-08-22",
     category: "Comparisons",
     minutes: 8,
     lead:
@@ -374,19 +385,19 @@ export const EN_GUIDES: EnGuide[] = [
 
   {
     slug: "apple-intelligence-writing-tools-alternative",
-    title: "When Apple Intelligence Writing Tools is not enough",
-    metaTitle: "Apple Intelligence Writing Tools Alternative for Mac (2026)",
+    title: "Writing tools on the Mac: where Apple Intelligence stops",
+    metaTitle: "Writing Tools on Mac (2026) — Where Apple Intelligence Stops",
     description:
-      "Apple Intelligence Writing Tools is free and already on your Mac. Here is exactly where it stops — custom instructions, Intel Macs, language coverage — and which alternatives pick up from there.",
-    keyword: "apple intelligence writing tools alternative",
+      "The writing tools built into your Mac are free and already installed. Here is exactly where Apple Intelligence Writing Tools stops — custom instructions, Intel Macs, language coverage — and which alternatives pick up from there.",
+    keyword: "writing tools mac",
     alsoRanks: [
+      "apple intelligence writing tools alternative",
       "apple intelligence writing tools custom prompt",
       "writing tools not available mac",
-      "apple intelligence alternative mac writing",
       "better than apple intelligence writing",
     ],
     published: "2026-08-16",
-    updated: "2026-08-16",
+    updated: "2026-08-22",
     category: "Comparisons",
     minutes: 6,
     lead:
@@ -473,19 +484,19 @@ export const EN_GUIDES: EnGuide[] = [
 
   {
     slug: "rewrite-text-any-app-mac",
-    title: "How to rewrite text in any app on your Mac",
-    metaTitle: "How to Rewrite Text in Any App on Mac — Without Copy-Paste",
+    title: "A ChatGPT shortcut for the Mac: rewrite text in any app",
+    metaTitle: "ChatGPT Shortcut on Mac (2026) — Rewrite Text in Any App",
     description:
-      "The copy, switch to ChatGPT, paste, prompt, copy, switch back, paste loop takes about eight steps. Here is how system-wide rewriting works on macOS, why it needs Accessibility permission, and how to set it up.",
-    keyword: "rewrite text in any app mac",
+      "A ChatGPT shortcut beats the copy, switch, paste, prompt, copy, switch back, paste loop — about eight steps every time. Here is how system-wide rewriting works on macOS, why it needs Accessibility permission, and how to set it up.",
+    keyword: "chatgpt shortcut mac",
     alsoRanks: [
+      "rewrite text in any app mac",
       "chatgpt without switching apps mac",
       "ai text replacement mac",
       "system wide ai shortcut mac",
-      "edit text in place ai mac",
     ],
     published: "2026-08-16",
-    updated: "2026-08-16",
+    updated: "2026-08-22",
     category: "How it works",
     minutes: 6,
     lead:

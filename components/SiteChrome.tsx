@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { APP_STORE_URL, CONTACT_EMAIL, PUBLISHER_NAME, PUBLISHER_URL } from "@/lib/site";
+import {
+  APP_STORE_URL,
+  CONTACT_EMAIL,
+  MAC_DOWNLOAD_URL,
+  PUBLISHER_NAME,
+  PUBLISHER_URL,
+} from "@/lib/site";
 import { LOCALES, dict, href, type Lang } from "@/lib/i18n";
 
 /**
@@ -24,6 +30,7 @@ function navFor(lang: Lang) {
     { href: "/", label: "Mac版" },
     { href: "/iphone", label: "iPhone版" },
     { href: "/keigo-henkan", label: "敬語変換" },
+    { href: "/bunsho-kosei-ai", label: "文章校正" },
     { href: "/keigo-check", label: "敬語チェック" },
     { href: "/keigo-test", label: "敬語テスト" },
     { href: "/reibun", label: "場面別 例文" },
@@ -125,6 +132,7 @@ export function SiteFooter({ lang = "ja" }: { lang?: Lang }) {
               </span>
               <ul className="mt-4 flex flex-col gap-2.5 text-black/60">
                 <li><Link href="/keigo-henkan" className="hover:text-black">敬語変換（AI）</Link></li>
+                <li><Link href="/bunsho-kosei-ai" className="hover:text-black">文章校正・添削（AI）</Link></li>
                 <li><Link href="/keigo-check" className="hover:text-black">二重敬語・誤用チェック</Link></li>
                 <li><Link href="/keigo-test" className="hover:text-black">敬語テスト20問</Link></li>
                 <li><Link href="/reibun" className="hover:text-black">場面別 例文集</Link></li>
@@ -179,7 +187,7 @@ export function AppCta({
   return (
     <aside className="overflow-hidden rounded-[28px] bg-[#18181A] p-7 text-white lg:p-10">
       <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C8BCFA]">
-        iPhone / 無料
+        iPhone・Mac / 無料
       </span>
       <h2 className="mt-3 font-display text-[22px] font-semibold leading-[1.35] lg:text-[28px]">
         {heading}
@@ -191,6 +199,12 @@ export function AppCta({
           className="rounded-xl bg-[#C8BCFA] px-6 py-3 text-[14px] font-bold text-black transition-transform active:scale-[0.98]"
         >
           App Storeで無料ダウンロード
+        </a>
+        <a
+          href={MAC_DOWNLOAD_URL}
+          className="rounded-xl px-5 py-3 text-[14px] font-semibold text-white/80 ring-1 ring-white/20 transition-colors hover:text-white"
+        >
+          Mac版をダウンロード
         </a>
         <Link
           href="/support"

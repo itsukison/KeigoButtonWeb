@@ -31,9 +31,31 @@ const MODES = [
   { id: "en_grammar", label: "Grammar", hint: "Fixes mistakes, keeps your voice" },
   { id: "en_formal", label: "Professional", hint: "Safe to send to a client or manager" },
   { id: "en_short", label: "Shorter", hint: "Same meaning, fewer words" },
+  // `en_reply` (2026-08-22) drafts a reply to a message you received rather than
+  // editing your own text, so it takes the incoming message as input. It powers
+  // /en/reply-generator — see the note at the top of that page for why that query
+  // needs a tool page of its own rather than a mode on /en/rewrite.
+  { id: "en_reply", label: "Reply", hint: "Drafts a reply to a message you received" },
 ] as const;
 
 type ModeId = (typeof MODES)[number]["id"];
+
+/** The original four, in order. /en/rewrite must keep exactly these. */
+const DEFAULT_MODES: readonly ModeId[] = [
+  "en_natural",
+  "en_grammar",
+  "en_formal",
+  "en_short",
+];
+
+/** The input is your own draft in every mode except `en_reply`. */
+const INPUT_LABELS: Partial<Record<ModeId, string>> = {
+  en_reply: "Paste the message you need to reply to",
+};
+
+const CANDIDATE_TAGS: Partial<Record<ModeId, [string, string]>> = {
+  en_reply: ["Straightforward", "More formal"],
+};
 
 const SAMPLES: Record<ModeId, string> = {
   en_natural:
@@ -44,6 +66,8 @@ const SAMPLES: Record<ModeId, string> = {
     "hey, need the invoice sorted today. its already 2 weeks late and im getting asked about it",
   en_short:
     "I just wanted to quickly reach out and check whether you might possibly have had a chance to take a look at the document I sent over last week, if that is at all possible.",
+  en_reply:
+    "Hi — could you send over the updated deck before Friday? We need it for the client review on Monday.",
 };
 
 type State =
@@ -52,8 +76,14 @@ type State =
   | { status: "done"; candidates: string[]; remaining: number }
   | { status: "error"; message: string; capped: boolean };
 
-export function EnRewriter() {
-  const [mode, setMode] = useState<ModeId>("en_natural");
+export function EnRewriter({
+  initialMode = "en_natural",
+  modes = DEFAULT_MODES,
+}: {
+  initialMode?: ModeId;
+  modes?: readonly ModeId[];
+} = {}) {
+  const [mode, setMode] = useState<ModeId>(initialMode);
   const [text, setText] = useState("");
   const [state, setState] = useState<State>({ status: "idle" });
   const [copied, setCopied] = useState<number | null>(null);
@@ -130,7 +160,7 @@ export function EnRewriter() {
   return (
     <div className="enrw">
       <div className="enrw__modes" role="group" aria-label="What to do with the text">
-        {MODES.map((m) => (
+        {MODES.filter((m) => modes.includes(m.id)).map((m) => (
           <button
             key={m.id}
             type="button"
@@ -148,7 +178,7 @@ export function EnRewriter() {
       </div>
 
       <label className="enrw__label" htmlFor="enrw-input">
-        Paste what you were about to send
+        {INPUT_LABELS[mode] ?? "Paste what you were about to send"}
       </label>
       <textarea
         id="enrw-input"
@@ -212,7 +242,9 @@ export function EnRewriter() {
           {state.candidates.map((candidate, index) => (
             <div key={index} className="enrw__candidate">
               <span className="enrw__candidateTag">
-                {index === 0 ? "Straightforward" : "More polished"}
+                {(CANDIDATE_TAGS[mode] ?? ["Straightforward", "More polished"])[
+                  index === 0 ? 0 : 1
+                ]}
               </span>
               <p className="enrw__candidateText">{candidate}</p>
               <button

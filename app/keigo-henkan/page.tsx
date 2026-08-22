@@ -19,7 +19,16 @@ export const metadata: Metadata = {
   title: "敬語変換ツール｜無料・登録不要でAIが敬語に書き直します",
   description:
     "カジュアルな文章を、AIが自然なビジネス敬語に無料で書き直します。登録不要・そのまま貼り付けるだけ。敬語／メール文／自然な言い方／返信文の4モードに対応し、候補を2つ表示します。",
-  keywords: ["敬語変換", "敬語 変換 無料", "敬語に変換", "敬語変換 ツール", "カジュアル 敬語 変換", "敬語 AI"],
+  keywords: [
+    "敬語変換",
+    "敬語 変換 無料",
+    "敬語に変換",
+    "敬語に直す",
+    "敬語変換 ツール",
+    "敬語変換 アプリ",
+    "カジュアル 敬語 変換",
+    "敬語 AI",
+  ],
   alternates: { canonical: "/keigo-henkan" },
   openGraph: {
     title: "敬語変換ツール｜無料・登録不要でAIが敬語に書き直します",
@@ -250,6 +259,33 @@ export default function KeigoHenkanPage() {
           </div>
         </section>
 
+        {/* 「敬語に直す」「敬語に変換」は別クエリで、平均掲載順位も別に出ている
+            （2026-08-22 時点で `敬語に変換` は48位）。言い方の違いをここで一度
+            引き受けて、校正との違いも同時に説明する。 */}
+        <section className="mt-14">
+          <h2 className="font-display text-[22px] font-semibold leading-[1.4] tracking-tight lg:text-[27px]">
+            「敬語に直す」「敬語に変換」「文章を校正する」の違い
+          </h2>
+          <p className="mt-4 text-[15px] leading-[1.95] text-black/65">
+            どれも「文章を直す」ですが、変わる範囲が違います。
+            <strong className="font-bold text-black">敬語に直す・敬語に変換する</strong>
+            は、丁寧さのレベルを上げる操作です。相手が上司や取引先で、いまの文だと素っ気なく見えるときに使います。このページのツールがこれにあたります。
+          </p>
+          <p className="mt-4 text-[15px] leading-[1.95] text-black/65">
+            一方
+            <strong className="font-bold text-black">校正・添削</strong>
+            は、誤字脱字や変換ミス、不自然な言い回しを直す操作で、丁寧さは変えません。すでに敬語で書けているのに「送信前に誤字だけ確認したい」場合は、
+            <Link href="/bunsho-kosei-ai" className="font-semibold underline decoration-black/25 underline-offset-2">
+              文章校正AI
+            </Link>
+            のほうが目的に合います。二重敬語や敬語の誤用そのものを判定したいだけなら、送信の要らない
+            <Link href="/keigo-check" className="font-semibold underline decoration-black/25 underline-offset-2">
+              敬語チェック
+            </Link>
+            を使ってください。
+          </p>
+        </section>
+
         <section className="mt-14">
           <h2 className="font-display text-[22px] font-semibold leading-[1.4] tracking-tight lg:text-[27px]">
             場面別の例文から選ぶ
@@ -284,7 +320,16 @@ export default function KeigoHenkanPage() {
           </div>
         </section>
 
-        <div className="mt-14 grid gap-3 sm:grid-cols-2">
+        <div className="mt-14 grid gap-3 sm:grid-cols-3">
+          <Link
+            href="/bunsho-kosei-ai"
+            className="rounded-[20px] border border-black/10 p-5 transition-colors hover:border-black/30"
+          >
+            <span className="block text-[14px] font-bold text-black">文章校正AI</span>
+            <span className="mt-1.5 block text-[12.5px] leading-6 text-black/50">
+              丁寧さは変えず、誤字脱字と不自然な言い回しだけを直します。
+            </span>
+          </Link>
           <Link
             href="/keigo-check"
             className="rounded-[20px] border border-black/10 p-5 transition-colors hover:border-black/30"
