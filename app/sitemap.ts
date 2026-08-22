@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Tools — the primary organic entry points.
     { url: `${SITE_URL}/keigo-henkan`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/bunsho-kosei-ai`, lastModified: "2026-08-22", changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/bunsho-sakusei-ai`, lastModified: "2026-08-22", changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/keigo-check`, lastModified: "2026-07-28", changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE_URL}/keigo-test`, lastModified: "2026-07-28", changeFrequency: "monthly", priority: 0.85 },
 

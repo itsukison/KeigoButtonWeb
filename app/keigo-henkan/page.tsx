@@ -282,7 +282,11 @@ export default function KeigoHenkanPage() {
             <Link href="/keigo-check" className="font-semibold underline decoration-black/25 underline-offset-2">
               敬語チェック
             </Link>
-            を使ってください。
+            を使ってください。まだ何も書いていない段階なら、メモから文章を作る
+            <Link href="/bunsho-sakusei-ai" className="font-semibold underline decoration-black/25 underline-offset-2">
+              AI文章作成
+            </Link>
+            が起点になります。
           </p>
         </section>
 

@@ -332,6 +332,15 @@ export default function BunshoKoseiAiPage() {
 
         <div className="mt-14 grid gap-3 sm:grid-cols-3">
           <Link
+            href="/bunsho-sakusei-ai"
+            className="rounded-[20px] border border-black/10 p-5 transition-colors hover:border-black/30"
+          >
+            <span className="block text-[14px] font-bold text-black">AI文章作成</span>
+            <span className="mt-1.5 block text-[12.5px] leading-6 text-black/50">
+              まだ何も書いていないときは、メモから作れます。
+            </span>
+          </Link>
+          <Link
             href="/keigo-henkan"
             className="rounded-[20px] border border-black/10 p-5 transition-colors hover:border-black/30"
           >

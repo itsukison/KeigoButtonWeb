@@ -123,6 +123,7 @@ export default function ReibunIndexPage() {
             {[
               { href: "/keigo-henkan", label: "敬語変換", note: "書いた文章をAIが敬語に" },
               { href: "/bunsho-kosei-ai", label: "文章校正AI", note: "誤字脱字と不自然な言い回しを直します" },
+              { href: "/bunsho-sakusei-ai", label: "AI文章作成", note: "メモから仕事の文章を作ります" },
               { href: "/keigo-check", label: "敬語チェック", note: "二重敬語・誤用を判定" },
               { href: "/keigo-test", label: "敬語テスト", note: "20問で敬語力を診断" },
             ].map(({ href, label, note }) => (

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { APP_STORE_URL, MAC_DOWNLOAD_URL } from "@/lib/site";
+import { PlatformDownloads } from "@/components/PlatformDownloads";
+import { APP_STORE_URL } from "@/lib/site";
 
 const ENDPOINT =
   process.env.NEXT_PUBLIC_WEB_REWRITE_URL ??
@@ -51,9 +52,12 @@ type State =
 export function KeigoConverter({
   initialMode = "keigo",
   modes = DEFAULT_MODES,
+  inputLabel,
 }: {
   initialMode?: ModeId;
   modes?: readonly ModeId[];
+  /** Overrides the field label. `/bunsho-sakusei-ai` asks for notes, not a draft. */
+  inputLabel?: string;
 }) {
   const [mode, setMode] = useState<ModeId>(initialMode);
   const [text, setText] = useState("");
@@ -140,7 +144,7 @@ export function KeigoConverter({
 
       <div className="p-5 lg:p-7">
         <label htmlFor="keigo-input" className="block text-[13px] font-bold text-black">
-          {INPUT_LABELS[mode] ?? "書き直したい文章を入力してください"}
+          {inputLabel ?? INPUT_LABELS[mode] ?? "書き直したい文章を入力してください"}
         </label>
         <p className="mt-1 text-[12.5px] leading-6 text-black/45">{MODES.find((m) => m.id === mode)?.hint}</p>
 
@@ -232,18 +236,7 @@ export function KeigoConverter({
                   only distribution channel. A tool page that offers the iPhone app
                   alone closes that funnel — seo-geo.md §前提の修正（2026-08-22）. */}
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                <a
-                  href={APP_STORE_URL}
-                  className="inline-block rounded-xl bg-[#C8BCFA] px-5 py-2.5 text-[13px] font-bold text-black"
-                >
-                  App Storeで無料ダウンロード
-                </a>
-                <a
-                  href={MAC_DOWNLOAD_URL}
-                  className="text-[12.5px] font-semibold text-white/70 underline decoration-white/25 underline-offset-4 hover:text-white"
-                >
-                  Macで使う（無料ダウンロード）
-                </a>
+                <PlatformDownloads size="sm" />
               </div>
             </div>
           </div>

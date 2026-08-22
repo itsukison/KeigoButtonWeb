@@ -1,12 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import {
-  APP_STORE_URL,
-  CONTACT_EMAIL,
-  MAC_DOWNLOAD_URL,
-  PUBLISHER_NAME,
-  PUBLISHER_URL,
-} from "@/lib/site";
+import { PlatformDownloads } from "@/components/PlatformDownloads";
+import { APP_STORE_URL, CONTACT_EMAIL, PUBLISHER_NAME, PUBLISHER_URL } from "@/lib/site";
 import { LOCALES, dict, href, type Lang } from "@/lib/i18n";
 
 /**
@@ -133,6 +128,7 @@ export function SiteFooter({ lang = "ja" }: { lang?: Lang }) {
               <ul className="mt-4 flex flex-col gap-2.5 text-black/60">
                 <li><Link href="/keigo-henkan" className="hover:text-black">敬語変換（AI）</Link></li>
                 <li><Link href="/bunsho-kosei-ai" className="hover:text-black">文章校正・添削（AI）</Link></li>
+                <li><Link href="/bunsho-sakusei-ai" className="hover:text-black">AI文章作成（メモから）</Link></li>
                 <li><Link href="/keigo-check" className="hover:text-black">二重敬語・誤用チェック</Link></li>
                 <li><Link href="/keigo-test" className="hover:text-black">敬語テスト20問</Link></li>
                 <li><Link href="/reibun" className="hover:text-black">場面別 例文集</Link></li>
@@ -193,19 +189,9 @@ export function AppCta({
         {heading}
       </h2>
       <p className="mt-4 max-w-2xl text-[14px] leading-8 text-white/60">{body}</p>
+      {/* Two CTAs, ordered by device — see components/PlatformDownloads.tsx. */}
       <div className="mt-7 flex flex-wrap items-center gap-3">
-        <a
-          href={APP_STORE_URL}
-          className="rounded-xl bg-[#C8BCFA] px-6 py-3 text-[14px] font-bold text-black transition-transform active:scale-[0.98]"
-        >
-          App Storeで無料ダウンロード
-        </a>
-        <a
-          href={MAC_DOWNLOAD_URL}
-          className="rounded-xl px-5 py-3 text-[14px] font-semibold text-white/80 ring-1 ring-white/20 transition-colors hover:text-white"
-        >
-          Mac版をダウンロード
-        </a>
+        <PlatformDownloads />
         <Link
           href="/support"
           className="rounded-xl px-5 py-3 text-[14px] font-semibold text-white/65 ring-1 ring-white/15 transition-colors hover:text-white"
