@@ -36,11 +36,10 @@ import {
  * implied general long-form generation would be contradicted by its own tool in one
  * click, which costs more than the traffic is worth (§設計方針 7, 11).
  *
- * **PENDING (2026-08-23 or later): the 作成例 section.** Every example on the
- * Japanese tool pages must be real endpoint output, and the free endpoint allows five
- * calls per IP per day — today's five were spent verifying the `kosei` and `en_reply`
- * modes. Run three or four `mail`-mode conversions after the UTC-midnight reset and
- * add a 作成例 section in the shape used by `/bunsho-kosei-ai`. Do not invent pairs.
+ * **The 作成例 section is real endpoint output** (verified 2026-08-23 against
+ * production `web-rewrite` v7, mode `mail`, first candidate of each pair). If you edit
+ * one, run it through the tool first — a demo the page's own tool contradicts costs
+ * more trust than a plainer example.
  */
 export const metadata: Metadata = {
   title: "AI文章作成｜無料・登録不要でメモから仕事の文章を作ります",
@@ -125,6 +124,37 @@ const HOW_TO = {
     },
   ],
 };
+
+/**
+ * Verified against production `web-rewrite` v7 (mode `mail`) on 2026-08-23. Each
+ * `after` is the first of the two returned candidates — the straightforward one.
+ */
+const EXAMPLES = [
+  {
+    label: "催促",
+    before: "先週送った見積もりの返事がまだ来ていない。今週金曜までに返事がほしい。",
+    after:
+      "お世話になっております。先週送付した見積もりのご返答がまだいただいておりません。今週金曜日までにご回答いただけますと助かります。何卒よろしくお願い申し上げます。",
+  },
+  {
+    label: "日程調整",
+    before: "来週の打ち合わせ、火曜の午後か水曜の午前が空いている。1時間ほど。オンラインで。",
+    after:
+      "お世話になっております。来週の打ち合わせですが、火曜日の午後または水曜日の午前が空いております。所要時間は約1時間で、オンラインにて実施したいと考えております。ご都合のほどご確認いただけますと幸いです。",
+  },
+  {
+    label: "遅延のお詫び",
+    before: "資料の提出が明日までに間に合わない。金曜まで待ってほしい。理由は先方の確認待ち。",
+    after:
+      "お世話になっております。資料の提出が明日までに間に合わないため、金曜までお待ちいただけますでしょうか。理由は先方の確認待ちです。ご迷惑をおかけしますが、何卒よろしくお願いいたします。",
+  },
+  {
+    label: "依頼",
+    before: "新しいロゴのデータをもらいたい。SVGとPNGの両方。今月末までに使いたい。",
+    after:
+      "お世話になっております。新しいロゴのデータをSVGとPNGの両方でご提供いただけますでしょうか。今月末までに使用したいので、よろしくお願いいたします。",
+  },
+];
 
 export default function BunshoSakuseiAiPage() {
   const jsonLd = graph(
@@ -251,6 +281,42 @@ export default function BunshoSakuseiAiPage() {
               AIは、メモに無い日付・金額・約束を勝手に足さないよう指示されています。そのため「いつまでに」「いくら」が必要な連絡は、メモの段階で書いてください。書いた内容が取り違えられる可能性はゼロではないので、金額と期日だけは送信前に目視で確認することをおすすめします。
             </p>
           </div>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="font-display text-[22px] font-semibold leading-[1.4] tracking-tight lg:text-[27px]">
+            作成例
+          </h2>
+          <p className="mt-4 text-[14px] leading-[1.95] text-black/60">
+            下の4件は、このページのツールが実際に返した出力です（2026-08-23 確認）。
+            上がメモ、下が「メール文にする」の候補1です。
+          </p>
+          <div className="mt-6 flex flex-col gap-4">
+            {EXAMPLES.map(({ label, before, after }) => (
+              <div key={before} className="rounded-[20px] border border-black/[0.08] bg-[#FAFAFB] p-4">
+                <span className="text-[11px] font-bold text-[#5B4BA8]">{label}</span>
+                <p className="mt-2 text-[13.5px] font-semibold leading-[1.8] text-black/45">{before}</p>
+                <div className="my-2 text-black/25" aria-hidden="true">
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M12 5v14M19 12l-7 7-7-7" />
+                  </svg>
+                </div>
+                <p className="text-[14.5px] font-bold leading-[1.85] text-black">{after}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-[13.5px] leading-[1.9] text-black/55">
+            どの例も、メモに書いていない日付・金額・約束は増えていません。「金曜まで」「今月末までに」はメモに書いたから残っています。
+          </p>
         </section>
 
         <section className="mt-14">
