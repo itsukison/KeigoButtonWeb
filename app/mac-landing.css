@@ -3207,6 +3207,8 @@ body:has(.mac-landing) {
 }
 
 .mac-landing.mac-landing--aside .footer--aside .footer__download {
+  position: relative;
+  top: 24px;
   grid-column: 1 / -1;
   align-items: center;
   text-align: center;
@@ -3248,6 +3250,7 @@ body:has(.mac-landing) {
   .mac-landing.mac-landing--aside .plan { padding: var(--space-24); }
   .mac-landing.mac-landing--aside .footer--aside .footer__inner { padding-top: var(--space-48); }
   .mac-landing.mac-landing--aside .footer--aside .footer__art { height: 540px; }
+  .mac-landing.mac-landing--aside .footer--aside .footer__download { top: 16px; }
   .mac-landing.mac-landing--aside .footer--aside .footer__content {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-40);
