@@ -96,6 +96,7 @@ export default function Hero({ onDownload }) {
 
         <div className="hero__visual">
           <DesktopScene
+            artwork="/mac/aside/moutain.png"
             bar={
               <div className="hero__stage" key={phase}>
                 {phase === 'generating' ? (

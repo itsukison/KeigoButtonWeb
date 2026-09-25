@@ -67,7 +67,7 @@ export function MacHome({ lang }: { lang: Lang }) {
           ).replace(/</g, "\\u003c"),
         }}
       />
-      <div className="mac-landing">
+      <div className="mac-landing mac-landing--aside">
         <MacLanding lang={lang} />
       </div>
     </>

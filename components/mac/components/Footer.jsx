@@ -34,15 +34,15 @@ const JA_MAC_GUIDE_LINKS = [
 
 /** `home` mirrors `Nav`: empty on the landing, the language root elsewhere, so the
  * section anchors below resolve instead of scrolling nowhere on a document page. */
-export default function Footer({ onDownload, home = '' }) {
+export default function Footer({ onDownload, home = '', appearance = 'default' }) {
   const t = useT()
   const lang = useLang()
   const isEn = lang === 'en'
   return (
-    <footer className="footer">
+    <footer className={`footer${appearance === 'aside' ? ' footer--aside' : ''}`}>
       <img
         className="footer__art"
-        src="/mac-footer.png"
+        src={appearance === 'aside' ? '/mac/aside/gradient.png' : '/mac-footer.png'}
         alt=""
         width="1672"
         height="941"

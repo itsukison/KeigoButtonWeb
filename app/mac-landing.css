@@ -1,4 +1,5 @@
-/* Scoped copy of laptop/landing styles. Regenerate from that source when its design changes. */
+/* Shared Mac styles originated in laptop/landing. Preserve the landing-only
+   Aside overrides at the end when updating these shared defaults. */
 /* ---------------------------------------------------------------------------
    Design tokens.
 
@@ -2979,4 +2980,209 @@ body:has(.mac-landing) {
 .mac-landing .mac-doc__main > .enrw:first-child,
 .mac-landing .mac-doc__main > .mac-doc__body:first-child > .mac-doc__h2:first-child {
   margin-top: 0;
+}
+
+/* ===========================================================================
+   Aside adaptation for MacHome only (/, /en, /zh).
+   Authorized landing refresh: adapts laptop/design.md's native palette and type,
+   without redefining the shared Willow defaults above or the dark product demo.
+   Keep this modifier on MacHome, never MacDocShell or the iPhone/tools wrappers.
+   =========================================================================== */
+.mac-landing.mac-landing--aside {
+  --canvas: #fcfefe;
+  --ink: #111111;
+  --graphite: #30383d;
+  --body-text: #606a70;
+  --muted: #606a70;
+  --surface: #f1f9fc;
+  --surface-2: #ffffff;
+  --hairline: rgba(17, 17, 17, 0.08);
+  --hairline-strong: rgba(17, 17, 17, 0.16);
+  --accent: #006fc9;
+  --accent-strong: #005ba5;
+  --accent-indicator: #009af5;
+  --accent-soft: #c9e5f3;
+  --accent-wash: #e5f4fe;
+  --tile-top: #f1f9fc;
+  --tile-bottom: #ffffff;
+  --font-sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI',
+    'Hiragino Sans', 'Yu Gothic', var(--font-noto-sans-jp), sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 500;
+  --weight-bold: 500;
+  --section-gap: 96px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+}
+
+.mac-landing.mac-landing--aside:lang(zh-Hans) {
+  --font-sans: -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI',
+    'PingFang SC', 'Microsoft YaHei', var(--font-noto-sans-sc), sans-serif;
+}
+
+.mac-landing.mac-landing--aside .h-display {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.mac-landing.mac-landing--aside :is(.h-heading, .h-heading-sm) {
+  font-weight: 500;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.mac-landing.mac-landing--aside :is(.nav__brand, .step__title, .plan__name,
+  .plan__amount, .faq__q, .modal__title, .footer__heading, .footer__brand) {
+  letter-spacing: 0;
+}
+
+.mac-landing.mac-landing--aside :focus-visible {
+  outline-color: var(--accent);
+}
+
+.mac-landing.mac-landing--aside :is(.btn--filled, .footer__button) {
+  background: #171919;
+  color: #ffffff;
+}
+
+.mac-landing.mac-landing--aside :is(.btn--filled, .footer__button):hover {
+  background: #2b3032;
+}
+
+.mac-landing.mac-landing--aside :is(.btn--outline, .btn--ghost) {
+  background: #ffffff;
+  border-color: var(--hairline-strong);
+}
+
+.mac-landing.mac-landing--aside :is(.btn--outline, .btn--ghost, .modal__close):hover {
+  background: var(--surface);
+}
+
+.mac-landing.mac-landing--aside .modal a { color: var(--accent); }
+.mac-landing.mac-landing--aside .nav--scrolled { background: rgba(252, 254, 254, 0.94); }
+.mac-landing.mac-landing--aside .section--band { background: var(--surface); }
+.mac-landing.mac-landing--aside .faq-section { background: var(--canvas); }
+
+.mac-landing.mac-landing--aside .hero {
+  min-height: min(100svh, 900px);
+  padding-block: 132px 80px;
+  background: var(--canvas);
+}
+
+.mac-landing.mac-landing--aside .hero__badge {
+  --accent: var(--accent-indicator);
+  background: #ffffff;
+}
+
+.mac-landing.mac-landing--aside .scene { background: var(--surface); }
+
+.mac-landing.mac-landing--aside .scene__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 46% 44%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mac-landing.mac-landing--aside .every__field { margin-top: var(--space-48); }
+.mac-landing.mac-landing--aside .dive { padding-block: var(--space-72); }
+.mac-landing.mac-landing--aside .step__frame { background: #ffffff; }
+.mac-landing.mac-landing--aside .editor__switch[data-on='true'] { background: var(--accent-indicator); }
+.mac-landing.mac-landing--aside .plan { background: #ffffff; padding: var(--space-28); }
+.mac-landing.mac-landing--aside .plan--featured { border-color: var(--hairline-strong); }
+.mac-landing.mac-landing--aside .plan__flag { background: var(--accent-wash); color: var(--accent); }
+.mac-landing.mac-landing--aside .plan__amount { font-weight: 500; }
+.mac-landing.mac-landing--aside .toggle { background: #e6edf0; }
+.mac-landing.mac-landing--aside .toggle__btn[aria-pressed='true'] { background: #ffffff; }
+
+/* Product typography is isolated from the surrounding page. Preserve the
+   original locale weights, compact sizes, dark ramps, ring and animation rules.
+   The generic editor windows also keep their existing opaque white surfaces. */
+.mac-landing.mac-landing--aside .pv {
+  --font-sans: var(--font-inter), 'Inter', 'Noto Sans JP', ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.mac-landing.mac-landing--aside:lang(en) .pv {
+  --weight-regular: 300;
+  --weight-medium: 400;
+  --weight-semibold: 500;
+  --weight-bold: 600;
+}
+
+/* A bounded illustration above an opaque text surface. Artwork height is
+   independent of the link columns, including the longer English guide list. */
+.mac-landing.mac-landing--aside .footer--aside {
+  min-height: 0;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.mac-landing.mac-landing--aside .footer--aside .footer__art {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(160px, 20vw, 280px);
+  object-fit: cover;
+  object-position: 50% 54%;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 75%, transparent);
+}
+
+.mac-landing.mac-landing--aside .footer--aside .footer__inner {
+  min-height: 0;
+  padding-top: var(--space-40);
+  padding-bottom: var(--space-32);
+  background: var(--surface);
+}
+
+.mac-landing.mac-landing--aside .footer--aside .footer__content { align-items: start; }
+.mac-landing.mac-landing--aside .footer--aside :is(.footer__copy, .footer__copyright) { color: var(--body-text); }
+.mac-landing.mac-landing--aside .footer--aside .footer__download .footer__heading { white-space: normal; }
+.mac-landing.mac-landing--aside .footer--aside .footer__wordmark {
+  margin-top: var(--space-48);
+  font-size: clamp(48px, 8.5vw, 128px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+
+@media (max-width: 1080px) {
+  .mac-landing.mac-landing--aside { --section-gap: 80px; }
+  .mac-landing.mac-landing--aside .hero { min-height: 0; padding-block: 132px 64px; }
+}
+
+@media (max-width: 720px) {
+  .mac-landing.mac-landing--aside { --section-gap: 64px; }
+  .mac-landing.mac-landing--aside .hero { padding-block: 112px 48px; }
+  .mac-landing.mac-landing--aside .dive { padding-block: var(--space-56); }
+  .mac-landing.mac-landing--aside .plan { padding: var(--space-24); }
+  .mac-landing.mac-landing--aside .footer--aside .footer__inner { padding-top: var(--space-24); }
+  .mac-landing.mac-landing--aside .footer--aside .footer__wordmark { font-size: clamp(40px, 12vw, 80px); }
+}
+
+/* Keep the existing mobile layout while fitting the native demo and nav within
+   the smaller viewport. Scale the complete overlay, never its individual type. */
+@media (max-width: 720px) {
+  .mac-landing.mac-landing--aside .scene { --pscale: 0.9; }
+  .mac-landing.mac-landing--aside .nav__inner { gap: 12px; }
+  .mac-landing.mac-landing--aside .nav__brand { font-size: 15px; gap: 6px; white-space: nowrap; }
+  .mac-landing.mac-landing--aside .nav__cta { gap: 8px; }
+  .mac-landing.mac-landing--aside .nav__cta .btn { font-size: 12px; padding-inline: 10px; }
 }

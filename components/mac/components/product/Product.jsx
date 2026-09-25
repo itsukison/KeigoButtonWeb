@@ -141,9 +141,13 @@ export function AppWindow({ title, children, metaLines = 3 }) {
 
 /* --- Full desktop scene (hero) ------------------------------------------- */
 
-export function DesktopScene({ children, bar }) {
+export function DesktopScene({ children, bar, artwork }) {
   return (
     <div className="pv scene">
+      {artwork && (
+        <img className="scene__art" src={artwork} alt="" width="1672" height="941"
+          decoding="async" aria-hidden="true" />
+      )}
       <div className="scene__menubar" aria-hidden="true">
         <span className="scene__menuItem" style={{ width: 26 }} />
         <span className="scene__menuItem" style={{ width: 34 }} />
