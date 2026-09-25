@@ -42,6 +42,18 @@ const STOPS = [
   { offset: 1, color: '#f8f7f500' },
 ]
 
+// Landing-only cyan ramp. Preserve the original palette for other callers.
+const ASIDE_STOPS = [
+  { offset: 0, color: '#07365c' },
+  { offset: 0.18, color: '#006fc9' },
+  { offset: 0.34, color: '#009af5' },
+  { offset: 0.46, color: '#edfcff' },
+  { offset: 0.6, color: '#61cee9' },
+  { offset: 0.74, color: '#b0e9f5' },
+  { offset: 0.88, color: '#e1f5fa' },
+  { offset: 1, color: '#fcfefe00' },
+]
+
 function bellHeights(n, peak, valley) {
   const mid = (n - 1) / 2
   return Array.from({ length: n }, (_, i) => {
@@ -63,7 +75,7 @@ function bellHeights(n, peak, valley) {
    it is in view. Larger = slower and more of the scroll spent rising. */
 const SCRUB_SPAN = 0.65
 
-export default function RiseGradient({ bars = 7, blur = 11, peak = 1, valley = 0.44 }) {
+export default function RiseGradient({ bars = 7, blur = 11, peak = 1, valley = 0.44, palette = 'default' }) {
   const ref = useRef(null)
   const [scale, setScale] = useState(0)
 
@@ -117,7 +129,7 @@ export default function RiseGradient({ bars = 7, blur = 11, peak = 1, valley = 0
         >
           <defs>
             <linearGradient id="glow-ramp" x1="0" y1="1" x2="0" y2="0">
-              {STOPS.map((s) => (
+              {(palette === 'aside' ? ASIDE_STOPS : STOPS).map((s) => (
                 <stop key={s.offset} offset={s.offset} stopColor={s.color} />
               ))}
             </linearGradient>

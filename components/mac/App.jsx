@@ -6,6 +6,7 @@ import { MacI18nProvider } from './i18n'
 
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
+import Problem from './components/Problem.jsx'
 import Everywhere from './components/Everywhere.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
 import DeepDives from './components/DeepDives.jsx'
@@ -41,6 +42,7 @@ export default function App({ lang = 'ja' }) {
 
       <main>
         <Hero onDownload={openDownload} />
+        <Problem palette="aside" />
         <Everywhere />
         <HowItWorks />
         <DeepDives />

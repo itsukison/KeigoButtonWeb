@@ -10,17 +10,27 @@ The iPhone pages, guides, tools, metadata and social preview retain their appear
 shared Mac CSS. `Footer` defaults to its existing appearance, and the landing's
 `App` explicitly selects `appearance="aside"`.
 
-`public/mac/aside/moutain.png` and `gradient.png` are byte-identical copies of the
-supplied laptop assets. Both reserve their original 1672 × 941 dimensions and use
-bounded aspect-fill crops. The mountain sits behind an opaque editor. The footer
-lazily loads the glow in its own strip; all footer text sits on opaque pale cyan.
-The empty purple interlude is omitted without changing content section order.
+The artwork under `public/mac/aside/` is copied byte-for-byte from the supplied
+laptop assets. The hero retains the mountain behind its opaque editor. A compact
+scroll-driven interlude restores the original seven-column rise using a cyan
+palette; its original palette remains the component default. Reduced motion shows
+the complete field without scroll animation.
+
+The floating-app field uses `gradient.png` and its dotted glow. The three large
+feature stages use pink, blue and orange artwork, in that order. Below-hero art
+loads lazily and keeps its source proportions; orange is 1389 × 1132, while the
+other supplied images are 1672 × 941. Product surfaces stay opaque.
+
+The landing footer places its download action above navigation and company links
+in a continuous mountain landscape. A pale wash joins the FAQ and protects dark
+text. The mountain is bounded and anchored at the bottom on mobile, independent
+of the length of localized navigation. Shared footers retain their old layout.
 
 Product previews retain their own font, locale weights, dark colors, compact type,
 generation ring and five-phase timing. On narrow screens the complete hero overlay
 scales together to fit, and navigation spacing tightens to keep all controls visible.
 
-## Verification
+## Initial refresh verification
 
 - Production build and standalone TypeScript check passed.
 - Before/after full-page captures inspected for Japanese, English and Chinese at
@@ -39,7 +49,12 @@ scales together to fit, and navigation spacing tightens to keep all controls vis
   pixel-identical before/after at all three widths. `/iphone` layout and typography
   match; pixel differences are confined to its existing animated phone demo.
 - Contrast: body on canvas 5.47:1; body on pale cyan 5.19:1; blue links on pale cyan
-  4.78:1; white primary-button text 17.65:1. Text never overlays the scenic artwork.
+  4.78:1; white primary-button text 17.65:1. These measurements predate the integrated mountain footer.
 
 Local captures and browser harnesses for this pass are in
 `/tmp/mac-landing-refresh/` (temporary verification evidence). No deployment included.
+
+## Artwork revision verification
+
+Production build, TypeScript, responsive production captures and interaction
+checks are required for this revision; results are reported in the task handoff.

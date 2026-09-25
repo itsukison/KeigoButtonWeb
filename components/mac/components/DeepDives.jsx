@@ -32,7 +32,8 @@ export default function DeepDives() {
               {t.dives.one.link} <span aria-hidden="true">→</span>
             </a>
           </div>
-          <div className="dive__stage">
+          <div className="dive__stage dive__stage--pink">
+            <img className="dive__art" src="/mac/aside/pink.png" alt="" width="1672" height="941" loading="lazy" decoding="async" aria-hidden="true" />
             <ButtonEditor />
           </div>
         </Reveal>
@@ -45,7 +46,8 @@ export default function DeepDives() {
             <h3 className="h-heading-sm">{t.dives.two.title}</h3>
             <p className="body dive__body measure">{t.dives.two.body}</p>
           </div>
-          <div className="dive__stage" style={{ flexDirection: 'column', gap: 20 }}>
+          <div className="dive__stage dive__stage--blue" style={{ flexDirection: 'column', gap: 20 }}>
+            <img className="dive__art" src="/mac/aside/blue.png" alt="" width="1672" height="941" loading="lazy" decoding="async" aria-hidden="true" />
             <SelectionCompare />
           </div>
         </Reveal>
@@ -61,7 +63,8 @@ export default function DeepDives() {
               {t.dives.three.mono}
             </p>
           </div>
-          <div className="dive__stage" style={{ flexDirection: 'column', gap: 28 }}>
+          <div className="dive__stage dive__stage--orange" style={{ flexDirection: 'column', gap: 28 }}>
+            <img className="dive__art" src="/mac/aside/orange.png" alt="" width="1389" height="1132" loading="lazy" decoding="async" aria-hidden="true" />
             <div className="pv pv--lg">
               <GeneratingCapsule />
             </div>

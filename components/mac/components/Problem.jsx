@@ -7,10 +7,10 @@ import RiseGradient from './RiseGradient.jsx'
  * argument. content.md §2 still holds the text if it is ever wanted back; the
  * .problem__line rules are still in global.css for the same reason.
  */
-export default function Problem() {
+export default function Problem({ palette }) {
   return (
     <section className="section problem">
-      <RiseGradient />
+      <RiseGradient palette={palette} />
     </section>
   )
 }

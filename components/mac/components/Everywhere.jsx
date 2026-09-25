@@ -47,6 +47,7 @@ export default function Everywhere() {
         </p>
 
         <div className="every__field" aria-hidden="true">
+          <img className="every__art" src="/mac/aside/gradient.png" alt="" width="1672" height="941" loading="lazy" decoding="async" />
           {APPS.map((a) => (
             <span
               key={a.icon}

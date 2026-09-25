@@ -3092,7 +3092,42 @@ body:has(.mac-landing) {
   user-select: none;
 }
 
-.mac-landing.mac-landing--aside .every__field { margin-top: var(--space-48); }
+/* Restore the original scroll-driven rise without its oversized empty pause. */
+.mac-landing.mac-landing--aside .problem {
+  height: clamp(240px, 25vw, 360px);
+  padding: 0;
+  overflow: hidden;
+}
+
+.mac-landing.mac-landing--aside .problem .glow {
+  bottom: 0;
+  height: 100%;
+}
+
+.mac-landing.mac-landing--aside .every__field {
+  margin-top: var(--space-48);
+  background: var(--surface);
+}
+
+.mac-landing.mac-landing--aside :is(.every__art, .dive__art) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mac-landing.mac-landing--aside .dive__stage {
+  position: relative;
+  isolation: isolate;
+  background: var(--surface);
+}
+
+.mac-landing.mac-landing--aside .dive__art { z-index: -1; }
+
 .mac-landing.mac-landing--aside .dive { padding-block: var(--space-72); }
 .mac-landing.mac-landing--aside .step__frame { background: #ffffff; }
 .mac-landing.mac-landing--aside .editor__switch[data-on='true'] { background: var(--accent-indicator); }
@@ -3126,36 +3161,74 @@ body:has(.mac-landing) {
   --weight-bold: 600;
 }
 
-/* A bounded illustration above an opaque text surface. Artwork height is
-   independent of the link columns, including the longer English guide list. */
+/* One landscape: the pale sky joins the FAQ and the mountain stays at the
+   foot of the content. A wash protects text without making separate cards. */
 .mac-landing.mac-landing--aside .footer--aside {
   min-height: 0;
-  background: var(--surface);
+  isolation: isolate;
+  background: #dcf5fb;
   color: var(--ink);
 }
 
 .mac-landing.mac-landing--aside .footer--aside .footer__art {
-  position: relative;
-  display: block;
+  position: absolute;
+  inset: auto 0 0;
   width: 100%;
-  height: clamp(160px, 20vw, 280px);
+  height: min(100%, 900px);
   object-fit: cover;
-  object-position: 50% 54%;
-  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 75%, transparent);
+  object-position: center bottom;
+  mask-image: linear-gradient(to bottom, transparent, #000 24%);
+}
+
+.mac-landing.mac-landing--aside .footer--aside::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #fcfefe 0%, rgba(252,254,254,.9) 12%,
+    rgba(252,254,254,.45) 36%, rgba(252,254,254,.24) 70%, rgba(252,254,254,.15));
+  pointer-events: none;
+  z-index: 0;
 }
 
 .mac-landing.mac-landing--aside .footer--aside .footer__inner {
   min-height: 0;
-  padding-top: var(--space-40);
+  padding-top: var(--space-72);
   padding-bottom: var(--space-32);
-  background: var(--surface);
+  background: transparent;
 }
 
-.mac-landing.mac-landing--aside .footer--aside .footer__content { align-items: start; }
-.mac-landing.mac-landing--aside .footer--aside :is(.footer__copy, .footer__copyright) { color: var(--body-text); }
-.mac-landing.mac-landing--aside .footer--aside .footer__download .footer__heading { white-space: normal; }
+.mac-landing.mac-landing--aside .footer--aside .footer__content {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-64) var(--space-48);
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.mac-landing.mac-landing--aside .footer--aside .footer__download {
+  grid-column: 1 / -1;
+  align-items: center;
+  text-align: center;
+}
+
+.mac-landing.mac-landing--aside .footer--aside .footer__download .footer__heading {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: normal;
+  text-wrap: balance;
+}
+
+.mac-landing.mac-landing--aside .footer--aside :is(.footer__copy, .footer__copyright) { color: #46545c; }
+.mac-landing.mac-landing--aside .footer--aside .footer__company {
+  grid-column: auto;
+  align-items: flex-end;
+  text-align: right;
+}
+.mac-landing.mac-landing--aside .footer--aside .footer__legal-links { justify-content: flex-end; }
 .mac-landing.mac-landing--aside .footer--aside .footer__wordmark {
-  margin-top: var(--space-48);
+  margin: var(--space-64) auto 0;
   font-size: clamp(48px, 8.5vw, 128px);
   font-weight: 400;
   line-height: 1.1;
@@ -3173,7 +3246,22 @@ body:has(.mac-landing) {
   .mac-landing.mac-landing--aside .hero { padding-block: 112px 48px; }
   .mac-landing.mac-landing--aside .dive { padding-block: var(--space-56); }
   .mac-landing.mac-landing--aside .plan { padding: var(--space-24); }
-  .mac-landing.mac-landing--aside .footer--aside .footer__inner { padding-top: var(--space-24); }
+  .mac-landing.mac-landing--aside .footer--aside .footer__inner { padding-top: var(--space-48); }
+  .mac-landing.mac-landing--aside .footer--aside .footer__art { height: 540px; }
+  .mac-landing.mac-landing--aside .footer--aside .footer__content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+  .mac-landing.mac-landing--aside .footer--aside .footer__company {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .mac-landing.mac-landing--aside .footer--aside .footer__legal-links { justify-content: flex-start; }
+  .mac-landing.mac-landing--aside .footer--aside .footer__button {
+    min-height: 48px;
+    padding-inline: 22px;
+    font-size: var(--text-body-sm);
+  }
   .mac-landing.mac-landing--aside .footer--aside .footer__wordmark { font-size: clamp(40px, 12vw, 80px); }
 }
 

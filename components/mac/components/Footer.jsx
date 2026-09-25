@@ -38,11 +38,23 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
   const t = useT()
   const lang = useLang()
   const isEn = lang === 'en'
+  const download = (
+    <div className="footer__column footer__download">
+      <p className="footer__heading">{t.footer.downloadHeading}</p>
+      <p className="footer__copy">
+        {t.footer.downloadCopy[0]}<br />{t.footer.downloadCopy[1]}
+      </p>
+      <button className="footer__button" type="button" onClick={onDownload}>
+        <AppleIcon />
+        {t.footer.downloadButton}
+      </button>
+    </div>
+  )
   return (
     <footer className={`footer${appearance === 'aside' ? ' footer--aside' : ''}`}>
       <img
         className="footer__art"
-        src={appearance === 'aside' ? '/mac/aside/gradient.png' : '/mac-footer.png'}
+        src={appearance === 'aside' ? '/mac/aside/moutain.png' : '/mac-footer.png'}
         alt=""
         width="1672"
         height="941"
@@ -53,6 +65,7 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
 
       <div className="shell footer__inner">
         <div className="footer__content">
+          {appearance === 'aside' && download}
           <nav className="footer__column footer__navigation" aria-label={t.footer.navAria}>
             <p className="footer__heading">{t.footer.navHeading}</p>
             <a href={`${home}#how`}>{t.nav.how}</a>
@@ -98,16 +111,7 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
             )}
           </nav>
 
-          <div className="footer__column footer__download">
-            <p className="footer__heading">{t.footer.downloadHeading}</p>
-            <p className="footer__copy">
-              {t.footer.downloadCopy[0]}<br />{t.footer.downloadCopy[1]}
-            </p>
-            <button className="footer__button" type="button" onClick={onDownload}>
-              <AppleIcon />
-              {t.footer.downloadButton}
-            </button>
-          </div>
+          {appearance !== 'aside' && download}
 
           <div className="footer__column footer__company">
             <a className="footer__brand" href="#top">
