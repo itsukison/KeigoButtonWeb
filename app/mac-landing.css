@@ -3068,6 +3068,46 @@ body:has(.mac-landing) {
 .mac-landing.mac-landing--aside .section--band { background: var(--surface); }
 .mac-landing.mac-landing--aside .faq-section { background: var(--canvas); }
 
+/* Static paper texture and soft washes keep the steps distinct from the
+   illustrated feature stages. The product windows remain opaque white. */
+.mac-landing.mac-landing--aside #how {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 65% 48% at 8% 48%, rgba(97, 206, 233, .18), transparent 75%),
+    radial-gradient(ellipse 55% 48% at 92% 58%, rgba(176, 233, 245, .28), transparent 75%),
+    var(--canvas);
+}
+
+.mac-landing.mac-landing--aside #how::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('/mac/aside/paper-grain.svg') repeat;
+  opacity: .055;
+  mix-blend-mode: multiply;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  pointer-events: none;
+}
+
+/* Anchor the halo to the paid card so it follows that card when plans stack. */
+.mac-landing.mac-landing--aside #pricing {
+  background: var(--canvas);
+  overflow: clip;
+}
+
+.mac-landing.mac-landing--aside #pricing .plans { isolation: isolate; }
+.mac-landing.mac-landing--aside #pricing .plan--featured { position: relative; }
+.mac-landing.mac-landing--aside #pricing .plan--featured::before {
+  content: '';
+  position: absolute;
+  inset: -64px -112px;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(0, 154, 245, .22) 22%, rgba(97, 206, 233, .12) 48%, transparent 72%);
+  pointer-events: none;
+}
+
 .mac-landing.mac-landing--aside .hero {
   min-height: min(100svh, 900px);
   padding-block: 132px 80px;
@@ -3245,6 +3285,13 @@ body:has(.mac-landing) {
 
 @media (max-width: 720px) {
   .mac-landing.mac-landing--aside { --section-gap: 64px; }
+  .mac-landing.mac-landing--aside #how {
+    background:
+      radial-gradient(ellipse 120% 28% at 0% 32%, rgba(97, 206, 233, .18), transparent 75%),
+      radial-gradient(ellipse 120% 28% at 100% 72%, rgba(176, 233, 245, .28), transparent 75%),
+      var(--canvas);
+  }
+  .mac-landing.mac-landing--aside #pricing .plan--featured::before { inset: -48px -48px; }
   .mac-landing.mac-landing--aside .hero { padding-block: 112px 48px; }
   .mac-landing.mac-landing--aside .dive { padding-block: var(--space-56); }
   .mac-landing.mac-landing--aside .plan { padding: var(--space-24); }

@@ -21,6 +21,11 @@ feature stages use pink, blue and orange artwork, in that order. Below-hero art
 loads lazily and keeps its source proportions; orange is 1389 × 1132, while the
 other supplied images are 1672 × 941. Product surfaces stay opaque.
 
+How it works uses static, low-opacity paper grain and broad cyan washes on the
+near-white canvas. Pricing uses the same near-white canvas with a soft blue halo
+anchored behind the paid card, including when the cards stack on mobile. Both
+effects are landing-only, decorative and non-interactive; card surfaces stay white.
+
 The landing footer places its download action above navigation and company links
 in a continuous mountain landscape. A pale wash joins the FAQ and protects dark
 text. The mountain is bounded and anchored at the bottom on mobile, independent
