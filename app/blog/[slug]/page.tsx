@@ -1,8 +1,17 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
+import { LEGACY_ICONS, isProtectedArticle } from "@/lib/appearance";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Prose } from "@/components/Prose";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import {
+  AppCta,
+  Breadcrumbs,
+  JsonLd,
+  SiteFooter,
+  SiteHeader,
+} from "@/components/SiteChrome";
 import { ARTICLES, articleBySlug } from "@/content/articles";
 import { tableOfContents } from "@/lib/blocks";
 import {
@@ -29,6 +38,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!article) return {};
 
   return {
+    ...(isProtectedArticle(slug) ? { icons: LEGACY_ICONS } : {}),
     title: article.metaTitle,
     description: article.description,
     keywords: [article.keyword, ...article.alsoRanks],
@@ -74,15 +84,109 @@ export default async function ArticlePage({ params }: Params) {
       wordCount: article.blocks.length * 60,
       articleSection: article.category,
       keywords: [article.keyword, ...article.alsoRanks].join(", "),
-      mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${article.slug}` },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/blog/${article.slug}`,
+      },
       author: { "@id": ORG_ID },
       publisher: { "@id": ORG_ID },
       about: { "@id": APP_ID },
-      isPartOf: { "@type": "Blog", "@id": `${SITE_URL}/blog#blog`, name: "敬語ボタン 記事" },
+      isPartOf: {
+        "@type": "Blog",
+        "@id": `${SITE_URL}/blog#blog`,
+        name: "敬語ボタン 記事",
+      },
     },
     faqNode(article.faq),
     breadcrumbNode(trail),
   );
+
+  if (!isProtectedArticle(slug))
+    return (
+      <AsideShell>
+        <JsonLd data={jsonLd} />
+        <main className="aside-main">
+          <AsideHero art={article.category === "敬語の知識" ? "blue" : "pink"}>
+            <Breadcrumbs trail={trail} />
+            <span className="aside-badge rounded-full px-3 py-1 text-xs">
+              {article.category}
+            </span>
+            <h1>{article.title}</h1>
+            <p>{article.lead}</p>
+            <p className="mt-5 text-xs">
+              約{article.minutes}分で読めます · 更新：
+              <time dateTime={article.updated}>
+                {article.updated.replace(/-/g, "/")}
+              </time>
+            </p>
+          </AsideHero>
+          <article className="aside-reading">
+            <div className="aside-reading__body">
+              <Prose blocks={article.blocks} appearance="aside" />
+              {article.faq.length > 0 && (
+                <section className="mt-16">
+                  <h2>よくある質問</h2>
+                  <div className="mt-6 divide-y divide-black/10">
+                    {article.faq.map(({ q, a }) => (
+                      <div key={q} className="py-5">
+                        <h3 className="font-medium">{q}</h3>
+                        <p className="mt-3 text-sm leading-7">{a}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+              <footer className="aside-legacy mt-14 border-t border-black/[0.08] pt-6 text-[13px] leading-7 text-black/45">
+                この記事は敬語ボタン（iPhone向けAIキーボードアプリ）を開発・運営する
+                <a
+                  href="https://www.core7-jp.com/"
+                  className="font-semibold underline decoration-black/25 underline-offset-2"
+                >
+                  株式会社Core7
+                </a>
+                が執筆しています。他社サービスに関する記述は
+                {article.updated.replace(/-/g, "/")}
+                時点の公開情報にもとづくもので、最新の内容は各社の公式サイトをご確認ください。
+              </footer>
+            </div>
+            {toc.length > 2 && (
+              <nav className="aside-reading__toc" aria-label="目次">
+                <p className="mb-5 text-xs">目次</p>
+                <ol className="flex flex-col gap-3">
+                  {toc.map(({ id, text }) => (
+                    <li key={id}>
+                      <a href={`#${id}`}>{text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+          </article>
+          {related.length > 0 && (
+            <section className="aside-wide mt-16">
+              <h2 className="aside-section-title">関連記事</h2>
+              <div className="aside-card-grid mt-6 grid md:grid-cols-2">
+                {related.map((item) => (
+                  <Link
+                    key={item!.slug}
+                    href={`/blog/${item!.slug}`}
+                    className="aside-resource-card"
+                  >
+                    <h3>{item!.title}</h3>
+                    <p className="mt-3 text-sm text-[#606a70]">
+                      {item!.description}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+          <div className="mt-16">
+            <AppCta />
+          </div>
+        </main>
+      </AsideShell>
+    );
 
   return (
     <div className="min-h-screen bg-white">
@@ -97,26 +201,43 @@ export default async function ArticlePage({ params }: Params) {
             <span className="rounded-full bg-[#F1EEFC] px-3 py-1 font-bold text-[#5B4BA8]">
               {article.category}
             </span>
-            <span className="text-black/40">約{article.minutes}分で読めます</span>
+            <span className="text-black/40">
+              約{article.minutes}分で読めます
+            </span>
             <span className="text-black/40">
               更新：
-              <time dateTime={article.updated}>{article.updated.replace(/-/g, "/")}</time>
+              <time dateTime={article.updated}>
+                {article.updated.replace(/-/g, "/")}
+              </time>
             </span>
           </div>
 
           <h1 className="mt-5 font-display text-[28px] font-semibold leading-[1.3] tracking-tight lg:text-[40px]">
             {article.title}
           </h1>
-          <p className="mt-5 text-[15px] leading-[1.95] text-black/65 lg:text-base">{article.lead}</p>
+          <p className="mt-5 text-[15px] leading-[1.95] text-black/65 lg:text-base">
+            {article.lead}
+          </p>
 
           {toc.length > 2 ? (
-            <nav aria-label="目次" className="mt-8 rounded-[20px] border border-black/10 bg-[#FAFAFB] p-5">
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-black/35">目次</span>
+            <nav
+              aria-label="目次"
+              className="mt-8 rounded-[20px] border border-black/10 bg-[#FAFAFB] p-5"
+            >
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-black/35">
+                目次
+              </span>
               <ol className="mt-3 flex flex-col gap-2">
                 {toc.map(({ id, text }, index) => (
-                  <li key={id} className="flex gap-2.5 text-[13.5px] leading-[1.75]">
+                  <li
+                    key={id}
+                    className="flex gap-2.5 text-[13.5px] leading-[1.75]"
+                  >
                     <span className="font-bold text-black/25">{index + 1}</span>
-                    <a href={`#${id}`} className="text-black/65 hover:text-black">
+                    <a
+                      href={`#${id}`}
+                      className="text-black/65 hover:text-black"
+                    >
                       {text}
                     </a>
                   </li>
@@ -137,8 +258,12 @@ export default async function ArticlePage({ params }: Params) {
               <div className="mt-6 flex flex-col divide-y divide-black/[0.08] border-t border-black/[0.08]">
                 {article.faq.map(({ q, a }) => (
                   <div key={q} className="py-5">
-                    <h3 className="font-display text-[16px] font-semibold leading-[1.6] text-black">{q}</h3>
-                    <p className="mt-2.5 text-[14px] leading-[1.95] text-black/65">{a}</p>
+                    <h3 className="font-display text-[16px] font-semibold leading-[1.6] text-black">
+                      {q}
+                    </h3>
+                    <p className="mt-2.5 text-[14px] leading-[1.95] text-black/65">
+                      {a}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -147,17 +272,23 @@ export default async function ArticlePage({ params }: Params) {
 
           <footer className="mt-14 border-t border-black/[0.08] pt-6 text-[13px] leading-7 text-black/45">
             この記事は敬語ボタン（iPhone向けAIキーボードアプリ）を開発・運営する
-            <a href="https://www.core7-jp.com/" className="font-semibold underline decoration-black/25 underline-offset-2">
+            <a
+              href="https://www.core7-jp.com/"
+              className="font-semibold underline decoration-black/25 underline-offset-2"
+            >
               株式会社Core7
             </a>
-            が執筆しています。他社サービスに関する記述は{article.updated.replace(/-/g, "/")}
+            が執筆しています。他社サービスに関する記述は
+            {article.updated.replace(/-/g, "/")}
             時点の公開情報にもとづくもので、最新の内容は各社の公式サイトをご確認ください。
           </footer>
         </article>
 
         {related.length > 0 ? (
           <section className="mt-14">
-            <h2 className="font-display text-[19px] font-semibold tracking-tight">関連記事</h2>
+            <h2 className="font-display text-[19px] font-semibold tracking-tight">
+              関連記事
+            </h2>
             <div className="mt-5 flex flex-col gap-2.5">
               {related.map((item) => (
                 <Link
@@ -165,8 +296,12 @@ export default async function ArticlePage({ params }: Params) {
                   href={`/blog/${item!.slug}`}
                   className="rounded-[20px] border border-black/10 p-5 transition-colors hover:border-black/30"
                 >
-                  <span className="block text-[14.5px] font-bold leading-[1.6] text-black">{item!.title}</span>
-                  <span className="mt-1.5 block text-[12.5px] leading-6 text-black/50">{item!.description}</span>
+                  <span className="block text-[14.5px] font-bold leading-[1.6] text-black">
+                    {item!.title}
+                  </span>
+                  <span className="mt-1.5 block text-[12.5px] leading-6 text-black/50">
+                    {item!.description}
+                  </span>
                 </Link>
               ))}
             </div>

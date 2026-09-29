@@ -1,9 +1,10 @@
 # Mac landing appearance
 
-The requested Aside refresh applies only to `/`, `/en`, and `/zh`. It adapts the
-native palette and typography in `laptop/design.md` for these landing pages under
-this request; it does not expand that native specification into a shared site theme.
-The iPhone pages, guides, tools, metadata and social preview retain their appearance.
+The landing composition for `/`, `/en`, and `/zh` adapts the native palette and
+typography in `laptop/design.md`. It remains separately scoped from the remaining
+website, whose Aside system and protected-route boundaries are documented in
+`components/aside/docs/design.md`. The shared download dialog and browser icons
+use that system; the landing sections and social preview retain their appearance.
 
 `MacHome` selects `mac-landing--aside`. The override block at the end of
 `app/mac-landing.css` is scoped beneath that modifier; preserve it when updating
@@ -29,7 +30,7 @@ effects are landing-only, decorative and non-interactive; card surfaces stay whi
 The landing footer places its download action above navigation and company links
 in a continuous mountain landscape. A pale wash joins the FAQ and protects dark
 text. The mountain is bounded and anchored at the bottom on mobile, independent
-of the length of localized navigation. Shared footers retain their old layout.
+of the length of localized navigation. Other redesigned routes use their own scoped mountain footer; protected routes retain the original footer.
 
 Product previews retain their own font, locale weights, dark colors, compact type,
 generation ring and five-phase timing. On narrow screens the complete hero overlay

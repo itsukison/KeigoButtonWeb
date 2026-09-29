@@ -1,6 +1,8 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { REIBUN } from "@/content/reibun";
 import {
   ORG_ID,
@@ -77,11 +79,11 @@ export default function ReibunIndexPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell variant="reading">
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-4xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
+      <main className="aside-main">
+        <AsideHero art="orange">
         <Breadcrumbs trail={TRAIL} />
 
         <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.25] tracking-tight lg:text-[42px]">
@@ -94,12 +96,14 @@ export default function ReibunIndexPage() {
           を掲載しています。
         </p>
 
-        <div className="mt-10 grid gap-3 md:grid-cols-2">
+        </AsideHero>
+
+        <div className="aside-wide aside-card-grid mt-10 grid gap-3 md:grid-cols-2">
           {REIBUN.map((entry) => (
             <Link
               key={entry.slug}
               href={`/reibun/${entry.slug}`}
-              className="group flex flex-col rounded-[22px] border border-black/10 p-5 transition-colors hover:border-black/30"
+              className="aside-resource-card group flex flex-col rounded-[22px] border border-black/10 p-5 transition-colors hover:border-black/30"
             >
               <h2 className="font-display text-[16.5px] font-semibold leading-[1.55] text-black">
                 {entry.title}
@@ -158,7 +162,6 @@ export default function ReibunIndexPage() {
         </div>
       </main>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }

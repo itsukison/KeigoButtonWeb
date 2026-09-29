@@ -114,9 +114,9 @@ export function KeigoConverter({
   }
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
+    <div className="aside-editor overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
       {/* Mode picker */}
-      <div className="flex gap-2 overflow-x-auto border-b border-black/[0.07] bg-[#FAFAFB] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="aside-mode-row flex gap-2 overflow-x-auto border-b border-black/[0.07] bg-[#FAFAFB] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Ordered by the `modes` prop, not by the MODES declaration, so a page's
             primary mode sits first in the row. */}
         {modes
@@ -131,6 +131,7 @@ export function KeigoConverter({
               setState({ status: "idle" });
             }}
             aria-pressed={mode === m.id}
+            data-selected={mode === m.id}
             className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[13px] font-bold transition-colors ${
               mode === m.id
                 ? "bg-[#18181A] text-white"
@@ -205,7 +206,7 @@ export function KeigoConverter({
               {state.candidates.map((candidate, index) => (
                 <div key={index} className="rounded-2xl border border-black/10 bg-[#FAFAFB] p-4">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-[11px] font-bold text-[#5B4BA8]">
+                    <span className="aside-result-tag text-[11px] font-bold text-[#5B4BA8]">
                       {index === 0
                         ? "候補1・標準"
                         : SECOND_CANDIDATE_LABELS[mode] ?? "候補2・もう一段ていねい"}
@@ -225,7 +226,7 @@ export function KeigoConverter({
               ))}
             </div>
 
-            <div className="mt-5 rounded-2xl bg-[#18181A] p-5 text-white">
+            <div className="aside-promotion mt-5 rounded-2xl bg-[#18181A] p-5 text-white">
               <p className="text-[14px] font-bold leading-[1.7]">
                 コピーして貼り戻すのが手間だと感じたら、キーボードごと入れ替えられます。
               </p>
@@ -244,7 +245,7 @@ export function KeigoConverter({
 
         {state.status === "error" ? (
           <div
-            className={`mt-6 rounded-2xl p-5 ${
+            className={`aside-promotion mt-6 rounded-2xl p-5 ${
               state.capped ? "bg-[#18181A] text-white" : "border border-[#C0392B]/25 bg-[#FDF3F2]"
             }`}
           >

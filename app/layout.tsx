@@ -44,6 +44,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [{ url: "/icons/aside/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" }, { url: "/icons/aside/icon.png", sizes: "192x192", type: "image/png" }],
+    apple: [{ url: "/icons/aside/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   title: {
     default: "敬語ボタン｜Mac・iPhoneで文章をその場で整える",
     template: `%s | ${SITE_NAME}`,

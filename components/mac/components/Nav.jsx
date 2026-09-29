@@ -36,7 +36,7 @@ export default function Nav({ onDownload, home = '' }) {
       <nav className="nav__inner" aria-label={t.nav.aria}>
         <a className="nav__brand" href={home || '#top'}>
           <span className="nav__mark">
-            <img src="/brand-icon.png" alt="" width="26" height="26" />
+            <img src="/icons/aside/icon.png" alt="" width="26" height="26" />
           </span>
           {t.brand}
         </a>

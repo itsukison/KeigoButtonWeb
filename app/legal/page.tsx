@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function LegalNoticePage() {
   return (
     <LegalPage
+      appearance="aside"
       title="特定商取引法に基づく表記"
       updatedAt="最終更新日：2026年8月8日"
       lead="「敬語ボタン」（iOSキーボードアプリおよびMac版アプリ）の通信販売に関する表示です。有料プランはMac版アプリのみが対象で、iOS版は無料でご利用いただけます。"

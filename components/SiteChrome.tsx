@@ -181,7 +181,7 @@ export function AppCta({
   body?: string;
 }) {
   return (
-    <aside className="overflow-hidden rounded-[28px] bg-[#18181A] p-7 text-white lg:p-10">
+    <aside className="app-cta overflow-hidden rounded-[28px] bg-[#18181A] p-7 text-white lg:p-10">
       <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C8BCFA]">
         iPhone・Mac / 無料
       </span>

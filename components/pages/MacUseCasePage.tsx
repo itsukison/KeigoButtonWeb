@@ -1,3 +1,4 @@
+import { AsideHero } from "@/components/aside/AsideParts";
 import Link from "next/link";
 import type { MacUseCase, MacUseCaseLang } from "@/content/mac-use-cases";
 import { macUseCasePath } from "@/content/mac-use-cases";
@@ -102,7 +103,7 @@ export function MacUseCasePage({
       <MacDocShell lang={lang}>
         <article className="shell mac-doc">
           <div className="mac-doc__wrap">
-            <header className="mac-doc__head">
+            <AsideHero art="blue"><div className="mac-doc__head">
               <p className="eyebrow">{page.category}</p>
               <h1 className="h-display">{page.title}</h1>
               <p className="mac-doc__lead">{page.lead}</p>
@@ -117,7 +118,7 @@ export function MacUseCasePage({
                 <span>·</span>
                 <a href={PUBLISHER_URL}>{labels.byline}</a>
               </p>
-            </header>
+            </div></AsideHero>
 
             <div className="mac-doc__layout">
               <div className="mac-doc__main">

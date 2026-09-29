@@ -18,7 +18,6 @@ import { useLang, useT } from '../i18n'
  * query, and drop everything after it.
  */
 const EN_GUIDE_LINKS = [
-  { href: '/en/rewrite', label: 'Free rewriter' },
   { href: '/en/mac/reply-assistant', label: 'AI reply assistant' },
   { href: '/en/mac/custom-rewrite-prompts', label: 'Custom rewrite prompts' },
   { href: '/en/ai-writing-apps-mac', label: 'AI writing apps' },
@@ -34,7 +33,7 @@ const JA_MAC_GUIDE_LINKS = [
 
 /** `home` mirrors `Nav`: empty on the landing, the language root elsewhere, so the
  * section anchors below resolve instead of scrolling nowhere on a document page. */
-export default function Footer({ onDownload, home = '', appearance = 'default' }) {
+export default function Footer({ onDownload, home = '', appearance = 'default', downloadLabel }) {
   const t = useT()
   const lang = useLang()
   const isEn = lang === 'en'
@@ -46,7 +45,7 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
       </p>
       <button className="footer__button" type="button" onClick={onDownload}>
         <AppleIcon />
-        {t.footer.downloadButton}
+        {downloadLabel || t.footer.downloadButton}
       </button>
     </div>
   )
@@ -86,6 +85,9 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
                 {/* A second heading inside the same column. Without it the guides
                     read as a continuation of the in-page anchors above, which is
                     what made the list feel like a wall rather than an index. */}
+                <p className="footer__heading footer__heading--sub">Writing tools</p>
+                <a href="/en/rewrite">Free rewriter</a>
+                <a href="/en/reply-generator">Reply generator</a>
                 <p className="footer__heading footer__heading--sub">Guides</p>
                 {EN_GUIDE_LINKS.map((link) => (
                   <a key={link.href} href={link.href}>{link.label}</a>
@@ -94,7 +96,10 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
               </>
             ) : (
               <>
+                <p className="footer__heading footer__heading--sub">{lang === 'ja' ? '文章ツール・読みもの' : '日语工具与文章'}</p>
                 <a href="/keigo-henkan">{t.footer.converter}</a>
+                <a href="/bunsho-kosei-ai">{lang === 'ja' ? '文章校正' : '日语文章校对'}</a>
+                <a href="/bunsho-sakusei-ai">{lang === 'ja' ? 'AI文章作成' : 'AI日语写作'}</a>
                 <a href="/keigo-check">{t.footer.checker}</a>
                 <a href="/keigo-test">{t.footer.test}</a>
                 <a href="/reibun">{t.footer.reibun}</a>
@@ -115,7 +120,7 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
 
           <div className="footer__column footer__company">
             <a className="footer__brand" href="#top">
-              <img src="/brand-icon.png" alt="" width="28" height="28" />
+              <img src="/icons/aside/icon.png" alt="" width="28" height="28" />
               {t.brand}
             </a>
             <div className="footer__legal-links">
@@ -125,6 +130,7 @@ export default function Footer({ onDownload, home = '', appearance = 'default' }
               <a href={href(lang, '/support')}>{t.chrome.support}</a>
               <a href={href(lang, '/terms')}>{t.footer.terms}</a>
               <a href={href(lang, '/privacy')}>{t.footer.privacy}</a>
+              {lang === 'ja' && <a href="/legal">特定商取引法に基づく表記</a>}
               <a href="mailto:keigobutton@gmail.com">{t.footer.contact}</a>
             </div>
             <p className="footer__copyright">{t.footer.copyright}</p>

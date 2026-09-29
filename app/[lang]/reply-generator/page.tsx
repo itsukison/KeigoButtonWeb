@@ -1,3 +1,4 @@
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -187,48 +188,53 @@ export default async function EnReplyGeneratorPage({
         }}
       />
 
-      <MacDocShell lang="en">
+      <MacDocShell lang="en" variant="tools">
         <article className="shell mac-doc">
           <div className="mac-doc__wrap">
-            <header className="mac-doc__head">
-              <p className="eyebrow">Free tool</p>
-              <h1 className="h-display">
-                Paste the message. Get the reply.
-              </h1>
-              <p className="mac-doc__lead">
-                An AI reply generator for the messages you keep putting off.
-                Paste what you received — email, Slack, LinkedIn, a support
-                ticket, a review — and get a reply written for you. No account,
-                five a day, free.
-              </p>
-            </header>
+            <AsideHero art="pink">
+              <div className="mac-doc__head">
+                <p className="eyebrow">Free tool</p>
+                <h1 className="h-display">Paste the message. Get the reply.</h1>
+                <p className="mac-doc__lead">
+                  An AI reply generator for the messages you keep putting off.
+                  Paste what you received — email, Slack, LinkedIn, a support
+                  ticket, a review — and get a reply written for you. No
+                  account, five a day, free.
+                </p>
+              </div>
+            </AsideHero>
+
+            <div className="aside-workbench aside-workbench--pink">
+              <EnRewriter initialMode="en_reply" modes={["en_reply"]} />
+            </div>
 
             <div className="mac-doc__layout">
               <div className="mac-doc__main">
-                <EnRewriter initialMode="en_reply" modes={["en_reply"]} />
-
                 <div className="mac-doc__body">
                   <h2 className="h-heading mac-doc__h2" id="how">
                     How to use it
                   </h2>
                   <ul className="mac-doc__list">
                     <li>
-                      <strong>Paste the incoming message, not your draft.</strong>{" "}
-                      This tool reads what was sent to you and answers it. If you
-                      already wrote a reply and want it corrected or softened,
-                      the <Link href="/en/rewrite">free English rewriter</Link>{" "}
-                      is the right tool.
+                      <strong>
+                        Paste the incoming message, not your draft.
+                      </strong>{" "}
+                      This tool reads what was sent to you and answers it. If
+                      you already wrote a reply and want it corrected or
+                      softened, the{" "}
+                      <Link href="/en/rewrite">free English rewriter</Link> is
+                      the right tool.
                     </li>
                     <li>
-                      <strong>Add the specifics yourself.</strong> The reply will
-                      not invent a date, a price or a promise that the message
-                      did not contain, so anything that needs a real answer comes
-                      back general on purpose.
+                      <strong>Add the specifics yourself.</strong> The reply
+                      will not invent a date, a price or a promise that the
+                      message did not contain, so anything that needs a real
+                      answer comes back general on purpose.
                     </li>
                     <li>
-                      <strong>Read it before you send it.</strong> It is a draft.
-                      Nothing is sent on your behalf, and the tool has no access
-                      to your inbox or your accounts.
+                      <strong>Read it before you send it.</strong> It is a
+                      draft. Nothing is sent on your behalf, and the tool has no
+                      access to your inbox or your accounts.
                     </li>
                   </ul>
 
@@ -241,8 +247,8 @@ export default async function EnReplyGeneratorPage({
                     hides that choice; two show the range — the first
                     straightforward, the second a step more formal — so you pick
                     rather than accept. It also makes it obvious when the model
-                    has misread the message, which a single confident answer does
-                    not.
+                    has misread the message, which a single confident answer
+                    does not.
                   </p>
 
                   <h2 className="h-heading mac-doc__h2" id="limits">
@@ -261,15 +267,15 @@ export default async function EnReplyGeneratorPage({
                       confidential into a free browser tool.
                     </li>
                     <li>
-                      <strong>It does not know your context.</strong> It sees one
-                      pasted message — not the thread, not the account history,
-                      not what you agreed last week. Long negotiations are not
-                      what this is for.
+                      <strong>It does not know your context.</strong> It sees
+                      one pasted message — not the thread, not the account
+                      history, not what you agreed last week. Long negotiations
+                      are not what this is for.
                     </li>
                     <li>
-                      <strong>It is still a browser tab.</strong> You copy in and
-                      paste back, once per reply. That loop is fine occasionally
-                      and miserable thirty times a day.
+                      <strong>It is still a browser tab.</strong> You copy in
+                      and paste back, once per reply. That loop is fine
+                      occasionally and miserable thirty times a day.
                     </li>
                   </ul>
 
@@ -279,9 +285,9 @@ export default async function EnReplyGeneratorPage({
                     </p>
                     <p className="mac-doc__p">
                       Gmail has Smart Reply built in, and if you have an Apple
-                      silicon Mac, Writing Tools is part of macOS and runs much of
-                      its work on-device. Both are free and neither costs you a
-                      copy-paste. We would rather you knew that than found out
+                      silicon Mac, Writing Tools is part of macOS and runs much
+                      of its work on-device. Both are free and neither costs you
+                      a copy-paste. We would rather you knew that than found out
                       afterwards — the wider comparison is in{" "}
                       <Link href="/en/ai-writing-apps-mac">
                         AI writing assistants for Mac
@@ -295,12 +301,13 @@ export default async function EnReplyGeneratorPage({
                   </h2>
                   <p className="mac-doc__p">
                     This page is the demo. The product is a small bar at the
-                    bottom of your Mac screen: copy the message you received, put
-                    your cursor in the reply field, hover the bar, and the reply
-                    is written straight into the field you are already in — in
-                    Mail, Slack, Gmail, Notion or anywhere else you can put a
-                    cursor. The buttons are instructions you write once, and they
-                    sync to an iPhone keyboard so the same ones are on your phone.
+                    bottom of your Mac screen: copy the message you received,
+                    put your cursor in the reply field, hover the bar, and the
+                    reply is written straight into the field you are already in
+                    — in Mail, Slack, Gmail, Notion or anywhere else you can put
+                    a cursor. The buttons are instructions you write once, and
+                    they sync to an iPhone keyboard so the same ones are on your
+                    phone.
                   </p>
                 </div>
 

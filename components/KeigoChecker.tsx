@@ -26,7 +26,7 @@ export function KeigoChecker() {
   }, [findings]);
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
+    <div className="aside-editor overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
       <div className="p-5 lg:p-7">
         <label htmlFor="check-input" className="block text-[13px] font-bold text-black">
           チェックしたい文章を貼り付けてください
@@ -136,7 +136,7 @@ export function KeigoChecker() {
                   ))}
                 </div>
 
-                <div className="mt-5 rounded-2xl bg-[#18181A] p-5 text-white">
+                <div className="aside-promotion mt-5 rounded-2xl bg-[#18181A] p-5 text-white">
                   <p className="text-[14px] font-bold leading-[1.7]">
                     指摘を反映した文にまとめて書き直すこともできます。
                   </p>

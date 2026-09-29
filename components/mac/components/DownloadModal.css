@@ -1,0 +1,163 @@
+/* The dialog is portalled, so it owns its tokens independently of either site shell. */
+.aside-download {
+  --accent: #006fc9;
+  --accent-soft: #dcecf3;
+  box-sizing: border-box;
+  width: min(900px, calc(100vw - 48px));
+  max-height: calc(100dvh - 48px);
+  padding: 40px;
+  margin: auto;
+  border: 1px solid #ffffffa6;
+  border-radius: 24px;
+  background: #fcfefe;
+  color: #111;
+  font:
+    400 14px/1.65 -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    "Hiragino Sans",
+    "PingFang SC",
+    sans-serif;
+  letter-spacing: normal;
+  box-shadow: 0 32px 100px #112c4040;
+  overscroll-behavior: contain;
+}
+.aside-download::backdrop {
+  background: #172a3b66;
+  backdrop-filter: blur(8px);
+}
+.aside-download * {
+  box-sizing: border-box;
+}
+.aside-download :focus-visible {
+  outline: 2px solid #006fc9;
+  outline-offset: 4px;
+}
+.aside-download__head {
+  position: relative;
+  text-align: center;
+  padding: 0 24px 32px;
+}
+.aside-download__head > img {
+  display: block;
+  margin: 0 auto 20px;
+}
+.aside-download__head h2 {
+  margin: 0 0 16px;
+  font-size: clamp(27px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+.aside-download__head p {
+  color: #606a70;
+  margin: 0;
+}
+.aside-download__head a {
+  color: #006fc9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.aside-download__close {
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #11111112;
+  border-radius: 50%;
+  background: white;
+  color: #30383d;
+  font: 24px/1 system-ui;
+  cursor: pointer;
+}
+.aside-download__close:hover {
+  background: #e6edf0;
+}
+.aside-download__steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.aside-download__art {
+  height: 190px;
+  border-radius: 16px;
+  background: #f1f6f8;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #e7edef;
+}
+.aside-download__art > svg {
+  width: min(100%, 280px);
+  height: auto;
+}
+.aside-download__number {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  color: #3b555f;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.aside-download__instruction {
+  padding: 18px 4px 0;
+}
+.aside-download__instruction h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+.aside-download__instruction p {
+  font-size: 13px;
+  color: #606a70;
+  line-height: 1.8;
+  margin: 0;
+}
+.aside-download__note {
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #11111114;
+  color: #606a70;
+  font-size: 12px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .aside-download {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+  .aside-download__head {
+    padding: 8px 10px 28px;
+  }
+  .aside-download__head h2 {
+    font-size: 28px;
+  }
+  .aside-download__close {
+    right: -6px;
+    top: -12px;
+  }
+  .aside-download__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .aside-download__art {
+    height: 180px;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .aside-download::backdrop {
+    background: #172a3be6;
+    backdrop-filter: none;
+  }
+}

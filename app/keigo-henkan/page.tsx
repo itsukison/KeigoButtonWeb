@@ -1,7 +1,9 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { KeigoConverter } from "@/components/KeigoConverter";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { REIBUN } from "@/content/reibun";
 import {
   APP_ID,
@@ -139,11 +141,11 @@ export default function KeigoHenkanPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell variant="tools">
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-3xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
+      <main className="aside-main">
+        <AsideHero art="blue">
         <Breadcrumbs trail={TRAIL} />
 
         <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.25] tracking-tight lg:text-[44px]">
@@ -155,7 +157,9 @@ export default function KeigoHenkanPage() {
           で、そのまま貼り付けるだけです。上司へのチャット、取引先へのメール、就活の連絡などにお使いください。
         </p>
 
-        <div className="mt-8" id="tool">
+        </AsideHero>
+
+        <div className="aside-workbench aside-workbench--blue" id="tool">
           <KeigoConverter />
         </div>
 
@@ -169,7 +173,7 @@ export default function KeigoHenkanPage() {
           <div className="mt-6 overflow-x-auto rounded-2xl border border-black/10">
             <table className="w-full border-collapse text-left text-[13.5px]">
               <thead>
-                <tr className="bg-[#F7F6FC]">
+                <tr className="bg-[#F1F9FC]">
                   <th className="whitespace-nowrap px-4 py-3 font-bold">モード</th>
                   <th className="px-4 py-3 font-bold">こんなときに</th>
                   <th className="px-4 py-3 font-bold">出力の形</th>
@@ -213,15 +217,15 @@ export default function KeigoHenkanPage() {
               "固有名詞・数字・日付が変わっていないか確認し、「コピー」で貼り戻します。",
             ].map((step, index) => (
               <li key={index} className="flex gap-3.5 text-[15px] leading-[1.9] text-black/70">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F1EEFC] text-[12px] font-bold text-[#5B4BA8]">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E5F4FE] text-[12px] font-bold text-[#006FC9]">
                   {index + 1}
                 </span>
                 <span>{step}</span>
               </li>
             ))}
           </ol>
-          <div className="mt-6 rounded-[20px] border border-[#C8BCFA]/60 bg-[#F7F6FC] px-5 py-4">
-            <span className="text-[12px] font-bold text-[#5B4BA8]">送信前に必ず確認してください</span>
+          <div className="mt-6 rounded-[20px] border border-[#C9E5F3]/60 bg-[#F1F9FC] px-5 py-4">
+            <span className="text-[12px] font-bold text-[#006FC9]">送信前に必ず確認してください</span>
             <p className="mt-1.5 text-[14px] leading-[1.9] text-black/70">
               AIは意味を保つよう指示されていますが、固有名詞・数字・日付を取り違える可能性があります。金額と期日だけは目視で確認することをおすすめします。
             </p>
@@ -359,7 +363,6 @@ export default function KeigoHenkanPage() {
         </div>
       </main>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }

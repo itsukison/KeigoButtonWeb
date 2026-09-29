@@ -1,7 +1,9 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { KeigoQuiz } from "@/components/KeigoQuiz";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { QUIZ } from "@/content/quiz";
 import {
   APP_ID,
@@ -89,11 +91,11 @@ export default function KeigoTestPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell variant="tools">
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-3xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
+      <main className="aside-main">
+        <AsideHero art="orange">
         <Breadcrumbs trail={TRAIL} />
 
         <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.25] tracking-tight lg:text-[44px]">
@@ -108,7 +110,9 @@ export default function KeigoTestPage() {
           全20問・所要3分ほど／無料・登録不要／終了後に全問の解説を表示
         </p>
 
-        <div className="mt-8">
+        </AsideHero>
+
+        <div className="aside-workbench aside-workbench--orange">
           <KeigoQuiz />
         </div>
 
@@ -155,7 +159,7 @@ export default function KeigoTestPage() {
               },
             ].map(({ tag, body, href, label }) => (
               <div key={tag} className="rounded-[20px] border border-black/10 p-5">
-                <span className="rounded-full bg-[#F1EEFC] px-2.5 py-1 text-[11.5px] font-bold text-[#5B4BA8]">
+                <span className="rounded-full bg-[#E5F4FE] px-2.5 py-1 text-[11.5px] font-bold text-[#006FC9]">
                   {tag}
                 </span>
                 <p className="mt-3 text-[14px] leading-[1.9] text-black/70">{body}</p>
@@ -177,7 +181,7 @@ export default function KeigoTestPage() {
           <div className="mt-6 overflow-x-auto rounded-2xl border border-black/10">
             <table className="w-full border-collapse text-left text-[13.5px]">
               <thead>
-                <tr className="bg-[#F7F6FC]">
+                <tr className="bg-[#F1F9FC]">
                   <th className="whitespace-nowrap px-4 py-3 font-bold">正解数</th>
                   <th className="whitespace-nowrap px-4 py-3 font-bold">判定</th>
                   <th className="px-4 py-3 font-bold">目安</th>
@@ -231,7 +235,6 @@ export default function KeigoTestPage() {
         </div>
       </main>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }

@@ -50,7 +50,7 @@ export function KeigoQuiz() {
   if (finished) {
     const band = scoreBand(correct);
     return (
-      <div className="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
+      <div className="aside-editor overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
         <div className="bg-[#18181A] p-7 text-center text-white lg:p-10">
           <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#C8BCFA]">結果</span>
           <p className="mt-4 font-display text-[52px] font-bold leading-none lg:text-[68px]">
@@ -125,7 +125,7 @@ export function KeigoQuiz() {
             })}
           </div>
 
-          <div className="mt-8 rounded-2xl bg-[#18181A] p-5 text-white">
+          <div className="aside-promotion mt-8 rounded-2xl bg-[#18181A] p-5 text-white">
             <p className="text-[15px] font-bold leading-[1.7]">覚えなくても、送る前に整えられます。</p>
             <p className="mt-2 text-[12.5px] leading-7 text-white/55">
               敬語ボタンはiPhoneのキーボードアプリです。LINE・メール・Slackの入力欄でボタンを押すと、書いた文章をAIが自然な敬語に書き直します。
@@ -156,7 +156,7 @@ export function KeigoQuiz() {
   }
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
+    <div className="aside-editor overflow-hidden rounded-[28px] border border-black/10 bg-white shadow-[0_30px_70px_-45px_rgba(24,24,26,0.4)]">
       <div className="border-b border-black/[0.07] bg-[#FAFAFB] px-5 py-4 lg:px-7">
         <div className="flex items-center justify-between text-[12px] font-bold">
           <span className="text-black/45">
@@ -168,14 +168,14 @@ export function KeigoQuiz() {
         </div>
         <div className="mt-3 h-1 overflow-hidden rounded-full bg-black/[0.08]">
           <div
-            className="h-full rounded-full bg-[#C8BCFA] transition-[width] duration-300"
+            className="h-full rounded-full bg-[#009af5] transition-[width] duration-300"
             style={{ width: `${(index / QUIZ.length) * 100}%` }}
           />
         </div>
       </div>
 
       <div className="p-5 lg:p-7">
-        <p className="text-[12.5px] font-semibold leading-6 text-[#5B4BA8]">{question.scene}</p>
+        <p className="text-[12.5px] font-semibold leading-6 text-[#006fc9]">{question.scene}</p>
         <h2 className="mt-2.5 font-display text-[19px] font-semibold leading-[1.55] text-black lg:text-[22px]">
           {question.prompt}
         </h2>
@@ -187,6 +187,7 @@ export function KeigoQuiz() {
               type="button"
               onClick={() => setPicked(choiceIndex)}
               aria-pressed={picked === choiceIndex}
+              data-selected={picked === choiceIndex}
               className={`rounded-2xl border px-4 py-3.5 text-left text-[14.5px] leading-[1.75] transition-colors ${
                 picked === choiceIndex
                   ? "border-[#18181A] bg-[#18181A] font-bold text-white"

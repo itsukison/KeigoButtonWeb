@@ -1,3 +1,4 @@
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -144,25 +145,29 @@ export default async function EnRewritePage({
         }}
       />
 
-      <MacDocShell lang="en">
+      <MacDocShell lang="en" variant="tools">
         <article className="shell mac-doc">
           <div className="mac-doc__wrap">
-            <header className="mac-doc__head">
-              <p className="eyebrow">Free tool</p>
-              <h1 className="h-display">
-                Make your English sound the way you meant it.
-              </h1>
-              <p className="mac-doc__lead">
-                Paste the message you were about to send. Fix the grammar, make
-                it read naturally, make it safe to send to a client, or cut it
-                in half. No account, five a day, free.
-              </p>
-            </header>
+            <AsideHero art="blue">
+              <div className="mac-doc__head">
+                <p className="eyebrow">Free tool</p>
+                <h1 className="h-display">
+                  Make your English sound the way you meant it.
+                </h1>
+                <p className="mac-doc__lead">
+                  Paste the message you were about to send. Fix the grammar,
+                  make it read naturally, make it safe to send to a client, or
+                  cut it in half. No account, five a day, free.
+                </p>
+              </div>
+            </AsideHero>
+
+            <div className="aside-workbench aside-workbench--blue">
+              <EnRewriter />
+            </div>
 
             <div className="mac-doc__layout">
               <div className="mac-doc__main">
-                <EnRewriter />
-
                 <div className="mac-doc__body">
                   <h2 className="h-heading mac-doc__h2" id="modes">
                     What the four modes actually do

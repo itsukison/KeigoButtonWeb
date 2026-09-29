@@ -1,170 +1,251 @@
-import { useEffect, useRef } from 'react'
-import { useT } from '../i18n'
+import { useEffect, useId, useRef } from "react";
+import { createPortal } from "react-dom";
+import { useT } from "../i18n";
+import "./DownloadModal.css";
 
-/**
- * Henji's install modal (content.md R1) with a fourth step Henji doesn't have:
- * granting Accessibility. That is where our installs actually stall, so it
- * belongs in the same numbered sequence as "drag to Applications" rather than
- * buried in a help article.
- *
- * The app shown throughout the sequence is the shipped macOS icon, rather
- * than a generic rounded square that leaves users guessing what to drag.
- */
-
-
+/** Native modal dialog owns focus trapping, Escape, and background inertness. */
 export default function DownloadModal({ downloadUrl, onClose }) {
-  const t = useT()
-  const STEPS = t.modal.steps
-  const closeRef = useRef(null)
-
+  const t = useT();
+  const dialogRef = useRef(null);
+  const closeRef = useRef(null);
+  const titleId = useId();
   useEffect(() => {
-    closeRef.current?.focus()
-    const onKey = (e) => e.key === 'Escape' && onClose()
-    document.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog.showModal();
+    closeRef.current?.focus();
     return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [onClose])
-
-  return (
-    <div
-      className="modal__backdrop"
-      onMouseDown={(e) => e.target === e.currentTarget && onClose()}
+      dialog.close();
+      document.body.style.overflow = previous;
+      if (opener instanceof HTMLElement && opener.isConnected)
+        opener.focus({ preventScroll: true });
+    };
+  }, []);
+  if (typeof document === "undefined") return null;
+  return createPortal(
+    <dialog
+      ref={dialogRef}
+      className="aside-download"
+      aria-labelledby={titleId}
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose();
+      }}
+      onKeyDown={(e) => {
+        if (e.key !== "Tab") return;
+        const targets = [
+          ...e.currentTarget.querySelectorAll(
+            'a[href],button:not([disabled]),[tabindex="0"]',
+          ),
+        ].filter((el) => el.getClientRects().length);
+        const first = targets[0],
+          last = targets[targets.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }}
+      onClick={(e) => {
+        if (e.target !== e.currentTarget) return;
+        const r = e.currentTarget.getBoundingClientRect();
+        if (
+          e.clientX < r.left ||
+          e.clientX > r.right ||
+          e.clientY < r.top ||
+          e.clientY > r.bottom
+        )
+          onClose();
+      }}
     >
-      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="dl-title">
-        <div className="modal__head">
-          <div>
-            <h2 className="h-heading-sm" id="dl-title">
-              {downloadUrl ? t.modal.title : t.modal.titleSoon}
-            </h2>
-            <p className="body-sm" style={{ marginTop: 'var(--space-12)' }}>
-              {downloadUrl ? (
-                <>
-                  {t.modal.lead[0]}
-                  <a href={downloadUrl} style={{ textDecoration: 'underline' }}>
-                    {t.modal.lead[1]}
-                  </a>
-                  {t.modal.lead[2]}
-                </>
-              ) : (
-                t.modal.bodySoon
-              )}
-            </p>
-          </div>
-          <button
-            className="modal__close"
-            onClick={onClose}
-            ref={closeRef}
-            aria-label={t.modal.close}
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="modal__steps">
-          {STEPS.map((s, i) => (
-            <div key={s.label}>
-              <div className="modal__art">
-                <StepArt index={i} />
-              </div>
-              <p className="mono modal__label">{s.label}</p>
-              <p className="modal__title">{s.title}</p>
-              <p className="body-sm modal__body">{s.body}</p>
-            </div>
-          ))}
-        </div>
-
-        <p className="caption" style={{ marginTop: 'var(--space-32)' }}>
-          {t.modal.note}
+      <div className="aside-download__head">
+        <img src="/icons/aside/icon.png" alt="" width="52" height="52" />
+        <button
+          className="aside-download__close"
+          ref={closeRef}
+          onClick={onClose}
+          aria-label={t.modal.close}
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <h2 id={titleId}>{downloadUrl ? t.modal.title : t.modal.titleSoon}</h2>
+        <p>
+          {downloadUrl ? (
+            <>
+              {t.modal.lead[0]}
+              <a href={downloadUrl}>{t.modal.lead[1]}</a>
+              {t.modal.lead[2]}
+            </>
+          ) : (
+            t.modal.bodySoon
+          )}
         </p>
       </div>
-    </div>
-  )
+      <ol className="aside-download__steps">
+        {t.modal.steps.map((step, i) => (
+          <li key={step.label}>
+            <div
+              className={`aside-download__art aside-download__art--${i}`}
+              aria-hidden="true"
+            >
+              <span className="aside-download__number">0{i + 1}</span>
+              <StepArt index={i} />
+            </div>
+            <div className="aside-download__instruction">
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="aside-download__note">{t.modal.note}</p>
+    </dialog>,
+    document.body,
+  );
 }
 
-/* Compact install diagrams using the shipped app icon. */
+/* Quiet, bounded installation scenes. Filled surfaces keep every line distinct. */
 function StepArt({ index }) {
-  const stroke = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinejoin: 'round', strokeLinecap: 'round' }
-
-  if (index === 0) {
-    return (
-      <svg className="art" viewBox="0 0 120 90" {...stroke}>
-        <rect x="14" y="16" width="92" height="58" rx="6" />
-        <path d="M14 30h92" />
-        <rect x="24" y="40" width="72" height="16" rx="4" fill="var(--accent-soft)" stroke="none" />
-        <AppIconImage x={28} y={42} size={12} />
-        <path d="M45 46h32M45 51h22" opacity=".65" />
-        <circle cx="88" cy="24" r="6" />
-        <path d="M88 21v6m-2.4-2.4L88 27l2.4-2.4" />
-      </svg>
-    )
-  }
-  if (index === 1) {
-    return (
-      <svg className="art" viewBox="0 0 120 90" {...stroke}>
-        <AppIconImage x={12} y={22} size={42} />
-        <rect x="74" y="34" width="30" height="26" rx="4" strokeDasharray="4 3" />
-        <path d="M50 60q14 12 26 2" strokeDasharray="3 3" />
-        <path d="M74 60l4-2-1 4z" fill="currentColor" />
-      </svg>
-    )
-  }
-  if (index === 2) {
-    return (
-      <svg className="art" viewBox="0 0 120 90" {...stroke}>
-        {[0, 1, 2].map((r) =>
-          [0, 1, 2, 3].map((c) => (
-            <rect
-              key={`${r}-${c}`}
-              x={20 + c * 22}
-              y={18 + r * 22}
-              width="16"
-              height="16"
-              rx="4"
-              fill="none"
-              stroke={r === 1 && c === 1 ? 'none' : 'currentColor'}
-            />
-          )),
-        )}
-        <AppIconImage x={42} y={40} size={16} />
-      </svg>
-    )
-  }
-  return (
-    <svg className="art" viewBox="0 0 120 90" {...stroke}>
-      <rect x="14" y="16" width="92" height="58" rx="6" />
-      <path d="M14 30h92" />
-      <rect x="24" y="40" width="48" height="6" rx="3" fill="var(--accent-soft)" stroke="none" />
-      <rect x="24" y="54" width="34" height="6" rx="3" fill="var(--accent-soft)" stroke="none" />
-      <AppIconImage x={27} y={38} size={10} />
-      <rect x="80" y="38" width="18" height="10" rx="5" fill="var(--accent)" stroke="none" />
-      <circle cx="93" cy="43" r="3.4" fill="#fff" stroke="none" />
-    </svg>
-  )
-}
-
-function AppIconImage({ x, y, size }) {
-  const clipId = `app-icon-${x}-${y}-${size}`
-  const radius = size * 0.22
-
-  return (
+  const icon = (x, y, size) => (
+    <image
+      href="/icons/aside/icon.png"
+      x={x}
+      y={y}
+      width={size}
+      height={size}
+    />
+  );
+  const windowFrame = (
     <>
-      <defs>
-        <clipPath id={clipId}>
-          <rect x={x} y={y} width={size} height={size} rx={radius} />
-        </clipPath>
-      </defs>
-      <image
-        href="/brand-icon.png"
-        x={x}
-        y={y}
-        width={size}
-        height={size}
-        clipPath={`url(#${clipId})`}
+      <rect
+        x="20"
+        y="18"
+        width="240"
+        height="144"
+        rx="12"
+        fill="#fff"
+        stroke="#d6dfe3"
       />
+      <path d="M20 48H260" stroke="#e6ecef" />
+      {[34, 44, 54].map((x) => (
+        <circle key={x} cx={x} cy="33" r="2.5" fill="#cbd4d9" />
+      ))}
     </>
-  )
+  );
+  return (
+    <svg className="art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+      {windowFrame}
+      {index === 0 && (
+        <>
+          <rect x="38" y="70" width="204" height="65" rx="8" fill="#f4f7f8" />
+          {icon(48, 82, 40)}
+          <text
+            x="100"
+            y="97"
+            fill="#30383d"
+            fontSize="12"
+            fontFamily="system-ui"
+          >
+            KeigoButton.dmg
+          </text>
+          <path
+            d="M100 111H170"
+            stroke="#cbd4d9"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <path
+            d="M219 93v17m-5-5 5 5 5-5"
+            stroke="#606a70"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </>
+      )}
+      {index === 1 && (
+        <>
+          {icon(48, 74, 54)}
+          <path
+            d="M120 101H158m-6-6 6 6-6 6"
+            stroke="#86959d"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M177 83v-7h20l7 7h28v43h-55Z"
+            fill="#e5f0f5"
+            stroke="#b6ccd7"
+            strokeLinejoin="round"
+          />
+          <text
+            x="204"
+            y="114"
+            textAnchor="middle"
+            fontSize="25"
+            fontFamily="system-ui"
+            fill="#607d8b"
+          >
+            A
+          </text>
+        </>
+      )}
+      {index === 2 && (
+        <>
+          {[48, 111, 174].map((x, i) =>
+            i === 1 ? (
+              <g key={x}>{icon(x, 75, 54)}</g>
+            ) : (
+              <rect
+                key={x}
+                x={x}
+                y="75"
+                width="54"
+                height="54"
+                rx="12"
+                fill="#eff3f5"
+              />
+            ),
+          )}
+          <circle
+            cx="151"
+            cy="126"
+            r="12"
+            fill="#171919"
+            stroke="#fff"
+            strokeWidth="3"
+          />
+          <path d="m148 121 7 5-7 5Z" fill="#fff" />
+        </>
+      )}
+      {index === 3 && (
+        <>
+          <rect x="21" y="49" width="55" height="101" fill="#f4f7f8" />
+          {[70, 86, 102, 118].map((y) => (
+            <path
+              key={y}
+              d={`M33 ${y}h30`}
+              stroke="#d5dfe4"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+          ))}
+          {icon(90, 82, 40)}
+          <path
+            d="M141 94h37m-37 13h25"
+            stroke="#aebdc5"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <rect x="205" y="91" width="34" height="20" rx="10" fill="#006fc9" />
+          <circle cx="229" cy="101" r="7" fill="#fff" />
+        </>
+      )}
+    </svg>
+  );
 }

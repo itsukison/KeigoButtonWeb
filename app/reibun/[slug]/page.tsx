@@ -1,7 +1,9 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { REIBUN, reibunBySlug } from "@/content/reibun";
 import { CopyableExample } from "@/components/CopyableExample";
 import {
@@ -80,19 +82,19 @@ export default async function ReibunPage({ params }: Params) {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell>
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-3xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
-        <Breadcrumbs trail={trail} />
-
-        <article className="mt-5">
-          <span className="text-[12px] font-bold text-[#5B4BA8]">場面別 例文</span>
+      <main className="aside-main">
+        <article>
+        <AsideHero art="orange"><Breadcrumbs trail={trail} />
+          <span className="text-[12px] font-bold text-[#006FC9]">場面別 例文</span>
           <h1 className="mt-3 font-display text-[28px] font-semibold leading-[1.3] tracking-tight lg:text-[40px]">
             {entry.title}
           </h1>
           <p className="mt-5 text-[15px] leading-[1.95] text-black/65 lg:text-base">{entry.lead}</p>
+        </AsideHero>
+        <div className="aside-reading__body mx-auto max-w-[760px]">
 
           {/* NG examples first: this is what the reader was about to send, and
               recognising it is what makes them read the rest. */}
@@ -131,7 +133,7 @@ export default async function ReibunPage({ params }: Params) {
             <ul className="mt-6 flex flex-col gap-3">
               {entry.points.map((point) => (
                 <li key={point} className="flex gap-3 text-[15px] leading-[1.9] text-black/70">
-                  <span aria-hidden="true" className="mt-[11px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#C8BCFA]" />
+                  <span aria-hidden="true" className="mt-[11px] h-[5px] w-[5px] shrink-0 rounded-full bg-[#C9E5F3]" />
                   <span
                     dangerouslySetInnerHTML={{
                       __html: point.replace(
@@ -192,7 +194,7 @@ export default async function ReibunPage({ params }: Params) {
             </a>
             が作成しています。文面は一般的な例であり、社内規定や相手との関係に応じて調整してください。
           </footer>
-        </article>
+        </div></article>
 
         {related.length > 0 ? (
           <section className="mt-14">
@@ -216,7 +218,6 @@ export default async function ReibunPage({ params }: Params) {
         <AppCta />
       </div>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }

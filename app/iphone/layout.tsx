@@ -1,6 +1,8 @@
+import { LEGACY_ICONS } from "@/lib/appearance";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  icons: LEGACY_ICONS,
   title: { absolute: "敬語ボタン iPhone版｜敬語に直せるAIキーボード" },
   description:
     "LINE・メール・DMの文章をキーボード上で書き直せるiPhone向けAIキーボードアプリ。敬語・メール文・要約・翻訳・返信に加え、よく使う直し方は自分のボタンとして登録できます。アプリを切り替えず、タップした文章だけをAIで整えます。",

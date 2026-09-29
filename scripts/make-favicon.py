@@ -1,32 +1,24 @@
 #!/usr/bin/env python3
-"""Generate every browser icon from the current keycap brand artwork.
-
-Run: python3 scripts/make-favicon.py
+"""Build neutral browser icons from the existing transparent keycap artwork.
+Legacy icons are intentionally not regenerated. Run with a Pillow-enabled Python.
 """
-import os
-
+from pathlib import Path
 from PIL import Image
 
+ROOT = Path(__file__).resolve().parents[1]
 
-def main() -> None:
-    project = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-    app = os.path.join(project, "app")
-    source = os.path.join(project, "public", "brand-icon.png")
-    master = Image.open(source).convert("RGBA")
-
-    master.resize((192, 192), Image.Resampling.LANCZOS).save(
-        os.path.join(app, "icon.png"), optimize=True
-    )
-    master.resize((180, 180), Image.Resampling.LANCZOS).save(
-        os.path.join(app, "apple-icon.png"), optimize=True
-    )
-    master.save(
-        os.path.join(app, "favicon.ico"),
-        format="ICO",
-        sizes=[(16, 16), (32, 32), (48, 48)],
-    )
-    print("wrote app/icon.png, app/apple-icon.png, and app/favicon.ico")
-
+def main():
+    source = Image.open(ROOT / "public/mac/aside/mascot.png").convert("RGBA")
+    source = source.crop(source.getbbox())
+    canvas = Image.new("RGBA", (256, 256), "#F1F9FC")
+    source.thumbnail((216, 216), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(source, ((256-source.width)//2, (256-source.height)//2))
+    output = ROOT / "public/icons/aside"
+    output.mkdir(parents=True, exist_ok=True)
+    for name, size in [("icon.png",192),("apple-icon.png",180)]:
+        canvas.resize((size,size),Image.Resampling.LANCZOS).save(output/name,optimize=True)
+    canvas.save(ROOT / "public/favicon.ico",format="ICO",sizes=[(16,16),(32,32),(48,48)])
+    canvas.save(output/"favicon.ico",format="ICO",sizes=[(16,16),(32,32),(48,48)])
 
 if __name__ == "__main__":
     main()

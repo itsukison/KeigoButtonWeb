@@ -1,3 +1,5 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { dict, href, type Lang } from "@/lib/i18n";
@@ -5,13 +7,22 @@ import { dict, href, type Lang } from "@/lib/i18n";
 type Props = {
   /** Drives the chrome; the prose itself is passed in already translated. */
   lang?: Lang;
+  appearance?: "legacy" | "aside";
   title: string;
   updatedAt: string;
   lead?: string;
   children: ReactNode;
 };
 
-export function LegalPage({ lang = "ja", title, updatedAt, lead, children }: Props) {
+export function LegalPage({ lang = "ja", title, updatedAt, lead, children, appearance = "legacy" }: Props) {
+  if (appearance === "aside") return (
+    <AsideShell lang={lang}>
+      <main className="aside-main">
+        <AsideHero art="gradient"><p>{updatedAt}</p><h1>{title}</h1>{lead && <p>{lead}</p>}</AsideHero>
+        <article className="aside-legal"><div className="legal-prose text-[15px]">{children}</div></article>
+      </main>
+    </AsideShell>
+  );
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <SiteHeader lang={lang} />

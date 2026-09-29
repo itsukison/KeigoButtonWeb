@@ -1,3 +1,4 @@
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -129,7 +130,7 @@ export default async function EnGuidePage({ params }: Props) {
       <MacDocShell lang="en">
         <article className="shell mac-doc">
           <div className="mac-doc__wrap">
-            <header className="mac-doc__head">
+            <AsideHero art="gradient"><div className="mac-doc__head">
               <p className="eyebrow">{guide.category}</p>
               <h1 className="h-display">{guide.title}</h1>
               <p className="mac-doc__lead">{guide.lead}</p>
@@ -143,7 +144,7 @@ export default async function EnGuidePage({ params }: Props) {
                   it be believed (seo-geo.md §設計方針7). */}
                 <span>Written by the team behind KeigoButton</span>
               </p>
-            </header>
+            </div></AsideHero>
 
             <div className="mac-doc__layout">
               <div className="mac-doc__main">

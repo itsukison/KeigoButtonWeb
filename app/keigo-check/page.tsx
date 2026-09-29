@@ -1,7 +1,9 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { KeigoChecker } from "@/components/KeigoChecker";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { RULES } from "@/content/keigo-rules";
 import {
   APP_ID,
@@ -93,11 +95,11 @@ export default function KeigoCheckPage() {
   const byCategory = ["二重敬語", "誤用", "使い分け", "表記"] as const;
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell variant="tools">
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-3xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
+      <main className="aside-main">
+        <AsideHero art="blue">
         <Breadcrumbs trail={TRAIL} />
 
         <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.25] tracking-tight lg:text-[44px]">
@@ -109,7 +111,9 @@ export default function KeigoCheckPage() {
           で行われるため、入力した文章はどこにも送信されません。社内資料やお客様とのやり取りもそのまま貼り付けられます。
         </p>
 
-        <div className="mt-8">
+        </AsideHero>
+
+        <div className="aside-workbench aside-workbench--blue">
           <KeigoChecker />
         </div>
 
@@ -172,7 +176,7 @@ export default function KeigoCheckPage() {
                 <div className="mt-3 overflow-x-auto rounded-2xl border border-black/10">
                   <table className="w-full border-collapse text-left text-[13px]">
                     <thead>
-                      <tr className="bg-[#F7F6FC]">
+                      <tr className="bg-[#F1F9FC]">
                         <th className="whitespace-nowrap px-4 py-2.5 font-bold">検出する表現</th>
                         <th className="px-4 py-2.5 font-bold">言い換え</th>
                         <th className="px-4 py-2.5 font-bold">理由</th>
@@ -231,7 +235,6 @@ export default function KeigoCheckPage() {
         </div>
       </main>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }

@@ -37,6 +37,7 @@ export function BillingPage({ lang, screen }: { lang: Lang; screen: Screen }) {
   return (
     <BillingResult
       lang={lang}
+      status={screen}
       eyebrow={copy.eyebrow}
       title={copy.title}
       body={

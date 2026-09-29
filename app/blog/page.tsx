@@ -1,6 +1,8 @@
+import { AsideShell } from "@/components/aside/AsideShell";
+import { AsideHero } from "@/components/aside/AsideParts";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AppCta, Breadcrumbs, JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { AppCta, Breadcrumbs, JsonLd } from "@/components/SiteChrome";
 import { ARTICLES, type Article } from "@/content/articles";
 import {
   ORG_ID,
@@ -61,11 +63,11 @@ export default function BlogIndexPage() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <AsideShell variant="reading">
       <JsonLd data={jsonLd} />
-      <SiteHeader />
 
-      <main className="mx-auto max-w-4xl px-5 pb-8 pt-10 lg:px-8 lg:pt-14">
+      <main className="aside-main">
+        <AsideHero art="gradient">
         <Breadcrumbs trail={TRAIL} />
 
         <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.25] tracking-tight lg:text-[42px]">
@@ -75,20 +77,22 @@ export default function BlogIndexPage() {
           敬語変換ツールやAIキーボードの比較、ChatGPTで敬語に変換するときのプロンプト、二重敬語や尊敬語・謙譲語の使い分けなどをまとめています。
         </p>
 
+        </AsideHero>
+
         {CATEGORIES.map((category) => {
           const items = ARTICLES.filter((article) => article.category === category);
           if (items.length === 0) return null;
           return (
-            <section key={category} className="mt-14">
+            <section key={category} className="aside-wide mt-14">
               <h2 className="font-display text-[19px] font-semibold tracking-tight lg:text-[22px]">
                 {category}
               </h2>
-              <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <div className="aside-card-grid mt-5 grid gap-3 md:grid-cols-2">
                 {items.map((article) => (
                   <Link
                     key={article.slug}
                     href={`/blog/${article.slug}`}
-                    className="group flex flex-col rounded-[22px] border border-black/10 p-5 transition-colors hover:border-black/30"
+                    className="aside-resource-card group flex flex-col rounded-[22px] border border-black/10 p-5 transition-colors hover:border-black/30"
                   >
                     <div className="flex items-center gap-2.5 text-[11.5px] text-black/40">
                       <span>約{article.minutes}分</span>
@@ -153,7 +157,6 @@ export default function BlogIndexPage() {
         </div>
       </main>
 
-      <SiteFooter />
-    </div>
+    </AsideShell>
   );
 }
